@@ -1,20 +1,123 @@
-/* .row a{
-    text-decoration: none;
-    
+html,body{
+    margin: 0;
 }
 
-#formulaire_message #nom{
-    padding-bottom: 1%;
-} */
+/* Pour ce header
 
-/* .container-fluid.row a #connexion, .container-fluid.row a #inscription,.container-fluid.row a #nom_site{
-    background-color: blue !important;
-} */
+<header id="menu">
+<a href="../modele" id="nom_site" >Matériel.com</a>  <!-- id="nom_site" -->
+<div id="ins_conn">
+    <a href="../controle/inscription.php"  id="inscription"  >Inscription</a> <!--  id="inscription" -->
+    <a href="../controle/connexion.php" id="connexion"  >Connexion</a>  <!--id="connexion" -->
+</div>
+</header> */
 
 #menu a{
-   color: aquamarine;
+   color: #3eaeff;
+   text-decoration: none;
+   font-weight: bold;
+   font-size: 20px;
+   
 }
+
+#inscription:hover,#connexion:hover{
+    text-decoration: underline solid;
+    font-weight: bold;   
+    color: #3eaeff;  
+}
+
+
 
 #menu{
     background-color: black;
+    padding-bottom: 1%;
+}
+
+#ins_conn,#connexion{
+    display: inline-block;   
+}
+
+#ins_conn{
+    margin-left: 70%;
+}
+
+#connexion{
+    margin-left: 3em;
+}
+
+
+
+/* #imagedefilante{
+
+    background-color: pink;
+} */
+#images_defilantes_1{
+    background-image: url("pexels-jorge-jesus-614117.jpg");
+}
+#images_defilantes_2{
+    background-image: url("pexels-markus-spiske-177598.jpg");
+}
+
+#images_defilantes_3{
+    background-image: url("pexels-markus-spiske-2004161.jpg");
+}
+
+#images_defilantes_4{
+    background-image: url("pexels-pixabay-270404.jpg");
+}
+#images_defilantes_1,#images_defilantes_2,#images_defilantes_3,#images_defilantes_4{
+    padding-bottom: 20%;
+}
+#titre,#sous_titre{
+    color: white;
+}
+
+/*  Partie CSS pour le formulaire d'envoi du message
+
+<form id="formulaire_message" name="formulaire_message" action=""  method="POST" class="container-fluid">
+    <p id="pres_form" class="row">N'hésite surtout pas à nous envoyer un petit message ;)</p>
+    <input type="text" id="nom" name="nom" placeholder="Nom/Name" class="row">
+    <input type="email" id="adresse_mail" name="adresse_mail" placeholder="Mail" class="row">
+    <textarea id="message" placeholder="Votre message/Your message" class="row"></textarea>
+    <input type="submit"  id="envoyer" name="envoyer"  placeholder="Envoyer le message"class="row">
+</form> */
+
+#nom,#adresse_mail,#message{
+    margin-bottom: 10px;
+}
+
+#envoyer{
+    background-color: black;
+    color: white ;
+    font-weight: bold;
+    border: none;
+}
+
+#envoyer:hover{
+    box-shadow: 1px 1px 1px 1px black;
+}
+
+/* Partie CSS pour le footer 
+    <footer>
+            <p id="phrase_footer" >  Technologies utilisées</p>
+            <p id="logos_technos"> 
+                <i class="fa fa-html5"></i> 
+                <i class="fa fa-css3"></i> 
+                <i class="fab fa-bootstrap"></i>  
+                <i class="fa fa-github"></i> 
+                <i class="fa-brands fa-js"></i> 
+                <i class="fa-brands fa-php"></i> 
+                <i class="fa-solid fa-database"></i>
+                <i class="fab fa-trello"></i>
+                <i class="fab fa-aws"></i>
+            </p>
+            
+    </footer>
+*/
+footer{
+    position:  static;
+    margin-top: 17%;
+    text-align: center;
+    font-weight: bold;
+
 }
