@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>       
-        <title>Gestion du matériel</title>
+        <title>EFREI Paris - Projet 2 DevWeb - LACHHAB Adrien </title>
         <meta charset="utf-8" />
         <link rel="stylesheet" href="../vue/style.css"> 
         <!-- Importation de Bootstrap -->
@@ -14,52 +14,46 @@
          
         <!-- menu :  Notre matériel, Se connecter, S'inscrire -->
         <header id="menu">
-            <a href="../modele" id="nom_site" >Matériel.com</a>  <!-- id="nom_site" -->
+            <a href="../modele" id="nom_site" >ElecInfoMatos.com</a>  <!-- id="nom_site" -->
             <div id="ins_conn">
                 <a href="../controle/inscription.php"  id="inscription"  >Inscription</a> <!--  id="inscription" -->
                 <a href="../controle/connexion.php" id="connexion"  >Connexion</a>  <!--id="connexion" -->
             </div>
         </header>
-        
-        <div  class="container-fluid" oncanplay="">
                 
-                <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-                    <div class="carousel-inner" id="images_defilantes">
-                        
-                        <div class="carousel-item active" id="images_defilantes_1" >
-                            <!-- <img src="../vue/pexels-jorge-jesus-614117.jpg" class="d-block w-100" aria-placeholder="kf"> -->
-                            <h1 id="titre">Bienvenue sur notre nouvelle plateforme d'emprunt</h1>
-                            <p id="sous_titre">Ici tu peux emprunter jusqu'à 10 objets de la catégorie informatique et électronique !</p>
-                        </div>
-                        <div class="carousel-item" id="images_defilantes_2">
-                            <!-- <img src="../vue/pexels-markus-spiske-177598.jpg" class="d-block w-100" aria-placeholder="kf"> -->
-                            <h1 id="titre">Bienvenue sur notre nouvelle plateforme d'emprunt</h1>
-                            <p id="sous_titre">Ici tu peux emprunter jusqu'à 10 objets de la catégorie informatique et électronique !</p>
-                        </div>
-                        <div class="carousel-item" id="images_defilantes_3">
-                            <!-- <img src="../vue/pexels-markus-spiske-2004161.jpg" class="d-block w-100" aria-placeholder="kf" > -->
-                            <h1 id="titre">Bienvenue sur notre nouvelle plateforme d'emprunt</h1>
-                            <p id="sous_titre">Ici tu peux emprunter jusqu'à 10 objets de la catégorie informatique et électronique !</p>
-                        </div>
-                        <div class="carousel-item" id="images_defilantes_4">
-                            <!-- <img src="../vue/pexels-pixabay-270404.jpg" class="d-block w-100" aria-placeholder="kf"> -->
-                            <h1 id="titre">Bienvenue sur notre nouvelle plateforme d'emprunt</h1>
-                            <p id="sous_titre">Ici tu peux emprunter jusqu'à 10 objets de la catégorie informatique et électronique !</p>
-                        </div>
-                    </div>
+        <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+            
+            <div class="carousel-inner" id="images_defilantes" >
+                <div class="carousel-item active" id="images_defilantes_1">
+                    <h1 id="titre" >Bienvenue sur notre nouvelle plateforme d'emprunt</h1>
+                    <p id="sous_titre">Ici tu peux emprunter jusqu'à 10 objets de la catégorie informatique et électronique !</p>
                 </div>
+
+                <div class="carousel-item" id="images_defilantes_2">
+                    <h1 id="titre" >Bienvenue sur notre nouvelle plateforme d'emprunt</h1>
+                    <p id="sous_titre">Ici tu peux emprunter jusqu'à 10 objets de la catégorie informatique et électronique !</p>
+                </div>
+
+                <div class="carousel-item" id="images_defilantes_3">
+                    <h1 id="titre">Bienvenue sur notre nouvelle plateforme d'emprunt</h1>
+                    <p id="sous_titre">Ici tu peux emprunter jusqu'à 10 objets de la catégorie informatique et électronique !</p>
+                </div>
+
+                <div class="carousel-item" id="images_defilantes_4">
+                    <h1 id="titre" >Bienvenue sur notre nouvelle plateforme d'emprunt</h1>
+                    <p id="sous_titre">Ici tu peux emprunter jusqu'à 10 objets de la catégorie informatique et électronique !</p>
+                </div>
+            </div>
         </div>
+       
 
         <div id="page_centrale" class="container">
-            
-            
-
             <div id="prensation_matos" class="container-fluid" >
-                
+                <span class="border border-1"> </span>
             </div>
             
             <form id="formulaire_message" name="formulaire_message" action=""  method="POST" class="container-fluid">
-                <p id="pres_form" class="row">N'hésite surtout pas à nous envoyer un petit message ;)</p>
+                <p id="pres_form" class="row">Que pensez vous de la nouvelle application numérique d'emprunt de matériel ? N'hésite surtout pas à nous envoyer un petit message ;)</p>
                 <div class="mb-3">
                     <input type="text" id="nom" name="nom" placeholder="Nom/Name" class="form-control">
                 </div>

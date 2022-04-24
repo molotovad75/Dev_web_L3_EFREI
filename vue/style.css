@@ -31,6 +31,8 @@ html,body{
 #menu{
     background-color: black;
     padding-bottom: 1%;
+    border-color: #3eaeff;
+    border-bottom-style: solid;
 }
 
 #ins_conn,#connexion{
@@ -38,38 +40,69 @@ html,body{
 }
 
 #ins_conn{
-    margin-left: 70%;
+    margin-left: 65%;
 }
 
 #connexion{
     margin-left: 3em;
 }
 
+/* Pour les inter-centre avec les images qui défilent
+    <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+            
+            <div class="carousel-inner" id="images_defilantes" >
+                <div class="carousel-item active" id="images_defilantes_1">
+                    <h1 id="titre" >Bienvenue sur notre nouvelle plateforme d'emprunt</h1>
+                    <p id="sous_titre">Ici tu peux emprunter jusqu'à 10 objets de la catégorie informatique et électronique !</p>
+                </div>
+                <div class="carousel-item" id="images_defilantes_2">
+                    <h1 id="titre">Bienvenue sur notre nouvelle plateforme d'emprunt</h1>
+                    <p id="sous_titre">Ici tu peux emprunter jusqu'à 10 objets de la catégorie informatique et électronique !</p>
+                </div>
+                <div class="carousel-item" id="images_defilantes_3">
+                    <h1 id="titre">Bienvenue sur notre nouvelle plateforme d'emprunt</h1>
+                    <p id="sous_titre">Ici tu peux emprunter jusqu'à 10 objets de la catégorie informatique et électronique !</p>
+                </div>
+                <div class="carousel-item" id="images_defilantes_4">
+                    <h1 id="titre">Bienvenue sur notre nouvelle plateforme d'emprunt</h1>
+                    <p id="sous_titre">Ici tu peux emprunter jusqu'à 10 objets de la catégorie informatique et électronique !</p>
+                </div>
+            </div>
+    </div>
+*/
 
 
-/* #imagedefilante{
-
-    background-color: pink;
-} */
 #images_defilantes_1{
-    background-image: url("pexels-jorge-jesus-614117.jpg");
+    background-image: url("pexels-markus-spiske-2004161.jpg");
+    
 }
 #images_defilantes_2{
-    background-image: url("pexels-markus-spiske-177598.jpg");
+    background-image: url("code-coding.gif");
+   /* background: url("video_électronique.mp4"); */
 }
 
 #images_defilantes_3{
-    background-image: url("pexels-markus-spiske-2004161.jpg");
+    background-image: url("pexels-pixabay-270404.jpg");
+   
 }
 
 #images_defilantes_4{
-    background-image: url("pexels-pixabay-270404.jpg");
+    background-image: url("circuit_imprimé.gif");
+    /* background: url("video_informatique.mp4"); */
+   
 }
 #images_defilantes_1,#images_defilantes_2,#images_defilantes_3,#images_defilantes_4{
     padding-bottom: 20%;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: initial;
 }
+
 #titre,#sous_titre{
     color: white;
+
+    /* position: fixed; */
 }
 
 /*  Partie CSS pour le formulaire d'envoi du message
@@ -91,10 +124,16 @@ html,body{
     color: white ;
     font-weight: bold;
     border: none;
+
+    -webkit-transform: scale(1);
+	transform: scale(1);
+	-webkit-transition: .3s ease-in-out;
+	transition: .3s ease-in-out;
 }
 
 #envoyer:hover{
-    box-shadow: 1px 1px 1px 1px black;
+    -webkit-transform: scale(1.05);
+	transform: scale(1.05);
 }
 
 /* Partie CSS pour le footer 
@@ -119,5 +158,7 @@ footer{
     margin-top: 17%;
     text-align: center;
     font-weight: bold;
+    border-color: black;
+    border-top-style: solid;
 
 }
