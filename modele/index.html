@@ -48,23 +48,62 @@
        
 
         <div id="page_centrale" class="container">
-            <div id="prensation_matos" class="container-fluid" >
-                <span class="border border-1"> </span>
+            <div id="presentation">
+                <h1>Qui sommes nous ?</h1>
+                <div class="row">
+                    <div class="col-6">
+                        <p>Cette plateforme web à été mise à diposition de tout étudiant souhaitant emprunter du matériel informatique et/ou électronique. 
+                            Elle est mise en place depuis 
+                        </p>
+                    </div>
+                    <div class="col-6">
+                        
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <p>Tout en adoptant le design parttern MVC (Modèle/Vue/Contrôle), 
+                            L'application web à été développer en méthode agile par 
+                            le developeur web Full-Stack LACHHAB Adrien <p id="age"></p> </p>
+                    </div>
+                    <div class="col-6">
+                        <p>Voici la liste de toutes les outils et technologies utilisées lors de la création de notre plateforme</p>
+
+                    </div>  
+                </div>
+            </div>
+            <div id="prensation_matos"  >
+                <div class="text-start">
+                    <p>Bonjour !</p>
+                </div>
+                <div class="text-end">
+                    <p>Mon site est splendide !!</p>
+                </div>
+                <div class="text-start">
+                    <p> Préparez vous !</p>
+                </div>
+                <div class="text-end">
+                    <p> Vous n'allez pas en croire vos yeux ! </p>
+                </div>
             </div>
             
             <form id="formulaire_message" name="formulaire_message" action=""  method="POST" class="container-fluid">
                 <p id="pres_form" class="row">Que pensez vous de la nouvelle application numérique d'emprunt de matériel ? N'hésite surtout pas à nous envoyer un petit message ;)</p>
-                <div class="mb-3">
+                <div class="form-floating mb-3">
                     <input type="text" id="nom" name="nom" placeholder="Nom/Name" class="form-control">
+                    <label for="nom">Votre nom/Your name</label>
                 </div>
-                <div class="mb-3">
+                <div class="form-floating mb-3">
                     <input type="email" id="adresse_mail" name="adresse_mail" placeholder="Mail" class="form-control">
+                    <label for="adresse_mail">Votre adresse électronique/Your mail</label>
                 </div>
-                <div class="mb-3">
-                    <textarea id="message" placeholder="Votre message/Your message"  class="form-control"></textarea>
+                <div class="form-floating mb-3">
+                    <textarea id="message" placeholder="Votre message/Your message" name="message" class="form-control"></textarea>
+                    <label for="message">Message qui sera envoyé/Sending message</label>
                 </div>
                 <div class="mb-3">
                     <input type="submit"  id="envoyer" name="envoyer"  placeholder="Envoyer le message" class="form-control">
+                    
                 </div>
             </form>
 
@@ -75,15 +114,15 @@
         <footer>
             <p id="phrase_footer" >  Technologies utilisées</p>
             <p id="logos_technos"> 
-                <i class="fa fa-html5"></i> 
-                <i class="fa fa-css3"></i> 
-                <i class="fab fa-bootstrap"></i>  
-                <i class="fa fa-github"></i> 
-                <i class="fa-brands fa-js"></i> 
-                <i class="fa-brands fa-php"></i> 
-                <i class="fa-solid fa-database"></i>
-                <i class="fab fa-trello"></i>
-                <i class="fab fa-aws"></i>
+                <a href="https://developer.mozilla.org/fr/docs/Glossary/HTML5" id="logo_html" class="" target="_blanck"><i class="fa fa-html5"></i> </a>
+                <a href="https://developer.mozilla.org/fr/docs/Web/CSS" id="logo_css" class="" target="_blanck"><i class="fa fa-css3"></i></a>
+                <a href="https://getbootstrap.com" id="logo_bootstrap" class="" target="_blanck"><i class="fab fa-bootstrap"></i></a>
+                <a href="https://github.com" id="logo_github" class="" target="_blanck"><i class="fa fa-github"></i> </a>
+                <a href="https://developer.mozilla.org/fr/docs/Web/JavaScript" id="logo_js" class="" target="_blanck"><i class="fa-brands fa-js"></i></a>
+                <a href="https://www.php.net" id="logo_php" class="" target="_blanck"><i class="fa-brands fa-php" ></i> </a>
+                <a href="https://sql.sh" id="logo_BDD" class="" target="_blanck"><i class="fa-solid fa-database" ></i></a>
+                <a href="https://trello.com/fr" id="logo_trello" class="" target="_blanck"><i class="fab fa-trello" ></i></a>
+                <a href="https://aws.amazon.com/fr/" id="logo_aws" class="" target="_blanck"><i class="fab fa-aws" ></i></a>
             </p>
             
         </footer>
