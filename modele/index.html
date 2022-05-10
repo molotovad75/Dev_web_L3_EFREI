@@ -7,46 +7,111 @@
         <!-- Importation de Bootstrap -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"  rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <script src="https://kit.fontawesome.com/39fb408f93.js" crossorigin="anonymous"></script>
-        <script src="../vue/script.js" type="text/javascript" > </script>
+        <script src="../vue/script.js" type="text/javascript" ></script>
     </head>
     
     <body>
          
+        
         <!-- menu :  Notre matériel, Se connecter, S'inscrire -->
-        <header id="menu">
-            <a href="../modele" id="nom_site" >ElecInfoMatos.com</a>  <!-- id="nom_site" -->
-            <div id="ins_conn">
-                <a href="../controle/inscription.php"  id="inscription"  >Inscription</a> <!--  id="inscription" -->
-                <a href="../controle/connexion.php" id="connexion"  >Connexion</a>  <!--id="connexion" -->
-            </div>
-        </header>
+        
                 
         <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
-            
+            <header id="menu">
+                <a href="../modele" id="nom_site" >ElecInfoMatos</a>  <!-- id="nom_site" -->
+                <div id="ins_conn">
+                    <a href="../modele/inscription"  id="inscription"  >Inscription</a> <!--  id="inscription" -->
+                    <a href="../modele/connexion.html" id="connexion"  >Connexion</a>  <!--id="connexion" -->
+                </div>
+                <!-- <script>const num=1; let num2=num;</script> -->
+    
+                <!-- <script>let num=1; let num2;</script> -->
+                <!-- <a id="derouleur" onclick="num2=num;deroulement(num2);num++;num2=num;" class="number"><i class="fas fa-bars" ></i></a> -->
+                <!-- <script> let i=1; let etat=false;</script>  deroulement(i,etat)-->
+                <a id="derouleur" onclick="" class="number"><i class="fas fa-bars" ></i></a>
+                <!-- <script>i=2; etat=true;</script> -->
+            </header>
             <div class="carousel-inner" id="images_defilantes" >
                 <div class="carousel-item active" id="images_defilantes_1">
+                    
+
+                    <nav id="menu_transp" onload="repeat_menu()"></nav>
                     <h1 id="titre" >Bienvenue sur notre nouvelle plateforme d'emprunt</h1>
                     <p id="sous_titre">Ici tu peux emprunter jusqu'à 10 objets de la catégorie informatique et électronique !</p>
                 </div>
 
                 <div class="carousel-item" id="images_defilantes_2">
+                    <!--<header id="menu">
+                        <a href="../modele" id="nom_site" >ElecInfoMatos</a>
+                        <div id="ins_conn">
+                            <a href="../modele/inscription"  id="inscription"  >Inscription</a> 
+                            <a href="../modele/connexion.html" id="connexion"  >Connexion</a> 
+                            
+                        </div>
+                        <script>const num=1; let num2=num;</script>
+            
+                        <script>let num=1; let num2;</script>
+                       <a id="derouleur" onclick="num2=num;deroulement(num2);num++;num2=num;" class="number"><i class="fas fa-bars" ></i></a>
+                        <script> let i=1; let etat=false;</script>  deroulement(i,etat)
+                        <a id="derouleur" onclick="" class="number"><i class="fas fa-bars" ></i></a>
+                        <script>i=2; etat=true;</script> 
+                    </header>-->
+
+                    <nav id="menu_transp" onload="repeat_menu()"> </nav>
+
                     <h1 id="titre" >Bienvenue sur notre nouvelle plateforme d'emprunt</h1>
                     <p id="sous_titre">Ici tu peux emprunter jusqu'à 10 objets de la catégorie informatique et électronique !</p>
                 </div>
 
                 <div class="carousel-item" id="images_defilantes_3">
+                    <!--<header id="menu">
+                        <a href="../modele" id="nom_site" >ElecInfoMatos</a>
+                        <div id="ins_conn">
+                            <a href="../modele/inscription"  id="inscription"  >Inscription</a> 
+                            <a href="../modele/connexion.html" id="connexion"  >Connexion</a> 
+                            
+                        </div>
+                        <script>const num=1; let num2=num;</script>
+            
+                        <script>let num=1; let num2;</script>
+                       <a id="derouleur" onclick="num2=num;deroulement(num2);num++;num2=num;" class="number"><i class="fas fa-bars" ></i></a>
+                        <script> let i=1; let etat=false;</script>  deroulement(i,etat)
+                        <a id="derouleur" onclick="" class="number"><i class="fas fa-bars" ></i></a>
+                        <script>i=2; etat=true;</script> 
+                    </header>-->
+
+                    <nav id="menu_transp" onload="repeat_menu()"></nav>
+
                     <h1 id="titre">Bienvenue sur notre nouvelle plateforme d'emprunt</h1>
                     <p id="sous_titre">Ici tu peux emprunter jusqu'à 10 objets de la catégorie informatique et électronique !</p>
                 </div>
 
                 <div class="carousel-item" id="images_defilantes_4">
+                    <!--<header id="menu">
+                        <a href="../modele" id="nom_site" >ElecInfoMatos</a>
+                        <div id="ins_conn">
+                            <a href="../modele/inscription"  id="inscription"  >Inscription</a> 
+                            <a href="../modele/connexion.html" id="connexion"  >Connexion</a> 
+                            
+                        </div>
+                        <script>const num=1; let num2=num;</script>
+            
+                        <script>let num=1; let num2;</script>
+                       <a id="derouleur" onclick="num2=num;deroulement(num2);num++;num2=num;" class="number"><i class="fas fa-bars" ></i></a>
+                        <script> let i=1; let etat=false;</script>  deroulement(i,etat)
+                        <a id="derouleur" onclick="" class="number"><i class="fas fa-bars" ></i></a>
+                        <script>i=2; etat=true;</script> 
+                    </header>-->
+
+                    <nav id="menu_transp" onload="repeat_menu()"></nav>
+
                     <h1 id="titre" >Bienvenue sur notre nouvelle plateforme d'emprunt</h1>
                     <p id="sous_titre">Ici tu peux emprunter jusqu'à 10 objets de la catégorie informatique et électronique !</p>
                 </div>
             </div>
         </div>
        
-
+        
         <div id="page_centrale" class="container">
             <div id="presentation">
                 <h1>Qui sommes nous ?</h1>
@@ -64,7 +129,9 @@
                     <div class="col-6">
                         <p>Tout en adoptant le design parttern MVC (Modèle/Vue/Contrôle), 
                             L'application web à été développer en méthode agile par 
-                            le developeur web Full-Stack LACHHAB Adrien <p id="age"></p> </p>
+                            le developeur web Full-Stack LACHHAB Adrien : <span id="age"></span> ans.
+                        </p>
+                        <!-- document.getElementById("age").innerHTML=age_adrien(); -->
                     </div>
                     <div class="col-6">
                         <p>Voici la liste de toutes les outils et technologies utilisées lors de la création de notre plateforme</p>
@@ -72,18 +139,23 @@
                     </div>  
                 </div>
             </div>
-            <div id="prensation_matos"  >
+
+            <div id="prensation_technos">
                 <div class="text-start">
-                    <p>Bonjour !</p>
-                </div>
+                    <h3>Front-end !</h3>
+                    <img src="../vue/html-css-js.jpg" class="img-fluid" id="front">
+                </div>   
+
                 <div class="text-end">
-                    <p>Mon site est splendide !!</p>
+                    <h3>Back-end !</h3>
+                    <img src="../vue/backend.png" class="img-fluid" id="back">
+                    
                 </div>
+
                 <div class="text-start">
-                    <p> Préparez vous !</p>
-                </div>
-                <div class="text-end">
-                    <p> Vous n'allez pas en croire vos yeux ! </p>
+                    <h3> Outils de gestion de projet ! </h3>
+                    <img src="../vue/gestion_projet.png" class="img-fluid" id="gestion">
+                    
                 </div>
             </div>
             
@@ -112,7 +184,7 @@
         
 
         <footer>
-            <p id="phrase_footer" >  Technologies utilisées</p>
+            <p id="phrase_footer" > Curieux des technologies employés ? </p>
             <p id="logos_technos"> 
                 <a href="https://developer.mozilla.org/fr/docs/Glossary/HTML5" id="logo_html" class="" target="_blanck"><i class="fa fa-html5"></i> </a>
                 <a href="https://developer.mozilla.org/fr/docs/Web/CSS" id="logo_css" class="" target="_blanck"><i class="fa fa-css3"></i></a>

@@ -2,6 +2,9 @@ html,body{
     margin: 0;
 }
 
+
+/* FICHIER index.html */
+
 /* Pour ce header
 
 <header id="menu">
@@ -11,6 +14,9 @@ html,body{
     <a href="../controle/connexion.php" id="connexion"  >Connexion</a>  <!--id="connexion" -->
 </div>
 </header> */
+#nom_site{
+    font-family: 'Abnes';
+}
 
 #menu a{
    color: #3eaeff;
@@ -29,10 +35,13 @@ html,body{
 
 
 #menu{
-    background-color: black;
+    /* background-color: black ; */
+    
     padding-bottom: 1%;
     border-color: #3eaeff;
     border-bottom-style: solid;
+    border-bottom-width: 1px;
+    
 }
 
 #ins_conn,#connexion{
@@ -40,12 +49,42 @@ html,body{
 }
 
 #ins_conn{
-    margin-left: 65%;
+    margin-left: 60%;
 }
 
 #connexion{
     margin-left: 3em;
 }
+
+#derouleur{
+    display: none;
+}
+
+
+/* <div id="prensation_technos">
+    <div class="text-start">
+        <h3>Front-end !</h3>
+        <img src="../vue/html-css-js.jpg" class="img-fluid" id="front">
+    </div>   
+
+    <div class="text-end">
+        <h3>Back-end !</h3>
+        <img src="../vue/backend.png" class="img-fluid" id="back">
+        
+    </div>
+
+    <div class="text-start">
+        <h3> Outils de gestion de projet ! </h3>
+        <img src="../vue/gestion_projet.png" class="img-fluid" id="gestion">
+        
+    </div>
+</div> */
+
+#front,#back,#gestion{
+    width: 40%;
+    height: 30%;
+}
+
 
 /* Pour les inter-centre avec les images qui défilent
     <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
@@ -79,6 +118,7 @@ html,body{
 #images_defilantes_2{
     background-image: url("code-coding.gif");
    /* background: url("video_électronique.mp4"); */
+   background-position: right 35% bottom 45%;
 }
 
 #images_defilantes_3{
@@ -89,7 +129,7 @@ html,body{
 #images_defilantes_4{
     background-image: url("circuit_imprimé.gif");
     /* background: url("video_informatique.mp4"); */
-   
+    
 }
 #images_defilantes_1,#images_defilantes_2,#images_defilantes_3,#images_defilantes_4{
     padding-bottom: 20%;
@@ -121,7 +161,7 @@ html,body{
     margin-bottom: 10px;
 }
 
-#envoyer{
+#envoyer,#btn_connexion{
     background-color: black;
     color: white ;
     font-weight: bold;
@@ -133,7 +173,7 @@ html,body{
 	transition: .3s ease-in-out;
 }
 
-#envoyer:hover{
+#envoyer:hover,#btn_connexion:hover{
     -webkit-transform: scale(1.05);
 	transform: scale(1.05);
 }
@@ -162,10 +202,124 @@ footer{
     font-weight: bold;
     border-color: black;
     border-top-style: solid;
-    
+    border-top-width: 1px;
 }
 
 #logos_technos a{
     text-decoration: none;
     color: black;
 }
+
+/* RESPONSIVITE */
+
+@media screen and (max-width:1474px) and (min-width:1314px){
+    #ins_conn{
+        margin-left: 55%;
+    }   
+}
+
+@media screen and (max-width:1314px) and (min-width:1195px){
+    #ins_conn{
+        margin-left: 50%;
+    }   
+}
+
+@media screen and (max-width:1195px) and (min-width:1079px) {
+    #ins_conn{
+        margin-left: 45%;
+    }
+}
+
+@media screen and  (max-width:1079px)  and (min-width:990px){
+    #ins_conn{
+        margin-left: 40%;
+    }
+}
+
+@media screen and  (max-width:990px) and (min-width:915px) {
+    #ins_conn{
+        margin-left: 35%;
+    }
+}
+
+@media screen and  (max-width:915px)  and (min-width:851px){
+    #ins_conn{
+        margin-left: 30%;
+    }
+}
+@media screen and (max-width:851px){
+    #ins_conn{
+        display: none;
+    }
+    #derouleur{
+        display: inline-block;
+    }
+}
+
+@media screen and (max-width:851px) and (min-width:775px){
+    #derouleur{
+        margin-left: 55%;
+    }
+}
+
+@media screen and (max-width:775px) and (min-width:696px){
+    #derouleur{
+        margin-left: 50%;
+    }
+}
+
+@media screen and (max-width:696px) and (min-width:624px){
+    #derouleur{
+        margin-left: 45%;
+    }
+}
+
+@media screen and (max-width:624px) and (min-width:576px){
+    #derouleur{
+        margin-left: 40%;
+    }
+}
+
+@media screen and (max-width:576px) and (min-width:536px) {
+    #derouleur{
+        margin-left: 35%;
+    }
+}
+
+@media screen and (max-width:536px) and (min-width:496px) {
+    #derouleur{
+        margin-left: 30%;
+    }
+}
+@media screen and (max-width:496px) and (min-width:465px) {
+    #derouleur{
+        margin-left: 25%;
+    }
+    #menu a #nom_site{
+        font-size: 10px;
+    }
+}
+
+@media screen and (max-width:465px) {
+    #derouleur{
+        margin-left: 20%;
+    }
+    #menu a #nom_site{
+        font-size: 10px;
+    }
+}
+
+
+/* FICHIER connexion.html */
+
+#adresse_mail_CO,#mdp_CO,#nom_INS,#prenom_INS,#adresse_mail_INS,#mdp_INS,#confirmer_mdp_INS{
+    width: 60%;
+    margin-left: 20%;
+    
+}
+
+#login,#signin{
+    width: 10%;
+    margin-left: 20%;
+}
+
