@@ -17,7 +17,7 @@ function age_adrien(){
     return age;
 }
 
-document.getElementById("age").innerText=age_adrien();
+document.getElementById("age").innerHTML=age_adrien();
 
 // const age=new String(age_adrien());
 

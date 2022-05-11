@@ -16,6 +16,7 @@ html,body{
 </header> */
 #nom_site{
     font-family: 'Abnes';
+    /* font-size: 20px; */
 }
 
 #menu a{
@@ -161,19 +162,19 @@ html,body{
     margin-bottom: 10px;
 }
 
-#envoyer,#btn_connexion{
+#envoyer,#login,#signin{ /*,#btn_connexion*/
     background-color: black;
-    color: white ;
+    color: white;
     font-weight: bold;
     border: none;
-
+    width: 20%;
     -webkit-transform: scale(1);
 	transform: scale(1);
 	-webkit-transition: .3s ease-in-out;
 	transition: .3s ease-in-out;
 }
 
-#envoyer:hover,#btn_connexion:hover{
+#envoyer:hover,#login:hover,#signin:hover{ /*,#btn_connexion:hover*/
     -webkit-transform: scale(1.05);
 	transform: scale(1.05);
 }
@@ -240,12 +241,23 @@ footer{
     #ins_conn{
         margin-left: 35%;
     }
+
+    #envoyer,#signin,#login{
+        width: auto;
+    }
+
 }
 
 @media screen and  (max-width:915px)  and (min-width:851px){
     #ins_conn{
         margin-left: 30%;
     }
+
+    #envoyer,#signin,#login{
+        width: auto;
+    }
+
+
 }
 @media screen and (max-width:851px){
     #ins_conn{
@@ -254,11 +266,17 @@ footer{
     #derouleur{
         display: inline-block;
     }
+    #envoyer,#signin,#login{
+        width: auto;
+    }
 }
 
 @media screen and (max-width:851px) and (min-width:775px){
     #derouleur{
         margin-left: 55%;
+    }
+    #envoyer,#signin,#login{
+        width: auto;
     }
 }
 
@@ -266,11 +284,17 @@ footer{
     #derouleur{
         margin-left: 50%;
     }
+    #envoyer,#signin,#login{
+        width: auto;
+    }
 }
 
 @media screen and (max-width:696px) and (min-width:624px){
     #derouleur{
         margin-left: 45%;
+    }
+    #envoyer,#signin,#login{
+        width: auto;
     }
 }
 
@@ -278,11 +302,17 @@ footer{
     #derouleur{
         margin-left: 40%;
     }
+    #envoyer,#signin,#login{
+        width: auto;
+    }
 }
 
 @media screen and (max-width:576px) and (min-width:536px) {
     #derouleur{
         margin-left: 35%;
+    }
+    #envoyer,#signin,#login{
+        width: auto;
     }
 }
 
@@ -290,13 +320,16 @@ footer{
     #derouleur{
         margin-left: 30%;
     }
+    #envoyer,#signin,#login{
+        width: auto;
+    }
 }
 @media screen and (max-width:496px) and (min-width:465px) {
     #derouleur{
         margin-left: 25%;
     }
-    #menu a #nom_site{
-        font-size: 10px;
+    #envoyer,#signin,#login{
+        width: auto;
     }
 }
 
@@ -304,22 +337,42 @@ footer{
     #derouleur{
         margin-left: 20%;
     }
-    #menu a #nom_site{
-        font-size: 10px;
+    #nom_site{
+        font-size: 12px;
+        font-family: 'Times New Roman', Times, serif;  
+        /* LA matrice de texte actuelle ne prends pas le changement de taille */
+    }
+    #envoyer,#signin,#login{
+        width: auto;
     }
 }
 
 
-/* FICHIER connexion.html */
+/* FICHIER connexion.html et inscription.html */
 
 #adresse_mail_CO,#mdp_CO,#nom_INS,#prenom_INS,#adresse_mail_INS,#mdp_INS,#confirmer_mdp_INS{
     width: 60%;
+    
+}
+#statut_1,#statut_2,#adresse_mail_CO,
+#mdp_CO,#nom_INS,#prenom_INS,
+#adresse_mail_INS,#mdp_INS,#confirmer_mdp_INS,
+#login,#signin,#question_ins,
+#mdp_oublie{
     margin-left: 20%;
+}
+
+#lien_CO,#mdp_oublie{
+    text-decoration: none;
+    color: black;
+}
+
+#radio_button_inscription{
+    display: inline;
+    margin-bottom: 2%;
     
 }
 
-#login,#signin{
-    width: 10%;
-    margin-left: 20%;
+#statut_etudiant,#statut_responsable{
+    width: auto;
 }
-

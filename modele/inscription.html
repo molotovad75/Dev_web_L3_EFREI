@@ -12,7 +12,7 @@
 
     <body>
         <header id="menu">
-            <a href="../modele" id="nom_site" >ElecInfoMatos</a>  <!-- id="nom_site" -->
+            <p><a href="../modele" id="nom_site" >ElecInfoMatos</a>  <!-- id="nom_site" --></p>
         </header>
 
         <form id="formulaire_inscription" name="formulaire_inscription" action=""  method="POST" class="container-fluid">
@@ -21,14 +21,16 @@
                     <h1>Inscription</h1>
                 </div>
                  <!-- <div class="form-floating mb-3"> -->
-                <input type="radio" id="statut_1" name="statut" >
-                <label for="statut_1" id="statut_etudiant">Etudiant</label>
-
-                <input type="radio" id="statut_2" name="statut" >
-                <label for="statut_2" id="statut_responsable">Responsable</label>
+                
+                
                 <!-- </div> -->
                 <div class="row justify-content-md-center">
-                       
+                        <div id="radio_button_inscription" >
+                            <input class="form-check-input" type="radio" id="statut_1" name="statut" >
+                            <label for="statut_1" id="statut_etudiant">Etudiant</label>
+                            <input class="form-check-input" type="radio" id="statut_2" name="statut" >
+                            <label for="statut_2" id="statut_responsable">Responsable</label>
+                        </div>
                         <div class="form-floating mb-3">
                             <input type="text" id="nom_INS" name="nom_INS" placeholder="Votre nom/Your name" class="form-control">
                             <label for="nom_INS" id="nom_INS">Votre nom/Your name</label>
@@ -50,10 +52,13 @@
                             <input type="password" id="confirmer_mdp_INS" name="confirmer_mdp_INS" placeholder="Confirmez votre mot de passe/ Confirm your password"  class="form-control">
                             <label for="confirmer_mdp_INS" id="confirmer_mdp_INS">Confirmez votre mot de passe/ Confirm your password</label>
                         </div>
-                   
+
+                        <div class="form-floating mb-3">
+                            <p id="question_ins">Déjà un compte chez nous ? Vous pouvez vous connecter en cliquant <a href="connexion.html" id="lien_CO">ici</a> ! </p>
+                        </div>
+
                         <div class="mb-3">
-                            <input type="submit"  id="signin" name="signin"  placeholder="S'inscrire/Sign-in" class="form-control">  
-                            <label for="signin" id="signin">S'inscrire/Sign-in</label>              
+                            <input type="submit"  id="signin" name="signin"  value="S'inscrire - Sign-in" class="form-control"> 
                         </div>
                 </div>
                 
