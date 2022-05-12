@@ -14,18 +14,24 @@ html,body{
     <a href="../controle/connexion.php" id="connexion"  >Connexion</a>  <!--id="connexion" -->
 </div>
 </header> */
-#nom_site{
-    font-family: 'Abnes';
-    /* font-size: 20px; */
-}
 
-#menu a{
+#menu #ins_conn a, #nom_site{
    color: #3eaeff;
    text-decoration: none;
    font-weight: bold;
-   font-size: 20px;
+   
    
 }
+#nom_site{
+    font-family: 'Azonix';
+    font-size: 25px;
+}
+
+#menu #ins_conn a{
+    font-size: 20px;
+}   
+
+
 
 #inscription:hover,#connexion:hover{
     text-decoration: underline solid;
@@ -265,6 +271,7 @@ footer{
     }
     #derouleur{
         display: inline-block;
+        font-size: 20px;
     }
     #envoyer,#signin,#login{
         width: auto;
@@ -327,27 +334,306 @@ footer{
 @media screen and (max-width:496px) and (min-width:465px) {
     #derouleur{
         margin-left: 25%;
+       
     }
     #envoyer,#signin,#login{
         width: auto;
     }
+
+    #presentation p{
+        font-size: 10px;
+    }
+
+    footer p{
+        font-size: 15px;
+    }
 }
 
-@media screen and (max-width:465px) {
+/*ULTRA RESPONSIVE*/
+
+@media screen and (max-width:465px) and (min-width:240px){
     #derouleur{
         margin-left: 20%;
     }
-    #nom_site{
+    /* #nom_site{
         font-size: 12px;
         font-family: 'Times New Roman', Times, serif;  
-        /* LA matrice de texte actuelle ne prends pas le changement de taille */
+        /* LA matrice de texte actuelle ne prends pas le changement de taille
+    } */
+
+    #nom_site{
+        font-size: 20px;
     }
-    #envoyer,#signin,#login{
+    #envoyer{
         width: auto;
+        font-size: 15px;
+    }
+    #signin,#login{
+        width: auto;
+        font-size: 10px;
+    }
+    #formulaire_message label, #formulaire_inscription label{
+        font-size: 12px;
+    }
+    #statut_1{
+        margin-left: 0%;
+    }
+
+    #presentation p{
+        font-size: 10px;
+    }
+    footer p{
+        font-size: 15px;
+    }
+}
+
+@media screen and (max-width:240px) and (min-width:194px){
+    #derouleur{
+        margin-left: 10%;
+    }
+    /* #nom_site{
+        font-size: 12px;
+        font-family: 'Times New Roman', Times, serif;  
+        /* LA matrice de texte actuelle ne prends pas le changement de taille
+    } */
+
+    #nom_site{
+        font-size: 15px;
+    }
+    #envoyer{
+        width: auto;
+        font-size: 10px;
+    }
+    #signin,#login{
+        width: auto;
+        font-size: 10px;
+    }
+
+    #formulaire_message label, #formulaire_inscription label{
+        font-size: 10px;
+    }
+
+    #presentation p{
+        font-size: 10px;
+    }
+
+    footer p{
+        font-size: 10px;
     }
 }
 
 
+@media screen and (max-width:194px) and (min-width:188px){
+    #derouleur{
+        margin-left: 10%;
+        font-size: 11px;
+    }
+    /* #nom_site{
+        font-size: 12px;
+        font-family: 'Times New Roman', Times, serif;  
+        /* LA matrice de texte actuelle ne prends pas le changement de taille
+    } */
+
+    #nom_site{
+        font-size: 10px;
+    }
+    #envoyer{
+        width: auto;
+        font-size: 10px;
+    }
+    #signin,#login{
+        width: auto;
+        font-size: 10px;
+    }
+
+    #presentation p{
+        font-size: 10px;
+    }
+
+    footer p{
+        font-size: 10px;
+    }
+}
+
+
+@media screen and  (max-width:188px) and (min-width:160px){
+    #derouleur{
+        margin-left: 10%;
+        font-size: 11px;
+    }
+    /* #nom_site{
+        font-size: 12px;
+        font-family: 'Times New Roman', Times, serif;  
+        /* LA matrice de texte actuelle ne prends pas le changement de taille
+    } */
+
+    #nom_site{
+        font-size: 10px;
+    }
+    #envoyer{
+        width: auto;
+        font-size: 10px;
+    }
+    #signin,#login{
+        width: auto;
+        font-size: 10px;
+    }
+    #presentation p{
+        font-size: 7px;
+    }
+    #formulaire_message label, #formulaire_inscription label{
+        font-size: 7px;
+    }
+    #prensation_technos h3{
+        font-size: 15px;
+    }
+    #formulaire_message #pres_form ,#question_ins{
+        font-size: 10px;
+    }
+    footer p{
+        font-size: 10px;
+    }
+}
+
+@media screen and (max-width:160px) and (min-width:120px){
+    #derouleur{
+        margin-left: 10%;
+        font-size: 11px;
+    }
+    /* #nom_site{
+        font-size: 12px;
+        font-family: 'Times New Roman', Times, serif;  
+        /* LA matrice de texte actuelle ne prends pas le changement de taille
+    } */
+
+    #nom_site{
+        font-size: 10px;
+    }
+    #envoyer{
+        width: auto;
+        font-size: 10px;
+    }
+    #signin,#login{
+        width: auto;
+        font-size: 7px;
+    }
+    #presentation p{
+        font-size: 7px;
+    }
+    #formulaire_message label, #formulaire_inscription label{
+        font-size: 7px;
+    }
+    #prensation_technos h3{
+        font-size: 15px;
+    }
+    #formulaire_message #pres_form,#question_ins{
+        font-size: 7px;
+    }
+    footer p{
+        font-size: 7px;
+    }
+}
+
+@media screen and  (max-width:120px) and (min-width:95px){
+    #derouleur{
+        margin-left: 10%;
+        font-size: 11px;
+    }
+    /* #nom_site{
+        font-size: 12px;
+        font-family: 'Times New Roman', Times, serif;  
+        /* LA matrice de texte actuelle ne prends pas le changement de taille
+    } */
+
+    #nom_site{
+        font-size: 7px;
+    }
+
+    #titre{
+        font-size: 15px;
+    }
+    #sous_titre{
+        font-size: 12px;
+    }
+    #envoyer{
+        width: auto;
+        font-size: 5px;
+    }
+    #signin,#login{
+        width: auto;
+        font-size: 5px;
+    }
+    #presentation h1, #formulaire_inscription h1{
+
+        font-size: 12px;
+    }
+    #presentation p{
+        font-size: 5px;
+    }
+    #formulaire_message label, #formulaire_inscription label{
+        font-size: 5px;
+    }
+    #prensation_technos h3{
+        font-size: 10px;
+    }
+    #formulaire_message #pres_form ,#question_ins{
+        font-size: 5px;
+    }
+    footer p{
+        font-size: 7px;
+    }
+}
+
+
+@media screen and (max-width:95px){
+    #derouleur{
+        margin-left: 10%;
+        font-size: 11px;
+    }
+    /* #nom_site{
+        font-size: 12px;
+        font-family: 'Times New Roman', Times, serif;  
+        /* LA matrice de texte actuelle ne prends pas le changement de taille
+    } */
+
+    #nom_site{
+        font-size: 7px;
+    }
+
+    #titre{
+        font-size: 15px;
+    }
+    #sous_titre{
+        font-size: 12px;
+    }
+    #envoyer{
+        width: auto;
+        font-size: 3px;
+    }
+    #signin,#login{
+        width: auto;
+        font-size: 3px;
+    }
+    #presentation h1, #formulaire_inscription h1{
+
+        font-size: 12px;
+    }
+    #presentation p{
+        font-size: 3px;
+    }
+    #formulaire_message label, #formulaire_inscription label{
+        font-size: 3px;
+    }
+    #prensation_technos h3{
+        font-size: 7px;
+    }
+    #formulaire_message #pres_form ,#question_ins{
+        font-size: 5px;
+    }
+    footer p{ 
+        font-size: 5px;
+    }
+}
 /* FICHIER connexion.html et inscription.html */
 
 #adresse_mail_CO,#mdp_CO,#nom_INS,#prenom_INS,#adresse_mail_INS,#mdp_INS,#confirmer_mdp_INS{
