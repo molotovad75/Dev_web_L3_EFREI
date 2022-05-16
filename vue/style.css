@@ -1,3 +1,5 @@
+/*Tous les fichiers web !*/
+
 html,body{
     margin: 0;
 }
@@ -33,10 +35,17 @@ html,body{
 
 
 
-#inscription:hover,#connexion:hover{
+/* #inscription:hover,#connexion:hover{
     text-decoration: underline solid;
     font-weight: bold;   
     color: #3eaeff;  
+} */
+
+#menu #ins_conn a:hover{
+    text-decoration: underline solid;
+    font-weight: bold;   
+    color: #3eaeff;  
+    /* transition:  3s ease-in-out; */
 }
 
 
@@ -220,131 +229,132 @@ footer{
 /* RESPONSIVITE */
 
 @media screen and (max-width:1474px) and (min-width:1314px){
-    #ins_conn{
+    #ins_conn{ /*index.html */
         margin-left: 55%;
     }   
 }
 
 @media screen and (max-width:1314px) and (min-width:1195px){
-    #ins_conn{
+    #ins_conn{ /*index.html */
         margin-left: 50%;
     }   
 }
 
 @media screen and (max-width:1195px) and (min-width:1079px) {
-    #ins_conn{
+    #ins_conn{ /*index.html */
         margin-left: 45%;
     }
 }
 
 @media screen and  (max-width:1079px)  and (min-width:990px){
-    #ins_conn{
+    #ins_conn{ /*index.html */
         margin-left: 40%;
     }
 }
 
 @media screen and  (max-width:990px) and (min-width:915px) {
-    #ins_conn{
+    #ins_conn{ /*index.html */
         margin-left: 35%;
     }
 
-    #envoyer,#signin,#login{
+    #envoyer /*index.html */,#signin /*inscription.html */,#login  /*connexion.html*/{
         width: auto;
     }
 
 }
 
 @media screen and  (max-width:915px)  and (min-width:851px){
-    #ins_conn{
+    #ins_conn{ /*index.html */
         margin-left: 30%;
     }
 
-    #envoyer,#signin,#login{
+    #envoyer /*index.html */,#signin /*inscription.html */,#login  /*connexion.html*/{
         width: auto;
     }
 
 
 }
 @media screen and (max-width:851px){
-    #ins_conn{
+    #ins_conn{ /*index.html */
         display: none;
     }
-    #derouleur{
+    #derouleur{ /*index.html */
         display: inline-block;
         font-size: 20px;
     }
-    #envoyer,#signin,#login{
+    #envoyer /*index.html */,#signin /*inscription.html */,#login  /*connexion.html*/{
         width: auto;
     }
 }
 
 @media screen and (max-width:851px) and (min-width:775px){
-    #derouleur{
+    #derouleur{ /*index.html */
         margin-left: 55%;
     }
-    #envoyer,#signin,#login{
+    #envoyer /*index.html */,#signin /*inscription.html */,#login  /*connexion.html*/{
         width: auto;
     }
 }
 
 @media screen and (max-width:775px) and (min-width:696px){
-    #derouleur{
+    #derouleur{ /*index.html */
         margin-left: 50%;
     }
-    #envoyer,#signin,#login{
+    #envoyer /*index.html */,#signin /*inscription.html */,#login  /*connexion.html*/{
         width: auto;
     }
 }
 
 @media screen and (max-width:696px) and (min-width:624px){
-    #derouleur{
+    #derouleur{/*index.html */
         margin-left: 45%;
     }
-    #envoyer,#signin,#login{
+    #envoyer /*index.html */,#signin /*inscription.html */,#login  /*connexion.html*/{
         width: auto;
     }
 }
 
 @media screen and (max-width:624px) and (min-width:576px){
-    #derouleur{
+    #derouleur{ /*index.html */
         margin-left: 40%;
     }
-    #envoyer,#signin,#login{
+    #envoyer /*index.html */,#signin /*inscription.html */,#login  /*connexion.html*/{
         width: auto;
     }
 }
 
 @media screen and (max-width:576px) and (min-width:536px) {
-    #derouleur{
+    #derouleur{/*index.html */
         margin-left: 35%;
     }
-    #envoyer,#signin,#login{
+    #envoyer /*index.html */,#signin /*inscription.html */,#login  /*connexion.html*/{
         width: auto;
     }
 }
 
 @media screen and (max-width:536px) and (min-width:496px) {
-    #derouleur{
+    #derouleur{ /*index.html */
         margin-left: 30%;
     }
-    #envoyer,#signin,#login{
+    #envoyer /*index.html */ ,#signin /*inscription.html */,#login  /*connexion.html*/{
         width: auto;
     }
 }
+
 @media screen and (max-width:496px) and (min-width:465px) {
-    #derouleur{
+    #derouleur{ /*index.html */
         margin-left: 25%;
        
     }
-    #envoyer,#signin,#login{
+    #envoyer /*index.html */ ,#signin /*inscription.html */,#login  /*connexion.html*/{
         width: auto;
     }
 
-    #presentation p{
+    #presentation p{ /*index.html */
         font-size: 10px;
     }
 
-    footer p{
+    footer p{ /*index.html */
         font-size: 15px;
     }
 }
@@ -352,291 +362,324 @@ footer{
 /*ULTRA RESPONSIVE*/
 
 @media screen and (max-width:465px) and (min-width:240px){
-    #derouleur{
-        margin-left: 20%;
+    #derouleur{ /*index.html */
+        margin-left: 40%;
     }
-    /* #nom_site{
-        font-size: 12px;
-        font-family: 'Times New Roman', Times, serif;  
-        /* LA matrice de texte actuelle ne prends pas le changement de taille
-    } */
 
-    #nom_site{
+    #nom_site{ /*index.html */
         font-size: 20px;
     }
-    #envoyer{
+    #envoyer{ /*index.html */
         width: auto;
         font-size: 15px;
     }
-    #signin,#login{
+    #signin /*inscription.html */,#login  /*connexion.html*/{
         width: auto;
         font-size: 10px;
     }
-    #formulaire_message label, #formulaire_inscription label{
+    #formulaire_message label /*index.html*/, #formulaire_inscription label /*inscription.html */{ 
         font-size: 12px;
     }
-    #statut_1{
+    #statut_1{/*inscription.html*/
         margin-left: 0%;
     }
 
-    #presentation p{
+    #presentation p{ /*index.html */
         font-size: 10px;
     }
-    footer p{
+    footer p{ /*Toutes les pages HTMLs*/
         font-size: 15px;
     }
 }
 
+@media screen and (max-width:310px){
+    #derouleur{  /*index.html */
+        margin-left: 15%;
+    }
+
+    #radio_button_inscription input[type=radio],#radio_button_inscription label{ /*inscription.html */
+        display: none;
+    }
+
+    #formulaire_message label /*index.html */ , #formulaire_inscription label /*inscription.html */{
+        font-size: 10px;
+        margin-top: -9px;
+    }
+    #derouleur_statut{/*inscription.html */
+        display: inline-block;
+        margin-bottom: 3%;
+        
+    }    
+
+}
+@media screen and (min-width:310px){ 
+    #derouleur_statut{ /*inscription.html */
+        display: none;
+    }
+}
+
+
 @media screen and (max-width:240px) and (min-width:194px){
-    #derouleur{
+    #derouleur{ /*index.html */
         margin-left: 10%;
     }
-    /* #nom_site{
-        font-size: 12px;
-        font-family: 'Times New Roman', Times, serif;  
-        /* LA matrice de texte actuelle ne prends pas le changement de taille
-    } */
-
-    #nom_site{
+    #nom_site{ /*index.html */
         font-size: 15px;
     }
-    #envoyer{
+    #envoyer{ /*index.html */
         width: auto;
         font-size: 10px;
     }
-    #signin,#login{
+    #signin /*inscription.html */,#login  /*connexion.html*/{
         width: auto;
         font-size: 10px;
     }
 
-    #formulaire_message label, #formulaire_inscription label{
+    #formulaire_message label /*index.html */ , #formulaire_inscription label /*inscription.html */{
+        font-size: 10px;
+        margin-top: -9px;
+    }
+
+    #presentation p{ /*index.html */
         font-size: 10px;
     }
 
-    #presentation p{
-        font-size: 10px;
-    }
-
-    footer p{
+    footer p{ /*index.html */   /*inscription.html */ /*connexion.html*/
         font-size: 10px;
     }
 }
 
 
 @media screen and (max-width:194px) and (min-width:188px){
-    #derouleur{
+    #derouleur{ /*index.html */
         margin-left: 10%;
         font-size: 11px;
     }
-    /* #nom_site{
-        font-size: 12px;
-        font-family: 'Times New Roman', Times, serif;  
-        /* LA matrice de texte actuelle ne prends pas le changement de taille
-    } */
-
-    #nom_site{
+    #nom_site{ /*index.html */
         font-size: 10px;
     }
-    #envoyer{
+    #envoyer{ /*index.html */
         width: auto;
         font-size: 10px;
     }
-    #signin,#login{
+    #signin /*inscription.html */,#login /*connexion.html*/{
         width: auto;
         font-size: 10px;
     }
 
-    #presentation p{
+    #presentation p{ /*index.html */
         font-size: 10px;
     }
 
-    footer p{
+    footer p{ /*index.html */ /*inscription.html */ /*connexion.html*/
         font-size: 10px;
     }
 }
 
 
 @media screen and  (max-width:188px) and (min-width:160px){
-    #derouleur{
+    #derouleur{ /*index.html */
         margin-left: 10%;
         font-size: 11px;
     }
-    /* #nom_site{
-        font-size: 12px;
-        font-family: 'Times New Roman', Times, serif;  
-        /* LA matrice de texte actuelle ne prends pas le changement de taille
-    } */
-
-    #nom_site{
+    #nom_site{ /*index.html */
         font-size: 10px;
     }
-    #envoyer{
+    #envoyer{ /*index.html */
         width: auto;
         font-size: 10px;
     }
-    #signin,#login{
+    #signin /*inscription.html */,#login  /*connexion.html*/{
         width: auto;
         font-size: 10px;
     }
-    #presentation p{
+    #presentation p{ /*index.html */
         font-size: 7px;
     }
-    #formulaire_message label, #formulaire_inscription label{
+    #formulaire_message label /*index.html */ , #formulaire_inscription label /*inscription.html */{
         font-size: 7px;
+        margin-top: -9px;
     }
-    #prensation_technos h3{
+    #prensation_technos h3{ /*index.html */
         font-size: 15px;
     }
-    #formulaire_message #pres_form ,#question_ins{
+    #formulaire_message #pres_form /*index.html */ ,#question_ins /*inscription.html */{
         font-size: 10px;
     }
-    footer p{
+
+    #statut_1,#statut_2{  /*inscription.html */ /*Ce sont les radios buttons du haut du formulaire d'inscription*/
+        height: 36%;
+        width: 7%;
+        
+    }
+
+    #radio_button_inscription{
+        display: block;
+
+    }
+    footer p{ /*index.html */ /*inscription.html */ /*connexion.html*/
         font-size: 10px;
     }
 }
 
 @media screen and (max-width:160px) and (min-width:120px){
-    #derouleur{
+    #derouleur{ /*index.html */
         margin-left: 10%;
         font-size: 11px;
     }
-    /* #nom_site{
-        font-size: 12px;
-        font-family: 'Times New Roman', Times, serif;  
-        /* LA matrice de texte actuelle ne prends pas le changement de taille
-    } */
+    
+    #nom_site{ /*index.html */
+        font-size: 10px;
+    }
+    #envoyer{ /*index.html */
+        width: auto;
+        font-size: 10px;
+    }
+    #signin /*inscription.html */,#login /*connexion.html*/{
+        width: auto;
+        font-size: 7px;
+        
+    }
 
-    #nom_site{
-        font-size: 10px;
-    }
-    #envoyer{
-        width: auto;
-        font-size: 10px;
-    }
-    #signin,#login{
-        width: auto;
+
+
+    #presentation p{ /*index.html */
         font-size: 7px;
     }
-    #presentation p{
+    #formulaire_message label /*index.html */, #formulaire_inscription label /*inscription.html */{
         font-size: 7px;
+        margin-top: -9px;
     }
-    #formulaire_message label, #formulaire_inscription label{
-        font-size: 7px;
-    }
-    #prensation_technos h3{
+    #prensation_technos h3{ /*index.html */
         font-size: 15px;
     }
-    #formulaire_message #pres_form,#question_ins{
+    #formulaire_message #pres_form /*index.html */,#question_ins /*inscription.html */{
         font-size: 7px;
     }
-    footer p{
+    #formulaire_inscription h1{/*inscription.html */ 
+        font-size: 18px;
+    }
+    #statut_1,#statut_2{  /*inscription.html */ /*Ce sont les radios buttons du haut du formulaire d'inscription*/
+        height: 15%;
+        width: 7%;
+    }
+    footer p{ /*index.html */  /*inscription.html */ /*connexion.html*/
         font-size: 7px;
     }
 }
 
+@media screen and (max-width:130px) and  (min-width:120px)  {
+    #signin {
+        /* margin-left: 0px; */
+        font-size: 5px;
+    }
+}
+
 @media screen and  (max-width:120px) and (min-width:95px){
-    #derouleur{
+    #derouleur{ /*index.html */
         margin-left: 10%;
         font-size: 11px;
     }
-    /* #nom_site{
-        font-size: 12px;
-        font-family: 'Times New Roman', Times, serif;  
-        /* LA matrice de texte actuelle ne prends pas le changement de taille
-    } */
-
-    #nom_site{
+    #nom_site{ /*index.html inscription.html  connexion.html*/
         font-size: 7px;
     }
 
-    #titre{
+    #titre{ /*index.html */ 
         font-size: 15px;
     }
-    #sous_titre{
+    #sous_titre{ /*index.html */ 
         font-size: 12px;
     }
-    #envoyer{
+    #envoyer{ /*index.html */
         width: auto;
         font-size: 5px;
     }
-    #signin,#login{
+    #signin /*inscription.html */,#login /*connexion.html*/{
         width: auto;
-        font-size: 5px;
+        font-size: 4px;
     }
-    #presentation h1, #formulaire_inscription h1{
+    #presentation h1 /*index.html */, #formulaire_inscription h1 /*inscription.html */{
 
         font-size: 12px;
     }
-    #presentation p{
+    #presentation p{ /*index.html */
         font-size: 5px;
     }
-    #formulaire_message label, #formulaire_inscription label{
+    #formulaire_message label /*index.html */, #formulaire_inscription label /*inscription.html */{
         font-size: 5px;
+        margin-top: -8px;
     }
-    #prensation_technos h3{
+    #prensation_technos h3{  /*index.html */
         font-size: 10px;
     }
-    #formulaire_message #pres_form ,#question_ins{
+    #formulaire_message #pres_form /*index.html */,#question_ins /*inscription.html */{
         font-size: 5px;
     }
-    footer p{
+
+    #statut_1,#statut_2{  /*inscription.html */ /*Ce sont les radios buttons du haut du formulaire d'inscription*/
+        height: 15%;
+        width: 11%;
+    }
+    footer p{ /* index.html inscription.html connexion.html*/
         font-size: 7px;
     }
 }
 
 
 @media screen and (max-width:95px){
-    #derouleur{
+    #derouleur{ /*index.html */
         margin-left: 10%;
         font-size: 11px;
     }
-    /* #nom_site{
-        font-size: 12px;
-        font-family: 'Times New Roman', Times, serif;  
-        /* LA matrice de texte actuelle ne prends pas le changement de taille
-    } */
-
-    #nom_site{
+    #nom_site{ /*index.html */
         font-size: 7px;
     }
 
-    #titre{
+    #titre{ /*index.html inscription.html */
         font-size: 15px;
     }
-    #sous_titre{
+    #sous_titre{ /*index.html */
         font-size: 12px;
     }
-    #envoyer{
+    #envoyer{ /*index.html */
         width: auto;
         font-size: 3px;
     }
-    #signin,#login{
+    #signin /*inscription.html*/,#login /*connexion.html*/{ 
         width: auto;
         font-size: 3px;
     }
-    #presentation h1, #formulaire_inscription h1{
+    #presentation h1 /*index.html */, #formulaire_inscription h1  /*inscription.html*/{
 
         font-size: 12px;
     }
-    #presentation p{
+    #presentation p{ /*index.html */
         font-size: 3px;
     }
-    #formulaire_message label, #formulaire_inscription label{
+    #formulaire_message label /*index.html */, #formulaire_inscription label  /*inscription.html*/{
         font-size: 3px;
+        margin-top: -7px;
     }
-    #prensation_technos h3{
+    #prensation_technos h3{ /*index.html */
         font-size: 7px;
     }
-    #formulaire_message #pres_form ,#question_ins{
+    #formulaire_message #pres_form /*index.html */ ,#question_ins  /*inscription.html*/{
         font-size: 5px;
     }
-    footer p{ 
+    
+    #statut_1,#statut_2{  /*inscription.html */ /*Ce sont les radios buttons du haut du formulaire d'inscription*/
+        height: 15%;
+        width: 16%;
+    }
+    footer p{  /*index.html */ /*inscription.html*/ /*connexion.html*/
         font-size: 5px;
     }
 }
+
+
 /* FICHIER connexion.html et inscription.html */
 
-#adresse_mail_CO,#mdp_CO,#nom_INS,#prenom_INS,#adresse_mail_INS,#mdp_INS,#confirmer_mdp_INS{
+#adresse_mail_CO,#mdp_CO,#nom_INS,#prenom_INS,#adresse_mail_INS,#mdp_INS,#confirmer_mdp_INS, #derouleur_statut{
     width: 60%;
     
 }
@@ -644,13 +687,13 @@ footer{
 #mdp_CO,#nom_INS,#prenom_INS,
 #adresse_mail_INS,#mdp_INS,#confirmer_mdp_INS,
 #login,#signin,#question_ins,
-#mdp_oublie{
+#mdp_oublie, #derouleur_statut,#sans_compte{
     margin-left: 20%;
 }
 
-#lien_CO,#mdp_oublie{
+#lien_CO,#mdp_oublie,#sans_compte{
     text-decoration: none;
-    color: black;
+    color: unset;
 }
 
 #radio_button_inscription{
@@ -661,4 +704,13 @@ footer{
 
 #statut_etudiant,#statut_responsable{
     width: auto;
+}
+
+#formulaire_inscription h1,#formulaire_connexion h1{
+    text-align: center;
+}
+
+#sans_compte{
+    display: block;
+    margin-top: 1%;
 }
