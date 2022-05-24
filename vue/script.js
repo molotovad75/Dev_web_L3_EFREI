@@ -63,3 +63,65 @@ function repeat_menu(){
     document.getElementById("menu_transp").innerHTML=menus_transpose;
     
 }
+
+
+//AJAX
+
+
+let field_mdp=document.getElementById("mdp_INS").value;
+let field_mdp_confirmer=document.getElementById("confirmer_mdp_INS").value;
+let xhr=new XMLHttpRequest();
+xhr.responseType="text";
+xhr.open("POST","../controle/inscription.html",true); 
+
+/*
+1er argument : méthode d'envoi de la requête, 
+2ème argument : lien vers le fichier auquel je veux envoyer ma requête, 
+3ème argument : Boolean indiquant si la requete doit être exécutée de manière asynchrone. Par défaut, elle reste à "true" !
+*/
+
+//Traitement de la réponse du serveur 
+
+xhr.onload=
+    function(){
+        if (xhr.status==200) { //Si la requête au serveur réussi alors !
+            fetch("./controle/inscription.html").then(response => response.json());
+        } else {
+            fetch("./controle/inscription.html").catch(error => alert("Erreur : " + error));
+        }
+
+    };
+
+
+
+
+// function storing(data)
+// {
+//     var element = document.getElementById('storage');
+//     element.innerHTML = data;
+// }
+
+// function submitForm(element)
+// { 
+//     var req =  createInstance();
+//     var url = document.ajax.url.value;
+//     var data = "url=" + url;
+//     req.onreadystatechange = function()
+//     { 
+//         if(req.readyState == 4)
+//         {
+//                 if(req.status == 200)
+//                 {
+//                         storing(req.responseText);	
+//                 }	
+//                 else	
+//                 {
+//                         alert("Error: returned status code " + req.status + " " + req.statusText);
+//                 }	
+//         } 
+//     }; 
+
+//     req.open("POST", "pingurl.php", true); 
+//     req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+//     req.send(data);
+// }

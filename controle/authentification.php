@@ -1,45 +1,50 @@
 <?php
     // require 'information_BDD.php';
     
-    
+    const BDD='mysql:host=localhost;dbname=dev_web_projet_2;charset=utf8';
+    const username='root';
+    const password='';
 
-    function connexion_responsable($BDD,$username,$password){
+    function connexion_responsable($mail_responsable_entre,$mdp){
 
-        $connexion=new PDO($BDD,$username,$password);
-        $mail_responsable_entre=$_POST['adresse_mail_CO'];
-        $mdp_responsable_entre=$_POST['mdp_CO'];
-        $reqSQL_mdp_respo="SELECT R.Mot_de_passe_respo FROM responsable AS R WHERE R.adresse_mail=$mail_responsable_entre";    
+        $connexion=new PDO(BDD,username,password);
+        $reqSQL_authentification_respo="SELECT R.adresse_mail, R.Mot_de_passe_respo FROM responsable AS R WHERE R.Mot_de_passe_respo='$mdp' AND R.adresse_mail='$mail_responsable_entre';";    
+        $resultat_req_authen=$connexion->prepare($reqSQL_authentification_respo);
+        $resultat_req_authen->execute();
 
-        $reqSQL_Id_respo="SELECT R.Id_responsable FROM responsable R WHERE R.adresse_mail=:mail";
-
-        // $preparateur_requete1=$connexion->prepare($reqSQL_mdp_respo);
-        // $preparateur_requete1->execute();
-
-        $preparateur_requete2=$connexion->prepare($reqSQL_Id_respo);
-        $preparateur_requete2->execute(
-            [
-                ':mail' => $mail_responsable_entre
-            ]
-
-        );
-
-        // $resultat_requete_mdp=$preparateur_requete1->fetch();
-        // if(strcmp($resultat_requete_mdp, $mdp_responsable_entre)==0){
-        //     echo "connexion résussie";
-        // }else{
-        //     echo "échec de la connexion";
-        // }   
-
-        echo 'Le numéro de notre responsable est le numéro '.$preparateur_requete2->fetchObject();
+        echo $resultat_req_authen->fetchAll();
+        // if ($resultat_req_authen->fetch(1)==$mail_responsable_entre && $resultat_req_authen->fetch(2)==$mdp) {
+        //     echo 'Connexion réussie ! ';
+        // } else {
+        //     echo 'Erreur de connexion !';
+        // }
+        
+        //  echo 'Le numéro de notre responsable est le numéro '.$preparateur_requete2->fetch();
     }
 
     try{
-        session_start();
-        $BDD= 'mysql:host=localhost;dbname=dev_web_projet_2;charset=utf8';
-        $username='root';
-        $password='';
+        // session_start();
+        
        
-        connexion_responsable($BDD,$username,$password);
+        connexion_responsable($_POST["adresse_mail_CO"],$_POST["mdp_CO"]);
+        
+
+        // $reqSQL_Id_respo="SELECT R.Id_responsable FROM responsable R WHERE R.adresse_mail=$mail_responsable_entre";
+
+        // $res=$connexion->prepare($reqSQL_mail_respo);
+        // $res->execute();
+        // $res2=$res->fetchAll();
+        // $resultat=serialize($res2);
+        // echo $resultat; 
+        // $res_mail=implode("",$preparateur_requete2);
+      
+        // if($res2=true){
+        //     echo 'Bien joué';;
+        // }elseif($res2=false){
+        //     echo 'Reéssayer';
+        // }
+
+        // connexion_responsable($BDD,$username,$password);
     }
     catch(Exception $e){
         die('Erreur : '.$e->getMessage());
