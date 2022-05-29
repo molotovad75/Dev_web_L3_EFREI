@@ -10,16 +10,9 @@
     $_SESSION['username']=username;
     $_SESSION['password']=password;
 
-    function inserer_etudiant($nom,$prenom,$mail,$mdp){
-       
-        // $req_SQL_etudiant="INSERT INTO etudiant VALUES(".NULL.",'".$nom."','".$prenom."','".$mail."',0,'".$mdp."');";       
+    function inserer_etudiant($nom,$prenom,$mail,$mdp){    
         $req_SQL_etudiant="INSERT INTO etudiant VALUES(NULL,'$nom','$prenom','$mail',0,'$mdp');";
-        // $req_SQL_etudiant="INSERT INTO etudiant VALUES(NULL,'nom','prenom','mail',0,'mdp');";
-
-        // $req_SQL_etudiant="INSERT INTO etudiant VALUES(:Id_etudiant,:Nom_etudiant,:Prenom_etudiant,:mail_etudiant,:Nb_emprunts,:Mot_de_passe_etu);";
-        // $connexion=new PDO($_SESSION['bdd'],$_SESSION['username'],$_SESSION['password']);
         $connexion=new PDO(BDD,username,password);
-        // $envoie_requete=NULL;
             if($_POST["confirmer_mdp_INS"]==$mdp){
                 $envoie_requete=$connexion->prepare($req_SQL_etudiant);
                 $envoie_requete->execute();
@@ -38,7 +31,6 @@
     }
 
     function inserer_responsable($nom,$prenom,$mail,$mdp){
-        // $req_SQL_responsable="INSERT INTO responsable VALUES('".NULL."','".$nom."','".$prenom."','".$mail."','NONE','".$mdp."');";
         $req_SQL_responsable="INSERT INTO responsable VALUES(NULL,'$nom','$prenom','$mail','NONE','$mdp')";
 
         // $req_SQL_responsable="INSERT INTO responsable VALUES(:Id_responsable,:Nom_responsable,:Prenom_responsable,:adresse_mail,:Identifiant_connexion,:Mot_de_passe_respo);";
@@ -73,6 +65,9 @@
         } 
         else if ( $_POST['statut']=="Responsable" ){ //|| $_POST['statut_derouleur']=="Responsable"
             inserer_responsable($_POST['nom_INS'],$_POST['prenom_INS'],$_POST['adresse_mail_INS'],$_POST['mdp_INS']);
+        }
+        else if (!isset($_POST['statut'])){
+            header('Location: ../modele/inscription.html');
         }
     } catch (ErrorException $message) {
         //throw $th;
