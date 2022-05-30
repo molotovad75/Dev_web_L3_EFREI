@@ -4,6 +4,11 @@
     const BDD='mysql:host=localhost;dbname=dev_web_projet_2;charset=utf8';
     const username='root';
     const password='';
+//     $Nom_responsable;
+//     $Prenom_responsable;
+
+//     $Nom_etudiant;
+//     $Prenom_etudiant;
 
     function connexion_responsable($mail_responsable_entre,$mdp){
         $connexion=new PDO(BDD,username,password);
@@ -12,23 +17,22 @@
         $resultat_req_authen->execute();
         
         $resultat_nom_responsable=$resultat_req_authen->fetchAll();
-       foreach($resultat_nom_responsable as $data){
-            $data['Nom_responsable']; //Affichage du nom de famille
-            $data['Prenom_responsable'];
-       }
-    //    echo $data['Prenom_responsable'];
-       if(isset($data['Nom_responsable']) && isset($data['Prenom_responsable'])){
-            echo 'Connexion réussie !';
-            $_SESSION['nom_responsable']=$data['Nom_responsable'];
-            $_SESSION['prenom_responsable']=$data['Prenom_responsable'];
-            //Afficher la page utilisateur
-            // header('Location: espace_responsable.php');
-       }else{
-            echo 'Connexion échoué !';
-            //Rester sur la page de connexion tout en informant le client.
-            header('Location: ../modele/connexion.html'); //Affichage de la même page
-            //Informer par requête AJAX.
-       }
+     foreach($resultat_nom_responsable as $data){
+          $data['Nom_responsable']; //Affichage du nom de famille
+          $data['Prenom_responsable'];
+     }
+          //    echo $data['Prenom_responsable'];
+     if(isset($data['Nom_responsable']) && isset($data['Prenom_responsable'])){
+          echo 'Connexion réussie ! ';
+          
+          //Afficher la page utilisateur
+          header('Location: espace_responsable.php');
+     }else{
+          echo 'Connexion échoué !';
+          //Rester sur la page de connexion tout en informant le client.
+          header('Location: ../modele/connexion.html'); //Affichage de la même page
+          //Informer par requête AJAX.
+     }
 
       
        
@@ -41,6 +45,8 @@
         
         //  echo 'Le numéro de notre responsable est le numéro '.$preparateur_requete2->fetch();
     }
+
+
 
     function connexion_etudiant($mail_etudiant_entre,$mdp){
         $connexion=new PDO(BDD,username,password);
@@ -68,12 +74,13 @@
        }
     }
 
+
     try{
         session_start();
         
-       
-        connexion_responsable($_POST['adresse_mail_CO'],$_POST['mdp_CO']);
         
+        connexion_responsable($_POST['adresse_mail_CO'],$_POST['mdp_CO']);
+        name($_SESSION['Nom_responsable']);
 
         // $reqSQL_Id_respo="SELECT R.Id_responsable FROM responsable R WHERE R.adresse_mail=$mail_responsable_entre";
 
@@ -96,4 +103,8 @@
         die('Erreur : '.$e->getMessage());
     }   
 
+    
+     function name($nom){
+          return $nom;
+     }
 ?>
