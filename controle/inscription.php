@@ -6,17 +6,46 @@
     const BDD='mysql:host=localhost;dbname=dev_web_projet_2;charset=utf8';
     const username='root';
     const password='';
-    $_SESSION['bdd']=BDD;
-    $_SESSION['username']=username;
-    $_SESSION['password']=password;
+    $_SERVER['bdd']=BDD;
+    $_SERVER['username']=username;
+    $_SERVER['password']=password;
+
+
+    const HTTP_OK=200;
+    const HTTP_BAD_REQUEST=400;
+    const HTTP_METHOD_NOT_ALLOWED=405;
 
     function inserer_etudiant($nom,$prenom,$mail,$mdp){    
-        $req_SQL_etudiant="INSERT INTO etudiant VALUES(NULL,'$nom','$prenom','$mail',0,'$mdp');";
-        $connexion=new PDO(BDD,username,password);
+            $req_SQL_etudiant="INSERT INTO etudiant VALUES(NULL,'$nom','$prenom','$mail',0,'$mdp');";
+            $reqSQL_verif_doublon_mail="SELECT E.mail_etudiant FROM etudiant AS E;";
+            $connexion=new PDO(BDD,username,password);
+
+
             if($_POST["confirmer_mdp_INS"]==$mdp){
-                $envoie_requete=$connexion->prepare($req_SQL_etudiant);
-                $envoie_requete->execute();
-                echo "Bien joué étudiant";
+
+                echo 'L\'addresse mail que je rentre :', $_POST['adresse_mail_INS']; //Ce que rentre l'utilisateur dans le formulaire.
+                //Verification mail
+                $envoie_requete_verif_mail=$connexion->prepare($reqSQL_verif_doublon_mail);
+                $envoie_requete_verif_mail->execute();
+                $resultat_mail_etu_respo=$envoie_requete_verif_mail->fetchAll();
+                $envoyer_inscription=true;
+                foreach($resultat_mail_etu_respo as $data){
+                    echo "<br>",$data['mail_etudiant'], "<br>";
+                    if($_POST['adresse_mail_INS']==$data['mail_etudiant']){
+                        echo 'Adresse mail déjà utilisée !';
+                        $envoyer_inscription=false;
+                        
+                    }
+                
+                }
+
+                if($envoyer_inscription==true){
+                    $inscription=$connexion->prepare($req_SQL_etudiant);
+                    $inscription->execute();
+                    // header('Location : espace_responsable.php');
+                    header('Location: espace_responsable.php');
+
+                }
                 // $envoie_requete->execute(array([
                 //     'Id_etudiant' => NULL,
                 //     'Nom_etudiant' => $nom,
@@ -35,29 +64,31 @@
 
         // $reqSQL_verif_doublon_mail="SELECT R.adresse_mail, E.mail_etudiant FROM responsable AS R, etudiant AS E;"; //Requete pour collecter tous les mails de la BDD
         // $req_SQL_responsable="INSERT INTO responsable VALUES(:Id_responsable,:Nom_responsable,:Prenom_responsable,:adresse_mail,:Identifiant_connexion,:Mot_de_passe_respo);";
-        $reqSQL_verif_doublon_mail="SELECT R.adresse_mail, E.mail_etudiant FROM responsable AS R, etudiant AS E;";
+        $reqSQL_verif_doublon_mail="SELECT R.adresse_mail FROM responsable AS R;";
         $connexion=new PDO(BDD,username,password);
         
         
        
         if($_POST["confirmer_mdp_INS"]==$mdp){
-            
-            // $inscription_fetch=$inscription->fetchAll();
-            // foreach($inscription_fetch as $i){
-            //     echo $i['adresse_mail'];
-            // }
-            // echo "mail d\'inscription en cours : "+ $inscription_fetch['adresse_mail'];
-
-           echo 'L\'addresse mail que je rentre :', $_POST['adresse_mail_INS']; //Ce que rentre l'utilisateur dans le formulaire.
+        //    echo 'L\'addresse mail que je rentre :', $_POST['adresse_mail_INS']; //Ce que rentre l'utilisateur dans le formulaire.
             //Verification mail
             $envoie_requete_verif_mail=$connexion->prepare($reqSQL_verif_doublon_mail);
             $envoie_requete_verif_mail->execute();
             $resultat_mail_etu_respo=$envoie_requete_verif_mail->fetchAll();
             $envoyer=true;
             foreach($resultat_mail_etu_respo as $data){
-                echo "<br>",$data['adresse_mail'], "<br>";
+                // echo "<br>",$data['adresse_mail'], "<br>";
                 if($_POST['adresse_mail_INS']==$data['adresse_mail']){
-                    echo 'Adresse mail déjà utilisée !';
+                    if(isset($_SERVER['X_Requested_With']) && strtoupper($_SERVER['HTTP_X-REQUESTED-WITH'])=='XMLHTTP'){
+                        $reponse_code=HTTP_METHOD_NOT_ALLOWED;
+                        $message="Methode non autorisée !";
+                        reponse($reponse_code,$message);   
+                    }else{
+                        $reponse_code=HTTP_BAD_REQUEST;
+                        $message="Adresse mail déjà utilisée !";
+                        reponse($reponse_code,$message);   
+                    }
+
                     $envoyer=false;
                 }
                
@@ -106,5 +137,14 @@
     }
 
 
-    
+    function reponse($reponse_code,$reponse){
+        header('Content-Type: multipart/form-data');
+        http_response_code($reponse_code);
+        $reponse=[
+            "reponse_code" => $reponse_code,
+            "message" => $reponse
+        ];
+        echo json_encode($reponse);
+        
+    }   
 ?>

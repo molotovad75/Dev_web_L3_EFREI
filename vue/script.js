@@ -17,7 +17,7 @@ function age_adrien(){
     return age;
 }
 
-document.getElementById("age").innerHTML=age_adrien();
+document.getElementById("age").innerText=age_adrien();
 
 // const age=new String(age_adrien());
 
@@ -68,11 +68,11 @@ function repeat_menu(){
 //AJAX
 
 
-let field_mdp=document.getElementById("mdp_INS").value;
-let field_mdp_confirmer=document.getElementById("confirmer_mdp_INS").value;
-let xhr=new XMLHttpRequest();
-xhr.responseType="text";
-xhr.open("POST","../controle/inscription.html",true); 
+// let field_mdp=document.getElementById("mdp_INS").value;
+// let field_mdp_confirmer=document.getElementById("confirmer_mdp_INS").value;
+// let xhr=new XMLHttpRequest();
+// xhr.responseType="text";
+// xhr.open("POST","../controle/inscription.html",true); 
 
 /*
 1er argument : méthode d'envoi de la requête, 
@@ -124,4 +124,30 @@ xhr.onload=
 //     req.open("POST", "pingurl.php", true); 
 //     req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 //     req.send(data);
+// }
+
+const Erreur_saisie_statut=document.getElementsByName("#Erreur_saisie_statut");
+const Erreur_saisie_nom=document.getElementsByName("#Erreur_saisie_nom");
+const Erreur_saisie_prenom=document.getElementsByName("#Erreur_saisie_prenom");
+const Erreur_saisie_mail=document.getElementsByName("#Erreur_saisie_mail");
+const erreur_mdp_court=document.getElementsByName("#erreur_mdp_court");
+const erreur_mdp_non_correspondant=document.getElementsByName("#erreur_mdp_non_correspondant");
+
+//Utilisation de JQuery et de AJAX
+// function traitement_mail_inscription(mail_entre){
+//     $.ajax({
+//         type: "POST",
+//         url: "../controle/inscription.php",
+//         data: {
+//             action:"showData",
+//             contenu: mail_entre
+//         },
+//         dataType: "json",
+//         success: function (response) {
+//             // console.log(response);
+//             // document.getElementById("Erreur_saisie_mail").innerHTML=mail_entre
+//             $('#Erreur_saisie_mail').html(mail_entre);
+//             alert("Bien joué !")
+//         }
+//     });
 // }
