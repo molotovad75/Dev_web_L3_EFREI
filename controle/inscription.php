@@ -16,7 +16,7 @@
     const HTTP_METHOD_NOT_ALLOWED=405;
 
     function inserer_etudiant($nom,$prenom,$mail,$mdp){    
-            $req_SQL_etudiant="INSERT INTO etudiant VALUES(NULL,'$nom','$prenom','$mail',0,'$mdp');";
+            $req_SQL_etudiant="INSERT INTO etudiant VALUES(NULL,'$nom','$prenom','$mail',0,'$mdp');"; //Insertion d'un étudiant dans la BDD
             $reqSQL_verif_doublon_mail="SELECT E.mail_etudiant FROM etudiant AS E;";
             $connexion=new PDO(BDD,username,password);
 
@@ -30,11 +30,15 @@
                 $resultat_mail_etu_respo=$envoie_requete_verif_mail->fetchAll();
                 $envoyer_inscription=true;
                 foreach($resultat_mail_etu_respo as $data){
-                    echo "<br>",$data['mail_etudiant'], "<br>";
+                    // echo "<br>",$data['mail_etudiant'], "<br>";
                     if($_POST['adresse_mail_INS']==$data['mail_etudiant']){
-                        echo 'Adresse mail déjà utilisée !';
+                        // echo 'Adresse mail déjà utilisée !';
                         $envoyer_inscription=false;
-                        
+                        ?>
+                            <script> //mail_used('Adresse mail déjà utilisée !');
+                                    alert('Adresse mail déjà utilisée !');
+                            </script>
+                        <?php
                     }
                 
                 }
@@ -43,7 +47,10 @@
                     $inscription=$connexion->prepare($req_SQL_etudiant);
                     $inscription->execute();
                     // header('Location : espace_responsable.php');
-                    header('Location: espace_responsable.php');
+                   
+                    header('Location: espace_etudiant.php');
+                    $_SESSION['nom_etudiant']=$_POST['nom_INS'];
+                    $_SESSION['prenom_etudiant']=$_POST['prenom_INS'];
 
                 }
                 // $envoie_requete->execute(array([
@@ -55,7 +62,13 @@
                 //     'Mot_de_passe_etu' => $mdp
                 // ]));
             }else{
-                echo 'Les 2 mots de passe correspondent pas !';
+                // echo 'Les 2 mots de passe correspondent pas !';
+
+                ?>
+                <script>//no_password_match('Les 2 mots de passe correspondent pas !');
+                        alert('Les 2 mots de passe correspondent pas !');
+                </script>
+                 <?php
             }  
     }
 
@@ -86,7 +99,18 @@
                     }else{
                         $reponse_code=HTTP_BAD_REQUEST;
                         $message="Adresse mail déjà utilisée !";
-                        reponse($reponse_code,$message);   
+                        reponse($reponse_code,$message);  
+                        $file="message_erreur.json"; 
+                        $data=file_get_contents($file);
+                        $message_JSON=json_encode($data);
+
+                        header('Location: ../modele/inscription.html');
+                        // echo $message_JSON;
+                        ?>
+                            <script> //mail_used('Adresse mail déjà utilisée !');
+                                    alert('Adresse mail déjà utilisée !');
+                            </script>
+                        <?php
                     }
 
                     $envoyer=false;
@@ -95,9 +119,10 @@
             }
             if($envoyer==true){
                 $inscription=$connexion->prepare($req_SQL_responsable);
-                $inscription->execute();
-                // header('Location : espace_responsable.php');
+                $inscription->execute();               
                 header('Location: espace_responsable.php');
+                $_SESSION['nom_responsable']=$_POST['nom_INS'];
+                $_SESSION['prenom_responsable']=$_POST['prenom_INS'];
 
             }
             
@@ -114,13 +139,20 @@
 
             //Ramener sur la page personnelle du responsable.
         }else{
-            
-            echo 'Les 2 mots de passe correspondent pas !';
             header('Location: ../modele/inscription.html');
             //Essayer de faire une requête AJAX.
+
+            ?>
+                <script> //no_password_match('Les 2 mots de passe ne correspondent pas !');  
+                alert('Les 2 mots de passe ne correspondent pas !'); </script>
+            <?php
         } 
     }
-
+    
+    ?>
+        
+        <script src="../vue/script.js" type="text/javascript"></script>
+    <?php
     try {
         if ($_POST['statut']=="Etudiant" ) {  //|| $_POST['statut_derouleur']=="Etudiant" 
             inserer_etudiant($_POST['nom_INS'],$_POST['prenom_INS'],$_POST['adresse_mail_INS'],$_POST['mdp_INS']);
@@ -130,21 +162,27 @@
         }
         else if (!isset($_POST['statut'])){
             header('Location: ../modele/inscription.html');
+            ?>
+            <script> //erreur_no_status('Veuillez selectionner un statut !'); 
+                alert('Veuillez selectionner un statut !');
+            </script>
+            <?php
+            // echo "";
         }
     } catch (ErrorException $message) {
-        //throw $th;
         echo $message;
     }
 
 
     function reponse($reponse_code,$reponse){
-        header('Content-Type: multipart/form-data');
+        // header('Content-Type: text/html');
         http_response_code($reponse_code);
         $reponse=[
             "reponse_code" => $reponse_code,
             "message" => $reponse
         ];
-        echo json_encode($reponse);
+        // echo $message_json;
+        file_put_contents("message_erreur.json",json_encode($reponse)); // génération du fichier JSON
         
     }   
 ?>

@@ -10,12 +10,10 @@
         <script src="../vue/script.js" type="text/javascript" ></script>
     </head>
     
-    <body>
-        <?php session_start(); ?>
-        
+    <body>       
         <!-- menu :  Notre matériel, Se connecter, S'inscrire -->
         
-                
+        <?php session_start(); ?>
         <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
             <header id="menu">
                 <a href="../modele" id="nom_site" >ElecInfoMatos</a> <!-- id="nom_site" -->
@@ -33,7 +31,7 @@
         
         <div id="page_centrale" class="container">
             <div id="presentation">
-                <h1>Bienvenue <?php echo $_SERVER['nom_responsable'] + $_SERVER['prenom_responsable']; ?></h1>
+                <h1>Bienvenue dans votre espace responsable <?php echo $_SESSION['nom_responsable'] , " ", $_SESSION['prenom_responsable']; ?></h1>
                 <div class="row">
                     <div class="col-6">
                         <p>Cette plateforme web à été mise à diposition de tout étudiant souhaitant emprunter du matériel informatique et/ou électronique. 

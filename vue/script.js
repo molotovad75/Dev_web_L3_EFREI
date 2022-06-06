@@ -126,28 +126,90 @@ xhr.onload=
 //     req.send(data);
 // }
 
-const Erreur_saisie_statut=document.getElementsByName("#Erreur_saisie_statut");
-const Erreur_saisie_nom=document.getElementsByName("#Erreur_saisie_nom");
-const Erreur_saisie_prenom=document.getElementsByName("#Erreur_saisie_prenom");
-const Erreur_saisie_mail=document.getElementsByName("#Erreur_saisie_mail");
-const erreur_mdp_court=document.getElementsByName("#erreur_mdp_court");
-const erreur_mdp_non_correspondant=document.getElementsByName("#erreur_mdp_non_correspondant");
+var Erreur_saisie_statut=document.getElementsByName("#Erreur_saisie_statut");
+var Erreur_saisie_nom=document.getElementsByName("#Erreur_saisie_nom");
+var Erreur_saisie_prenom=document.getElementsByName("#Erreur_saisie_prenom");
+var Erreur_saisie_mail=document.getElementsByName("#Erreur_saisie_mail");
+var erreur_mdp_court=document.getElementsByName("#erreur_mdp_court");
+var erreur_mdp_non_correspondant=document.getElementsByName("#erreur_mdp_non_correspondant");
+
+
+
+
+// document.getElementById("signin").addEventListener("submit",function(e){
+//     e.preventDefault();
+//     requete(document.getElementById(""));
+//     return false;
+// });
 
 //Utilisation de JQuery et de AJAX
-// function traitement_mail_inscription(mail_entre){
-//     $.ajax({
-//         type: "POST",
-//         url: "../controle/inscription.php",
-//         data: {
-//             action:"showData",
-//             contenu: mail_entre
-//         },
-//         dataType: "json",
-//         success: function (response) {
-//             // console.log(response);
-//             // document.getElementById("Erreur_saisie_mail").innerHTML=mail_entre
-//             $('#Erreur_saisie_mail').html(mail_entre);
-//             alert("Bien joué !")
-//         }
-//     });
-// }
+function erreur_mail_inscription(){
+    fetch("../controle/message_erreur.json");
+    var xhr = new XMLHttpRequest();
+    // $.ajax({
+    //     type: "POST",
+    //     url: "../controle/inscription.php",
+    //     data: {
+    //         action:"showData",
+    //         contenu: mail_entre
+    //     },
+    //     dataType: "json",
+    //     success: function (response) {
+    //         // console.log(response);
+    //         // document.getElementById("Erreur_saisie_mail").innerHTML=mail_entre
+    //         $('#Erreur_saisie_mail').html(mail_entre);
+    //         alert("Bien joué !")
+    //     }
+    // });
+
+    xhr.onreadystatechange=function(){
+        console.log(this);
+        if(this.readyState == 4  && this.status==200){
+            Erreur_saisie_mail.innerHTML="Addresse mail déjà utilisée !";
+
+        }else if (this.readyState == 4 && this.status == 404) {
+            alert('Error : 404');
+        }
+    };
+
+    xhr.open("POST", "../controle/message_erreur.json", true);
+	xhr.responseType = "text";
+    xhr.send();
+}
+
+document.getElementById("signin").addEventListener("submit", function(e) {
+	e.preventDefault();
+ 
+	var valeurARecuperer = document.getElementById("adresse_mail_INS").value;
+	console.log(valeurARecuperer);
+	erreur_mail_inscription();
+ 
+	return false;
+});​
+
+function erreur_no_status(message){
+    document.getElementById("Erreur_saisie_status").innerHTML=message;
+}
+
+function no_password_match(message){
+    document.getElementById("erreur_mdp_non_correspondant").innerHTML=message;
+}
+
+function mail_used(message){
+    document.getElementById("Erreur_saisie_mail").innerHTML=message;
+}
+
+function message_fin_inscription(){
+    $.ajax({
+        method: "GET",
+        url: "../controle/inscription.php",
+        // data: { variable1: "truc", variable2: "bidule" }
+        data: JSON.parse()
+    }) .done(function( response ) {
+        // en cas de succes de ton fichier php
+         console.log(response);
+    }) .fail(function(error) {
+          //en cas de problème lors de l'appel de ton script php
+          console.log(error);
+    });
+  }

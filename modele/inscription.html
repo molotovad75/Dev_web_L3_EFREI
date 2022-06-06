@@ -30,7 +30,7 @@
                             <input class="form-check-input" type="radio" id="statut_2" name="statut" value="Responsable" >
                             <label for="statut_2" id="statut_responsable" >Responsable</label>
                         </div>
-
+                        <span id="Erreur_saisie_status"></span> 
                         <select class="form-select" aria-label="Default select example" id="derouleur_statut" name="statut_derouleur">
                             <option selected value="nope">Statut</option>
                             <option value="Etudiant">Etudiant</option>
@@ -76,7 +76,8 @@
                         </div>
 
                         <div class="mb-3">
-                            <input type="submit"  id="signin" name="signin"  value="S'inscrire - Sign-in" class="form-control" onclick="traitement_mail_inscription()"> 
+                            <input type="submit"  id="signin" name="signin"  value="S'inscrire - Sign-in" class="form-control" onclick="erreur_mail_inscription();message_fin_inscription();"> 
+                            <!-- erreur_no_status('Veuillez sélectionner votre statut ! '); -->
                         </div>
                 </div>
                 
