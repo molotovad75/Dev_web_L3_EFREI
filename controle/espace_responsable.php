@@ -1,3 +1,9 @@
+<?php 
+    session_start(); 
+    if(!$_SESSION['mdp'] || !$_SESSION['mail']){
+        header('Location: ../modele/index.html');
+    }
+?>
 <!DOCTYPE html>
 <html>
     <head>       
@@ -13,7 +19,7 @@
     <body>       
         <!-- menu :  Notre matériel, Se connecter, S'inscrire -->
         
-        <?php session_start(); ?>
+        
         <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
             <header id="menu">
                 <a href="../modele" id="nom_site" >ElecInfoMatos</a> <!-- id="nom_site" -->
@@ -31,11 +37,10 @@
         
         <div id="page_centrale" class="container">
             <div id="presentation">
-                <h1>Bienvenue dans votre espace responsable <?php echo $_SESSION['nom_responsable'] , " ", $_SESSION['prenom_responsable']; ?></h1>
+                <h1>Bienvenue dans votre espace responsable <?php echo $_SESSION['Nom_responsable'] , " ", $_SESSION['Prenom_responsable']; ?></h1>
                 <div class="row">
                     <div class="col-6">
-                        <p>Cette plateforme web à été mise à diposition de tout étudiant souhaitant emprunter du matériel informatique et/ou électronique. 
-                            Elle est mise en place depuis 
+                        <p>Cette 
                         </p>
                     </div>
                     <div class="col-6">

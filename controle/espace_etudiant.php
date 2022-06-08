@@ -1,3 +1,9 @@
+<?php 
+    session_start(); 
+    if(!$_SESSION['mdp'] || !$_SESSION['mail']){
+        header('Location: ../modele/index.html');
+    }
+?>
 <!DOCTYPE html>
 <html>
     <head>       
@@ -12,13 +18,12 @@
     
     <body>       
         <!-- menu :  Notre matériel, Se connecter, S'inscrire -->
-        
-        <?php session_start(); ?>
         <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
             <header id="menu">
                 <a href="../modele" id="nom_site" >ElecInfoMatos</a> <!-- id="nom_site" -->
                 <div id="ins_conn">
-                    <a href="deconnexion.php"  id="deconnexion"  >Déconnexion</a> <!--  id="deconnexion" -->
+                    <a href="deconnexion.php"  id="deconnexion"  >Déconnexion</a>  <!--  id="deconnexion" -->
+                    
                 </div>
                 <!-- <script>const num=1; let num2=num;</script> -->
     
@@ -31,7 +36,7 @@
         
         <div id="page_centrale" class="container">
             <div id="presentation">
-                <h1>Bienvenue dans votre espace étudiant <?php echo $_SESSION['nom_etudiant'], "  ",$_SESSION['prenom_etudiant']; ?></h1>
+                <h1>Bienvenue dans votre espace étudiant <?php echo $_SESSION['Nom_etudiant'], "  ",$_SESSION['Prenom_etudiant']; ?></h1>
                 <div class="row">
                     <div class="col-6">
                         <p>Connecté en tant qu'étudiant </p>
