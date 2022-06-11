@@ -36,7 +36,7 @@
         
         <div id="page_centrale" class="container">
             <div id="presentation">
-                <h1>Bienvenue dans votre espace étudiant <?php echo $_SESSION['Nom_etudiant'], "  ",$_SESSION['Prenom_etudiant']; ?></h1>
+                <h1>Bienvenue dans votre espace étudiant <?php echo strtoupper($_SESSION['Nom_etudiant']), "  ",$_SESSION['Prenom_etudiant']; ?></h1>
                 <div class="row">
                     <div class="col-6">
                         <p>Connecté en tant qu'étudiant </p>
