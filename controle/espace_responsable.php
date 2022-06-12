@@ -6,6 +6,8 @@
     const BDD='mysql:host=localhost;dbname=dev_web_projet_2;charset=utf8';
     const username='root';
     const password='';    
+
+    
 ?>
 
 <!DOCTYPE html>
@@ -66,8 +68,38 @@
                 <div class="row">
                     <div class="col-6">
                         <h3>Rechercher un produit dans notre stock de matériel </h3>
-                        
-                        <form id="formulaire_recherche_materiel" name="formulaire_recherche_materiel" method="POST" action="espace_responsable.php">
+                            <nav>
+                                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                    <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Recherche code barre</button>
+                                    <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Recherche description</button>
+                                    <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Recherche nom</button>
+                                </div>
+
+                            </nav>
+                                <form action="" method="POST" name="" id="">
+                                    <div class="tab-content" id="nav-tabContent">
+                                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                                            <!-- code barre     -->
+                                            <br>
+                                            <input type="text" name="recherche_materiel" id="recherche_materiel" class="form-control" placeholder="Code barre" >
+
+                                        </div>
+                                        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                            <!-- Description -->
+                                            <br>
+                                            <textarea name="texte_descriptif" id="texte_descriptif" placeholder="Description du produit">
+                                            </textarea>
+                                        </div>
+                                        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                                            <!-- recherche_nom -->
+                                            <br>
+                                            <input type="text" name="recherche_materiel" id="recherche_materiel" class="form-control" placeholder="Name" >
+                                        </div>
+                                    </div>
+                                </form>
+                                
+
+                        <!-- <form id="formulaire_recherche_materiel" name="formulaire_recherche_materiel" method="POST" action="espace_responsable.php">
                             <div class="dropdown">
                                 <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                                 Moyen de recherche du matériel demandé
@@ -118,7 +150,7 @@
                                 }
                             </script>
                             
-                        </form>
+                        </form> -->
                         
 
                     </div>
@@ -126,6 +158,8 @@
                         <h3>Faites</h3>
                     </div>
                 </div>
+                <br>
+
                 <div class="row">
                     <div class="col-6">
                         <h3>Statistiques</h3>
@@ -160,33 +194,8 @@
                 <div class="text-start">
                     <h3>Gestion des étudiants !</h3>
                     <?php
-                        function afficher_etudiants(){
-                            $reqSQL_tous_etudiant="SELECT E.Nom_etudiant, E.Prenom_etudiant, E.mail_etudiant, E.Nb_emprunts FROM etudiants AS E ORDER BY E.Nom_etudiant";
-                            $connexion=new PDO(BDD,username,password);
-                            $execution_SQL_tous_etudiant=$connexion->prepare($reqSQL_tous_etudiant);
-                            $execution_SQL_tous_etudiant->execute();
-                            $resultat_SQL_tout_etudiant=$execution_SQL_tous_etudiant->fetchAll();
-                            // $nb_resultat=$execution_SQL_tous_etudiant->rowCount();
 
-                            $tab_nom_etu=[];
-                            $tab_prenom_etu=[];
-                            $tab_mail_etu=[];
-                            $tab_nb_emprunts_etu=[];
-                            $i=0;
-                            foreach($resultat_SQL_tout_etudiant as $data_tab_etudiant){
-                                $tab_nom_etu[$i]=$data_tab_etudiant['Nom_etudiant'];
-                                $tab_prenom_etu[$i]=$data_tab_etudiant['Prenom_etudiant'];   
-                                $tab_mail_etu[$i]=$data_tab_etudiant['mail_etudiant'];
-                                $tab_nb_emprunts_etu[$i]=$data_tab_etudiant['Nb_emprunts'];
-                            }
-                        }
-                        
-                        try{
-                            afficher_etudiants();
-                        }catch(ErrorException $e){
-                            echo $e;
-                        }
-
+                          
                     ?>
                     <table class="table">
                         <thead class="table-dark">
@@ -196,43 +205,82 @@
                                 <th scope="col">Prénom</th>
                                 <th scope="col">Mail</th>
                                 <th scope="col"> Nombre d'emprunts</th>
+                                <th scope="col"> Selection 
+                                    <!-- <input class="form-check-input" type="checkbox" value="selectionner_tous_etudiants" id="flexCheckDefault" name="selectionner_tous_etudiants">
+                                    <label class="form-check-label" for="flexCheckDefault">Tout sélectionner</label> -->
+                                </th>
                             </tr>
                         </thead>
                         
                         <tbody>
                             <?php 
+                                $nombre_etudiants=0;
+                                 try{
+                                    $reqSQL_tous_etudiant="SELECT E.Nom_etudiant, E.Prenom_etudiant, E.mail_etudiant, E.Nb_emprunts FROM etudiant AS E ORDER BY E.Nom_etudiant";
+                                    $connexion=new PDO(BDD,username,password);
+                                    $execution_SQL_tous_etudiant=$connexion->prepare($reqSQL_tous_etudiant);
+                                    $execution_SQL_tous_etudiant->execute();
+                                    $resultat_SQL_tout_etudiant=$execution_SQL_tous_etudiant->fetchAll();
+                                    $nombre_etudiants=$execution_SQL_tous_etudiant->rowCount();
+        
+                                    $tab_nom_etu=[$nombre_etudiants];
+                                    $tab_prenom_etu=[$nombre_etudiants];
+                                    $tab_mail_etu=[$nombre_etudiants];
+                                    $tab_nb_emprunts_etu=[$nombre_etudiants];
+                                    $i=0;
+                                    foreach($resultat_SQL_tout_etudiant as $data_tab_etudiant){
+                                        $tab_nom_etu[$i]=$data_tab_etudiant['Nom_etudiant'];
+                                        $tab_prenom_etu[$i]=$data_tab_etudiant['Prenom_etudiant'];   
+                                        $tab_mail_etu[$i]=$data_tab_etudiant['mail_etudiant'];
+                                        $tab_nb_emprunts_etu[$i]=$data_tab_etudiant['Nb_emprunts'];
+                                        $i=$i+1;
+                                    }
+                                 }catch(ErrorException $e){
+                                     echo $e;
+                                 } 
+                                
+                                $i=0;
+                                for($e=1;$e<=$nombre_etudiants;$e++){
+                                    ?>
+                                        <tr>
+                                            <th scope="row">
+                                                <?php
+                                                    echo $e;
+                                                ?>
+                                            </th>
+                                            <td>
+                                                <?php
+                                                   echo $tab_nom_etu[$i];
+                                                ?>
+                                            </td>
 
+                                            <td>
+                                                <?php
+                                                    echo $tab_prenom_etu[$i];
+                                                ?>
+                                            </td>
+
+                                            <td>
+                                                <?php
+                                                    echo $tab_mail_etu[$i];
+                                                ?>
+                                            </td>
+
+                                            <td>
+                                                <?php
+                                                    echo $tab_nb_emprunts_etu[$i];
+                                                ?>
+                                            </td>
+
+                                            <td>
+                                                <input class="form-check-input" type="checkbox" value="<?php echo $e; ?>" id="flexCheckDefault" name="<?php $e; ?>">
+                                                <!-- <label class="form-check-label" for="flexCheckDefault"></label> -->
+                                            </td>
+                                        </tr>
+                                    <?php
+                                    $i=$i+1;
+                                }
                             ?>
-                            <!-- <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>45</td>
-                            </tr>
-
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                                <td>45</td>
-                            </tr>
-
-                            <tr>
-                                <th scope="row">3</th>
-                                <td colspan="2">Larry the Bird</td>
-                                <td>@twitter</td>
-                                <td>45</td>
-                            </tr>
-                            
-                            <tr>
-                                <th scope="row">4</th>
-                                <td colspan="2">Larry the Bird</td>
-                                <td>@twitter</td>
-                                <td>45</td>
-                            </tr> -->
-
                         </tbody>
                     </table>
                 </div>   
