@@ -7,7 +7,12 @@
     const username='root';
     const password='';    
 
-    
+    $nom_materiel="";
+    $description=""; 
+
+    $prix="";
+    $code_barre="";
+
 ?>
 
 <!DOCTYPE html>
@@ -35,13 +40,29 @@
                     code_barre.push(Math.floor(Math.random()*max));
                 }               
                 code_barre_net=code_barre.join('');
-                if(document.getElementById("codebarre").innerHTML==""){
-                    document.getElementById("codebarre").innerHTML="Le code barre sera : "+code_barre_net;
-                }else{
-                    document.getElementById("codebarre").innerHTML="";
+                if(document.getElementById("code_barre").innerHTML==""){
+                    document.getElementById("code_barre").innerHTML=code_barre_net;
+                    
+                    // var objet_JSON={"Codebarre": code_barre_net};
+                    // var fichier_json=JSON.parse(objet_JSON);
+                    // //AJAX
+
+                    // var xhr=new XMLHttpRequest();
+                    // xhr.onreadystatechange=function(){
+                    //     console.log(this);
+                    //     if(this.readyState==4 && this.status==200){
+                            
+                    //     }
+                    // }
+                    // //Il faudrai trouver le moyen de piocher le code barre dans un fichier jSON.
+                    // xhr.open("GET",,true);
+                }
+                else{
+                    document.getElementById("code_barre").innerHTML="";
                     code_barre=[];
                     generationchiffre(max);
                 }
+                
                 return code_barre;
             }
         </script>
@@ -76,82 +97,34 @@
                                 </div>
 
                             </nav>
-                                <form action="" method="POST" name="" id="">
+                                <form action="espace_responsable.php" method="POST" name="" id="">
                                     <div class="tab-content" id="nav-tabContent">
                                         <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                                             <!-- code barre     -->
                                             <br>
                                             <input type="text" name="recherche_materiel" id="recherche_materiel" class="form-control" placeholder="Code barre" >
-
+                                            <br>
+                                            <input type="submit" name="envoyer" id="envoyer" value="Chercher" class="form-control">
                                         </div>
                                         <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                                             <!-- Description -->
                                             <br>
-                                            <textarea name="texte_descriptif" id="texte_descriptif" placeholder="Description du produit">
-                                            </textarea>
+                                            <textarea name="texte_descriptif" id="texte_descriptif" placeholder="Description du produit" class="form-control"></textarea>
+                                            <br>
+                                            <input type="submit" name="envoyer" id="envoyer" value="Chercher" class="form-control">
                                         </div>
                                         <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
                                             <!-- recherche_nom -->
                                             <br>
                                             <input type="text" name="recherche_materiel" id="recherche_materiel" class="form-control" placeholder="Name" >
+                                            <br>
+
+                                            <input type="submit" name="envoyer" id="envoyer" value="Chercher" class="form-control">
                                         </div>
                                     </div>
                                 </form>
+                                <!-- Portion de code PHP pour s'occuper du formulaire -->
                                 
-
-                        <!-- <form id="formulaire_recherche_materiel" name="formulaire_recherche_materiel" method="POST" action="espace_responsable.php">
-                            <div class="dropdown">
-                                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                                Moyen de recherche du matériel demandé
-                                </a>
-
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                    <li><button class="dropdown-item" href="#" onclick="recherche_code_barre()">Code barre</button></li>
-                                    <li><button class="dropdown-item" href="#" onclick="recherche_description()">Description</button></li>
-                                    <li><button class="dropdown-item" href="#" onclick="recherche_nom()">Nom</button></li>
-                                </ul>
-                            </div>
-
-                            <div class="row justify-content-md-center">
-                                <div class="form-floating mb-3">
-                                    <input type="text" name="recherche_materiel" id="recherche_materiel" class="form-control" placeholder="Name" >
-                                    <label for="recherche_materiel" id="recherche_materiel" >Name</label>
-                                </div>
-
-                                <div class="mb-3">
-                                    <input type="submit" name="rechercher" id="rechercher" value="Rechercher le matériel" class="form-control">
-                                    
-                                </div>
-                            </div>
-
-                            <script>
-                                 function recherche_code_barre(){
-                                    if(document.getElementById("recherche_materiel").placeholder=="Name"){
-                                        document.getElementById("recherche_materiel").placeholder="Faites votre recherche avec le code barre";
-                                    }
-                                   
-                                    // return mode;
-                                }
-                                
-                                function recherche_description(){
-                                    if(document.getElementById("recherche_materiel").placeholder=="Name"){
-                                        document.getElementById("recherche_materiel").placeholder="Faites votre recherche avec la description";
-                                    }
-                                    
-                                    // return mode;
-                                }
-
-                                function recherche_nom(){
-                                    if(document.getElementById("recherche_materiel").placeholder=="Name"){
-                                        document.getElementById("recherche_materiel").placeholder="Faites votre recherche avec le nom du produit";
-                                    }
-                                   
-                                    // return mode;
-                                }
-                            </script>
-                            
-                        </form> -->
-                        
 
                     </div>
                     <div class="col-6">
@@ -163,29 +136,30 @@
                 <div class="row">
                     <div class="col-6">
                         <h3>Statistiques</h3>
-                        <p>
-
-                        </p>
-                        <div class="card" style="width: 18rem;">
-                            <img src="..." class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Nombre de prêts actuels</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <p class="card-text">
-                                <a href="#" class="stretched-link text-danger" style="position: relative;">Stretched link will not work here, because <code>position: relative</code> is added to the link</a>
-                                </p>
-                                <p class="card-text bg-light" style="transform: rotate(0);">
-                                This <a href="#" class="text-warning stretched-link">stretched link</a> will only be spread over the <code>p</code>-tag, because a transform is applied to it.
-                                </p>
-                            </div>
-                        </div>
+                        
                         <!-- document.getElementById("age").innerHTML=age_adrien(); <span id="age"></span>-->
                     </div>
                     <div class="col-6">
-                        <h3>Générer un code-barre </h3>
+                        <h3>Créer un article (Génération automatique du code barre) </h3>
                         <p>Veuillez générer un code barre en appuyant sur le bouton suivant : <br></p>
-                        <button id="generer_code_barre" class="btn btn-outline-dark" onclick="generationchiffre(10)">Générer ! </button> <span id="codebarre"></span><br>
-
+                        
+                        <button id="generer_code_barre" class="btn btn-outline-dark" onclick="generationchiffre(10)">Générer ! </button>
+                        <!-- <span id="codebarre"></span> -->
+                        
+                        <form id="creation_article" name="creation_article" method="POST" action="insertion_article.php" > <!--  action="insertion_article.php" oninput="generationchiffre(10)"-->
+                           
+                            <br>
+                            <input type="text" id="nom_produit" name="nom_produit" placeholder="Nom du produit" class="form-control"> 
+                            <br>
+                            <textarea id="description" name="description" placeholder="Description du produit" class="form-control"></textarea>
+                            <br>
+                            <input type="number" id="euros" name="prix" placeholder="Prix €" class="form-control" step="0.01" min="0">
+                            <br>
+                            <!-- <output id="code_barre" name="codebarre" class="form-control" ></output>
+                            <br> -->
+                            
+                            <input type="submit" name="envoyer" id="envoyer" value="Enregistrer" class="form-control">
+                        </form>
                     </div>  
                 </div>
             </div>
@@ -273,7 +247,7 @@
                                             </td>
 
                                             <td>
-                                                <input class="form-check-input" type="checkbox" value="<?php echo $e; ?>" id="flexCheckDefault" name="<?php $e; ?>">
+                                                <input class="form-check-input" type="checkbox" value="<?php echo $e; ?>" id="flexCheckDefault" name="<?php echo $e; ?>">
                                                 <!-- <label class="form-check-label" for="flexCheckDefault"></label> -->
                                             </td>
                                         </tr>
@@ -290,30 +264,99 @@
                     <table class="table">
                         <thead>
                             <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">First</th>
-                            <th scope="col">Last</th>
-                            <th scope="col">Handle</th>
+                                <th scope="col">#</th>
+                                <th scope="col">Code Barre</th>
+                                <th scope="col">Nom du matériel</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Date d'achat</th>
+                                <th scope="col">Prix </th>
+                                <th scope="col">Emprunté ? </th>
                             </tr>
                         </thead>
+
                         <tbody>
+                            <?php 
+                                try{    
+                                    $req_SQL_recuperer_materiel="SELECT M.Code_barre, M.Nom_materiel, M.Description, M.Date_achat, M.Prix_achat, M.emprunte FROM materiel AS M";
+                                    $execution_SQL_tous_materiel=$connexion->prepare($req_SQL_recuperer_materiel);
+                                    $execution_SQL_tous_materiel->execute();
+                                    $resultat_all_tools=$execution_SQL_tous_materiel->fetchAll();
+                                    $nombre_materiel=$execution_SQL_tous_materiel->rowCount();
+
+                                    $liste_code_barre=[$nombre_materiel];
+                                    $liste_Nom_materiel=[$nombre_materiel];
+                                    $liste_Description=[$nombre_materiel];
+                                    $liste_Date_achat=[$nombre_materiel];
+                                    $liste_Prix_achat=[$nombre_materiel];
+                                    $liste_emprunts=[$nombre_materiel];
+
+                                    $i=0;
+                                    foreach($execution_SQL_tous_materiel as $data_tools){
+                                        $liste_code_barre[$i]=$data_tools['Code_barre'];
+                                        $liste_Nom_materiel[$i]=$data_tools['Nom_materiel'];
+                                        $liste_Description[$i]=$data_tools['Description'];
+                                        $liste_Date_achat[$i]=$data_tools['Date_achat'];
+                                        $liste_Prix_achat[$i]=$data_tools['Prix_achat']+"€";
+                                        $liste_emprunts[$i]=$data_tools['emprunte'];
+                                        $i=$i+1;
+                                    }
+
+
+                                }catch(ErrorException $e){
+                                    echo $e;
+                                }
+                            $i=0;
+                            for($e=1;$e<=$nombre_materiel;$e++){
+                            ?>
                             <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
+                                <th scope="row">
+                                    <?php
+                                        echo $e;
+                                    ?>
+                                </th>
+
+                                <td>
+                                    <?php
+                                        echo $liste_code_barre[$i];
+                                    ?>
+                                </td>
+
+                                <td>
+                                    <?php
+                                        echo $liste_Nom_materiel[$i];
+                                    ?>
+                                </td>
+
+                                <td>
+                                    <?php
+                                        echo $liste_Description[$i];
+                                    ?>
+                                </td>
+
+                                <td>
+                                    <?php
+                                        echo $liste_Date_achat[$i];
+                                    ?>
+                                </td>
+
+                                <td>
+                                    <?php
+                                        echo $liste_Prix_achat[$i];
+                                    ?>
+                                </td>
+
+                                <td>
+                                    <?php
+                                        echo $liste_emprunts[$i];
+                                    ?>
+                                </td>
                             </tr>
-                            <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                            </tr>
-                            <tr>
-                            <th scope="row">3</th>
-                            <td colspan="2">Larry the Bird</td>
-                            <td>@twitter</td>
-                            </tr>
+                            <?php
+                                $i=$i+1;
+                            }
+                           
+                            ?>
+                            
                         </tbody>
                     </table>
                     
@@ -322,32 +365,89 @@
                 <div class="text-start">
                     <h3> Gestion des utilisateurs ! </h3>
                     <table class="table">
-                        <thead>
+                        <thead class="table-dark">
                             <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">First</th>
-                            <th scope="col">Last</th>
-                            <th scope="col">Handle</th>
+                                <th scope="col">#</th>
+                                <th scope="col">Nom</th>
+                                <th scope="col">Prénom</th>
+                                <th scope="col">Mail</th>
+                                <th scope="col"> Nombre d'emprunts</th>
+                                <th scope="col"> Selection 
+                                    <!-- <input class="form-check-input" type="checkbox" value="selectionner_tous_etudiants" id="flexCheckDefault" name="selectionner_tous_etudiants">
+                                    <label class="form-check-label" for="flexCheckDefault">Tout sélectionner</label> -->
+                                </th>
                             </tr>
                         </thead>
+                        
                         <tbody>
-                            <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                            </tr>
-                            <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                            </tr>
-                            <tr>
-                            <th scope="row">3</th>
-                            <td colspan="2">Larry the Bird</td>
-                            <td>@twitter</td>
-                            </tr>
+                            <?php 
+                                $nombre_etudiants=0;
+                                 try{
+                                    $reqSQL_tous_etudiant="SELECT E.Nom_etudiant, E.Prenom_etudiant, E.mail_etudiant, E.Nb_emprunts FROM etudiant AS E ORDER BY E.Nom_etudiant";
+                                    $connexion=new PDO(BDD,username,password);
+                                    $execution_SQL_tous_etudiant=$connexion->prepare($reqSQL_tous_etudiant);
+                                    $execution_SQL_tous_etudiant->execute();
+                                    $resultat_SQL_tout_etudiant=$execution_SQL_tous_etudiant->fetchAll();
+                                    $nombre_etudiants=$execution_SQL_tous_etudiant->rowCount();
+        
+                                    $tab_nom_etu=[$nombre_etudiants];
+                                    $tab_prenom_etu=[$nombre_etudiants];
+                                    $tab_mail_etu=[$nombre_etudiants];
+                                    $tab_nb_emprunts_etu=[$nombre_etudiants];
+                                    $i=0;
+                                    foreach($resultat_SQL_tout_etudiant as $data_tab_etudiant){
+                                        $tab_nom_etu[$i]=$data_tab_etudiant['Nom_etudiant'];
+                                        $tab_prenom_etu[$i]=$data_tab_etudiant['Prenom_etudiant'];   
+                                        $tab_mail_etu[$i]=$data_tab_etudiant['mail_etudiant'];
+                                        $tab_nb_emprunts_etu[$i]=$data_tab_etudiant['Nb_emprunts'];
+                                        $i=$i+1;
+                                    }
+                                 }catch(ErrorException $e){
+                                     echo $e;
+                                 } 
+                                
+                                $i=0;
+                                for($e=1;$e<=$nombre_etudiants;$e++){
+                                    ?>
+                                        <tr>
+                                            <th scope="row">
+                                                <?php
+                                                    echo $e;
+                                                ?>
+                                            </th>
+                                            <td>
+                                                <?php
+                                                   echo $tab_nom_etu[$i];
+                                                ?>
+                                            </td>
+
+                                            <td>
+                                                <?php
+                                                    echo $tab_prenom_etu[$i];
+                                                ?>
+                                            </td>
+
+                                            <td>
+                                                <?php
+                                                    echo $tab_mail_etu[$i];
+                                                ?>
+                                            </td>
+
+                                            <td>
+                                                <?php
+                                                    echo $tab_nb_emprunts_etu[$i];
+                                                ?>
+                                            </td>
+
+                                            <td>
+                                                <input class="form-check-input" type="checkbox" value="<?php echo $e; ?>" id="flexCheckDefault" name="<?php echo $e; ?>">
+                                                <!-- <label class="form-check-label" for="flexCheckDefault"></label> -->
+                                            </td>
+                                        </tr>
+                                    <?php
+                                    $i=$i+1;
+                                }
+                            ?>
                         </tbody>
                     </table>
                     
