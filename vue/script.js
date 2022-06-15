@@ -112,4 +112,4 @@ function age(){
     }
     return age_;
 }
-document.getElementById("age").innerText=age();
+document.getElementById("age").innerHTML=age();

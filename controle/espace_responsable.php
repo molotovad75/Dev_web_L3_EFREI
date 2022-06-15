@@ -18,11 +18,13 @@
 <!DOCTYPE html>
 <html>
     <head>       
+        <link rel="stylesheet" href="../vue/style.css"> 
         <script src="../vue/script.js" type="text/javascript" ></script>
         <title>EFREI Paris - Projet 2 DevWeb - LACHHAB Adrien </title>
         <meta charset="utf-8" />
-        <link rel="stylesheet" href="../vue/style.css"> 
+        
         <!-- Importation de Bootstrap -->
+        <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"  rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <script src="https://kit.fontawesome.com/39fb408f93.js" crossorigin="anonymous"></script>
         
@@ -140,10 +142,10 @@
                         <!-- document.getElementById("age").innerHTML=age_adrien(); <span id="age"></span>-->
                     </div>
                     <div class="col-6">
-                        <h3>Créer un article (Génération automatique du code barre) </h3>
-                        <p>Veuillez générer un code barre en appuyant sur le bouton suivant : <br></p>
+                        <h3>Créer un article (Génération automatique du code barre et nouveau matériel en BDD) </h3>
+                        <!-- <p>Veuillez générer un code barre en appuyant sur le bouton suivant : <br></p>
                         
-                        <button id="generer_code_barre" class="btn btn-outline-dark" onclick="generationchiffre(10)">Générer ! </button>
+                        <button id="generer_code_barre" class="btn btn-outline-dark" onclick="generationchiffre(10)">Générer ! </button> -->
                         <!-- <span id="codebarre"></span> -->
                         
                         <form id="creation_article" name="creation_article" method="POST" action="insertion_article.php" > <!--  action="insertion_article.php" oninput="generationchiffre(10)"-->
@@ -246,7 +248,7 @@
                                                 ?>
                                             </td>
 
-                                            <td>
+                                            <td id="indice_<?php echo $e;?>">
                                                 <input class="form-check-input" type="checkbox" value="<?php echo $e; ?>" id="flexCheckDefault" name="<?php echo $e; ?>">
                                                 <!-- <label class="form-check-label" for="flexCheckDefault"></label> -->
                                             </td>
@@ -257,25 +259,119 @@
                             ?>
                         </tbody>
                     </table>
-                </div>   
+                    <p>Sélectionner toutes les valeurs --> <input class="form-check-input" type="checkbox" value="toutes_valeurs0" id="toutes_valeurs0" name="toutes_valeurs0"></p>
+                    
+                    <label for="customRange2" class="form-label">Faites défiler le curseur pour faire votre choix</label> 
+                    <input type="range" class="form-range" min="0" max="2" id="choix0" />
+                    <p>Choix : </p><output id="choix0_final"></output>
+                    
+                    
+                    
+                    <script>
+                        $(function() {
+                            $('#choix0').next().text('Modification'); // Valeur par défaut
+                            $('#choix0').on('input', function() {
+                                var $set = $(this).val();
+                                $(this).next().text($set);
+                                if($(this).val()==0){
+                                    $(this).next().text('Création');
+                                }else if($(this).val()==1){
+                                    $(this).next().text('Modification');
+                                }else if($(this).val()==2){
+                                    $(this).next().text('Suppression');
+                                }
+                            });
 
+                            
+                        });
+                        // let selecteur=document.getElementById("choix0");
+                        // if(selecteur.){
+
+                        // }
+                    </script>
+
+                    <!-- CREATION -->
+                    <form id="creation_etudiant" name="creation_etudiant" action="espace_responsable.php"  method="POST" class="container-fluid" enctype="multipart/form-data">
+                        <div id="creation" class="form-floating mb-3">
+                            <input type="text" name="nom" id="creation_nom" placeholder="Nom" class="form-control"/>
+                            <label for="creation_nom">Nom</label>
+                        </div>
+                        <div id="creation" class="form-floating mb-3">
+                            <input type="text" name="prenom" id="creation_prenom" placeholder="Prenom" class="form-control"/>
+                            <label for="creation_prenom">Prenom</label>
+                        </div>
+                        <div id="creation" class="form-floating mb-3">
+                            <input type="text" name="mail" id="creation_mail" placeholder="Adresse mail" class="form-control"/>
+                            <label for="creation_mail">Adresse mail</label>
+                        </div>
+                        <div id="creation" class="form-floating mb-3">
+                            <input type="text" name="mdp" id="creation_mdp" placeholder="Mot de passe" class="form-control"/>
+                            <label for="creation_mdp">Mot de passe</label>
+                        </div>
+                        
+                        <input type="submit" name="envoyer" id="envoyer"  value="Créer l'étudiant" class="form-control"/>
+                    </form>
+                    <?php
+                        $nom=$_POST['nom'];
+                        $prenom=$_POST['prenom'];
+                        $mail=$_POST['mail'];
+                        $mdp=$_POST['mdp'];
+                        $reqSQL_verif_mails_responsable="SELECT R.adresse_mail FROM responsable AS R;";//Pour vérifier si notre inscrit n'a pas de compte responsable
+                        $req_SQL_etudiant="INSERT INTO etudiant VALUES(NULL,'$nom','$prenom','$mail',0,'$mdp');"; //Insertion d'un étudiant dans la BDD
+                        $reqSQL_verif_doublon_mail="SELECT E.mail_etudiant FROM etudiant AS E;";
+                        $connexion=new PDO(BDD,username,password);
+
+                        $envoie_requete_verif_mail=$connexion->prepare($reqSQL_verif_doublon_mail);
+                        $envoie_requete_verif_mail->execute();
+                        $resultat_mail_etu_respo=$envoie_requete_verif_mail->fetchAll();
+
+                        $envoyer_inscription=true;
+                        foreach($resultat_mail_etu_respo as $data){
+                            if($_POST['mail']==$data['mail_etudiant']){
+                                $envoyer_inscription=false;
+                            }
+                        
+                        }
+
+                        $envoie_requete_verif_mail_responsable=$connexion->prepare($reqSQL_verif_mails_responsable);
+                        $envoie_requete_verif_mail_responsable->execute();
+                        $resultat_requete_verif_mail_responsable=$envoie_requete_verif_mail_responsable->fetchAll();
+                        //Boucle foreach pour vérifier tous les mails des responsables
+                        foreach($resultat_requete_verif_mail_responsable as $data_mails_responsable){
+                            if($_POST['mail']==$data_mails_responsable['adresse_mail']){
+                                $envoyer_inscription=false;
+                            }
+                        }  
+                        
+                        if($envoyer_inscription==true){
+                            $inscription=$connexion->prepare($req_SQL_etudiant);
+                            $inscription->execute();
+                        }
+                    ?>
+                    
+
+
+                </div>   
+                            <!-- TABLEAU GESTION DU MATERIEL -->
                 <div class="text-end">
                     <h3>Gestion du matériel !</h3>
                     <table class="table">
-                        <thead>
+                        <thead class="table-dark">
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">Code Barre</th>
-                                <th scope="col">Nom du matériel</th>
-                                <th scope="col">Description</th>
-                                <th scope="col">Date d'achat</th>
-                                <th scope="col">Prix </th>
-                                <th scope="col">Emprunté ? </th>
+                                <th scope="col" id="colonne_codebarre">Code Barre</th>
+                                <th scope="col" id="colonne_nom_materiel">Nom du matériel</th>
+                                <th scope="col" id="colonne_description">Description</th>
+                                <th scope="col" id="colonne_date_achat">Date d'achat</th>
+                                <th scope="col" id="colonne_prix_achat">Prix </th>
+                                <th scope="col" id="colonne_liste_emprunt">Emprunté ? </th>
+                                <th scope="col"> Sélection </th>
                             </tr>
                         </thead>
 
                         <tbody>
-                            <?php 
+                            <?php
+                                $nombre_materiel=0; 
                                 try{    
                                     $req_SQL_recuperer_materiel="SELECT M.Code_barre, M.Nom_materiel, M.Description, M.Date_achat, M.Prix_achat, M.emprunte FROM materiel AS M";
                                     $execution_SQL_tous_materiel=$connexion->prepare($req_SQL_recuperer_materiel);
@@ -291,12 +387,12 @@
                                     $liste_emprunts=[$nombre_materiel];
 
                                     $i=0;
-                                    foreach($execution_SQL_tous_materiel as $data_tools){
+                                    foreach($resultat_all_tools as $data_tools){
                                         $liste_code_barre[$i]=$data_tools['Code_barre'];
                                         $liste_Nom_materiel[$i]=$data_tools['Nom_materiel'];
                                         $liste_Description[$i]=$data_tools['Description'];
                                         $liste_Date_achat[$i]=$data_tools['Date_achat'];
-                                        $liste_Prix_achat[$i]=$data_tools['Prix_achat']+"€";
+                                        $liste_Prix_achat[$i]=$data_tools['Prix_achat'];
                                         $liste_emprunts[$i]=$data_tools['emprunte'];
                                         $i=$i+1;
                                     }
@@ -315,40 +411,49 @@
                                     ?>
                                 </th>
 
-                                <td>
+                                <td id="colonne_codebarre">
                                     <?php
                                         echo $liste_code_barre[$i];
                                     ?>
                                 </td>
 
-                                <td>
+                                <td id="colonne_nom_materiel">
                                     <?php
                                         echo $liste_Nom_materiel[$i];
                                     ?>
                                 </td>
 
-                                <td>
+                                <td id="colonne_description">
                                     <?php
                                         echo $liste_Description[$i];
                                     ?>
                                 </td>
 
-                                <td>
+                                <td id="colonne_date_achat">
                                     <?php
                                         echo $liste_Date_achat[$i];
                                     ?>
                                 </td>
 
-                                <td>
+                                <td id="colonne_prix_achat">
                                     <?php
                                         echo $liste_Prix_achat[$i];
                                     ?>
                                 </td>
 
-                                <td>
+                                <td id="colonne_liste_emprunt">
                                     <?php
-                                        echo $liste_emprunts[$i];
+                                        if($liste_emprunts[$i]==0){
+                                            echo "Non";
+                                        }else{
+                                            echo "Oui";
+                                        }
+                                        
                                     ?>
+                                </td>
+
+                                <td id="indice_<?php echo $e;?>">
+                                    <input class="form-check-input" type="checkbox" value="<?php echo $e;?>" id="flexCheckDefault" name="<?php echo $e;?>">
                                 </td>
                             </tr>
                             <?php
@@ -358,7 +463,11 @@
                             ?>
                             
                         </tbody>
+
                     </table>
+                    
+                    <p>Sélectionner toutes les valeurs --> <input class="form-check-input" type="checkbox" value="toutes_valeurs1" id="toutes_valeurs1" name="toutes_valeurs1"></p>
+
                     
                 </div>
 
@@ -439,7 +548,7 @@
                                                 ?>
                                             </td>
 
-                                            <td>
+                                            <td id="indice_<?php echo $e;?>">
                                                 <input class="form-check-input" type="checkbox" value="<?php echo $e; ?>" id="flexCheckDefault" name="<?php echo $e; ?>">
                                                 <!-- <label class="form-check-label" for="flexCheckDefault"></label> -->
                                             </td>
@@ -450,6 +559,8 @@
                             ?>
                         </tbody>
                     </table>
+
+                    <p>Sélectionner toutes les valeurs --> <input class="form-check-input" type="checkbox" value="toutes_valeurs2" id="toutes_valeurs2" name="toutes_valeurs2"></p>
                     
                 </div>
             </div>
