@@ -9,9 +9,14 @@
 
     $nom_materiel="";
     $description=""; 
-
     $prix="";
     $code_barre="";
+
+
+    $nom="";
+    $prenom="";
+    $mail="";
+    $mdp="";
 
 ?>
 
@@ -270,15 +275,28 @@
                     <script>
                         $(function() {
                             $('#choix0').next().text('Modification'); // Valeur par défaut
+                            $('form#creation_etudiant').css("display","none");
+                            $('form#modification_etudiant').css("display","block");
+                            $('form#supression_etudiant').css("display","none");
+
                             $('#choix0').on('input', function() {
                                 var $set = $(this).val();
                                 $(this).next().text($set);
                                 if($(this).val()==0){
                                     $(this).next().text('Création');
+                                    $('form#creation_etudiant').css("display","block");
+                                    $('form#modification_etudiant').css("display","none");
+                                    $('form#supression_etudiant').css("display","none");
                                 }else if($(this).val()==1){
                                     $(this).next().text('Modification');
+                                    $('form#creation_etudiant').css("display","none");
+                                    $('form#modification_etudiant').css("display","block");
+                                    $('form#supression_etudiant').css("display","none");
                                 }else if($(this).val()==2){
                                     $(this).next().text('Suppression');
+                                    $('form#creation_etudiant').css("display","none");
+                                    $('form#modification_etudiant').css("display","none");
+                                    $('form#supression_etudiant').css("display","block");
                                 }
                             });
 
@@ -291,26 +309,29 @@
                     </script>
 
                     <!-- CREATION -->
-                    <form id="creation_etudiant" name="creation_etudiant" action="espace_responsable.php"  method="POST" class="container-fluid" enctype="multipart/form-data">
-                        <div id="creation" class="form-floating mb-3">
-                            <input type="text" name="nom" id="creation_nom" placeholder="Nom" class="form-control"/>
-                            <label for="creation_nom">Nom</label>
-                        </div>
-                        <div id="creation" class="form-floating mb-3">
-                            <input type="text" name="prenom" id="creation_prenom" placeholder="Prenom" class="form-control"/>
-                            <label for="creation_prenom">Prenom</label>
-                        </div>
-                        <div id="creation" class="form-floating mb-3">
-                            <input type="text" name="mail" id="creation_mail" placeholder="Adresse mail" class="form-control"/>
-                            <label for="creation_mail">Adresse mail</label>
-                        </div>
-                        <div id="creation" class="form-floating mb-3">
-                            <input type="text" name="mdp" id="creation_mdp" placeholder="Mot de passe" class="form-control"/>
-                            <label for="creation_mdp">Mot de passe</label>
-                        </div>
-                        
-                        <input type="submit" name="envoyer" id="envoyer"  value="Créer l'étudiant" class="form-control"/>
-                    </form>
+                    <!-- <div id="creation_etudiant"> action="espace_responsable.php" -->
+                        <form id="creation_etudiant" name="creation_etudiant"  method="POST" class="container-fluid" enctype="multipart/form-data">
+                            <div id="creation" class="form-floating mb-3">
+                                <input type="text" name="nom" id="creation_nom" placeholder="Nom" class="form-control"/>
+                                <label for="creation_nom">Nom</label>
+                            </div>
+                            <div id="creation" class="form-floating mb-3">
+                                <input type="text" name="prenom" id="creation_prenom" placeholder="Prenom" class="form-control"/>
+                                <label for="creation_prenom">Prenom</label>
+                            </div>
+                            <div id="creation" class="form-floating mb-3">
+                                <input type="email" name="mail" id="creation_mail" placeholder="Adresse mail" class="form-control"/>
+                                <label for="creation_mail">Adresse mail</label>
+                            </div>
+                            <div id="creation" class="form-floating mb-3">
+                                <input type="password" name="mdp" id="creation_mdp" placeholder="Mot de passe" class="form-control"/>
+                                <label for="creation_mdp">Mot de passe</label>
+                            </div>
+                            
+                            <input type="submit" name="envoyer" id="envoyer"  value="Créer l'étudiant" class="form-control"/><br>
+                        </form>
+                    <!-- </div> -->
+
                     <?php
                         $nom=$_POST['nom'];
                         $prenom=$_POST['prenom'];
@@ -348,11 +369,49 @@
                             $inscription->execute();
                         }
                     ?>
-                    
 
+                    <!-- MODIFICATION -->
+                    <!-- <div id="modification_etudiant"> -->
+                        <form id="modification_etudiant" name="modification_etudiant" action="modification_etudiant.php"  method="POST" class="container-fluid" enctype="multipart/form-data">
+                            <div id="modification" class="form-floating mb-3">
+                                <input type="email" name="mail_initial" id="modification_mail" placeholder="Adresse mail initiale" class="form-control"/>
+                                <label for="modification_nom">Adresse mail initiale</label>
+                            </div>
+
+                            <div id="modification" class="form-floating mb-3">
+                                <input type="text" name="modification_nom" id="modification_nom" placeholder="Changer de nom" class="form-control"/>
+                                <label for="modification_nom">Changer de nom</label>
+                            </div>
+                            <div id="modification" class="form-floating mb-3">
+                                <input type="text" name="modification_prenom" id="modification_prenom" placeholder="Changer de prenom" class="form-control"/>
+                                <label for="modification_prenom">Changer de prenom</label>
+                            </div>
+                            <div id="modification" class="form-floating mb-3">
+                                <input type="email" name="modification_mail" id="modification_mail" placeholder="Changer d'adresse mail" class="form-control"/>
+                                <label for="modification_mail">Changer d'adresse mail</label>
+                            </div>
+                            <div id="modification" class="form-floating mb-3">
+                                <input type="password" name="modification_mdp" id="modification_mdp" placeholder="Changer de mot de passe" class="form-control"/>
+                                <label for="modification_mdp">Changer de mot de passe</label>
+                            </div>
+                            
+                            <input type="submit" name="envoyer" id="envoyer"  value="Modifier l'étudiant" class="form-control"/><br>
+                        </form>
+                    <!-- </div> -->
+
+                    <!-- SUPRRESSION -->
+                    <!-- <div id="supression_etudiant"> -->
+                        <form id="supression_etudiant" name="supression_etudiant" action="espace_responsable.php"  method="POST" class="container-fluid" enctype="multipart/form-data">                        
+                            <input type="submit" name="envoyer" id="envoyer"  value="Supprimer l'étudiant" class="form-control"/>
+                        </form>
+                    <!-- </div> -->
+
+                    <?php
+
+                    ?>
 
                 </div>   
-                            <!-- TABLEAU GESTION DU MATERIEL -->
+                <!-- TABLEAU GESTION DU MATERIEL -->
                 <div class="text-end">
                     <h3>Gestion du matériel !</h3>
                     <table class="table">
