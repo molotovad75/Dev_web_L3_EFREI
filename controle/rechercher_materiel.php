@@ -42,6 +42,10 @@
                 $i++;
             }
             
+            $_SESSION['execution_req_SQL_get_information']=$execution_req_SQL_get_information;
+            $_SESSION['tab_information_nom']=$tab_information_nom;
+            $_SESSION['tab_information_description']=$tab_information_description;
+            $_SESSION['tab_information_emprunter']=$tab_information_emprunter;
 
 
         }
@@ -63,7 +67,6 @@
         }else if(!isset($_POST['recherche_materiel_code_barre']) && !isset($_POST['rechercher_via_description']) && isset($_POST['recherche_materiel_nom'])){
             recherche_nom($_POST['recherche_materiel_nom']);
         }
-        
     }catch(ErrorException $e){
         echo $e;
     }

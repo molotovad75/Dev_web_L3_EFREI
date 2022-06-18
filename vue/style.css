@@ -51,13 +51,12 @@ html,body{
 
 
 #menu{
-    /* background-color: black ; */
-    
+    background-color: black ;
     padding-bottom: 1%;
     border-color: #3eaeff;
     border-bottom-style: solid;
     border-bottom-width: 1px;
-    
+    position: fixed;
 }
 
 #ins_conn,#connexion{

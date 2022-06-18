@@ -18,6 +18,11 @@
     $mail="";
     $mdp="";
 
+    $mail_actuel="";
+    $nouveau_nom="";
+    $nouveau_prenom="";
+    $nouveau_mdp="";
+
 ?>
 
 <!DOCTYPE html>
@@ -114,7 +119,8 @@
                                             <input type="text" name="recherche_materiel_code_barre" id="recherche_materiel" class="form-control" placeholder="Code barre" >
                                             <br>
                                             <input type="submit" name="envoyer_via_code_barre" id="envoyer" value="Chercher" class="form-control">
-
+                                        
+                                        </form>
                                             <table class="table">
                                                 <thead class="table-dark">
                                                     <tr>
@@ -129,7 +135,11 @@
                                                     <?php 
 
                                                         try{
-                                                            $code_barre=$_POST['recherche_materiel_code_barre'];
+                                                            $code_barre="";
+                                                            if(isset($_POST['recherche_materiel_code_barre'])){
+                                                                $code_barre=$_POST['recherche_materiel_code_barre'];
+                                                            }
+                                                            
                                                             $req_SQL_get_code_barre="SELECT M.Code_barre FROM materiel AS M;";
                                                             $connexion=new PDO(BDD,username,password);    
                                                             $execution_req_SQL_get_code_barre=$connexion->prepare($req_SQL_get_code_barre);
@@ -209,7 +219,7 @@
                                                     ?>
                                                 </tbody>
                                             </table>
-                                        </form>
+                                        
                                     </div>
                                 
 
@@ -221,7 +231,7 @@
                                             <textarea name="texte_descriptif" id="texte_descriptif" placeholder="Description du produit" class="form-control"></textarea>
                                             <br>
                                             <input type="submit" name="rechercher_via_description" id="envoyer" value="Chercher" class="form-control">
-                                            
+                                        </form>  
                                             <table class="table">
                                                 <thead class="table-dark">
                                                     <tr>
@@ -236,7 +246,11 @@
                                                     <?php
                                                         $affichage=false;
                                                         try{
-                                                            $tab_mots=$_POST['texte_descriptif'];
+                                                            $tab_mots="";
+                                                            if(isset($_POST['texte_descriptif'])){
+                                                                $tab_mots=$_POST['texte_descriptif'];
+                                                            }
+                                                            
                                                             $req_SQL_recuperation_description="SELECT M.Nom_materiel, M.Code_barre, M.Prix_achat FROM materiel AS M WHERE M.Description='$tab_mots';";
                                                             $execution_req_SQL_recuperation_description=$connexion->prepare($req_SQL_recuperation_description);
                                                             $execution_req_SQL_recuperation_description->execute();
@@ -291,7 +305,7 @@
                                                     ?>
                                                 </tbody>
                                             </table>
-                                        </form>      
+                                            
                                     </div>
                                 
                                         
@@ -304,10 +318,12 @@
                                             <br>
 
                                             <input type="submit" name="envoyer_via_materiel" id="envoyer" value="Chercher" class="form-control">
-                                            <?php
-
-                                            ?>
+                                            
                                         </form>
+                                        <?php
+
+                                        ?>
+                                        
                                     </div>
                                 
                                     
@@ -455,7 +471,7 @@
                     
                     
                     
-                    <script>
+                    <script> //JQuery
                         $(function() {
                             $('#choix0').next().text('Modification'); // Valeur par défaut
                             $('form#creation_etudiant').css("display","none");
@@ -493,7 +509,7 @@
 
                     <!-- CREATION -->
                     <!-- <div id="creation_etudiant"> action="espace_responsable.php" -->
-                        <form id="creation_etudiant" name="creation_etudiant"  method="POST" class="container-fluid" enctype="multipart/form-data">
+                        <form id="creation_etudiant" name="creation_etudiant" action="creation_etudiant.php"  method="POST" class="container-fluid" enctype="multipart/form-data">
                             <div id="creation" class="form-floating mb-3">
                                 <input type="text" name="nom" id="creation_nom" placeholder="Nom" class="form-control"/>
                                 <label for="creation_nom">Nom</label>
@@ -515,50 +531,13 @@
                         </form>
                     <!-- </div> -->
 
-                    <?php
-                        $nom=$_POST['nom'];
-                        $prenom=$_POST['prenom'];
-                        $mail=$_POST['mail'];
-                        $mdp=$_POST['mdp'];
-                        $reqSQL_verif_mails_responsable="SELECT R.adresse_mail FROM responsable AS R;";//Pour vérifier si notre inscrit n'a pas de compte responsable
-                        $req_SQL_etudiant="INSERT INTO etudiant VALUES(NULL,'$nom','$prenom','$mail',0,'$mdp');"; //Insertion d'un étudiant dans la BDD
-                        $reqSQL_verif_doublon_mail="SELECT E.mail_etudiant FROM etudiant AS E;";
-                        $connexion=new PDO(BDD,username,password);
-
-                        $envoie_requete_verif_mail=$connexion->prepare($reqSQL_verif_doublon_mail);
-                        $envoie_requete_verif_mail->execute();
-                        $resultat_mail_etu_respo=$envoie_requete_verif_mail->fetchAll();
-
-                        $envoyer_inscription=true;
-                        foreach($resultat_mail_etu_respo as $data){
-                            if($_POST['mail']==$data['mail_etudiant']){
-                                $envoyer_inscription=false;
-                            }
-                        
-                        }
-
-                        $envoie_requete_verif_mail_responsable=$connexion->prepare($reqSQL_verif_mails_responsable);
-                        $envoie_requete_verif_mail_responsable->execute();
-                        $resultat_requete_verif_mail_responsable=$envoie_requete_verif_mail_responsable->fetchAll();
-                        //Boucle foreach pour vérifier tous les mails des responsables
-                        foreach($resultat_requete_verif_mail_responsable as $data_mails_responsable){
-                            if($_POST['mail']==$data_mails_responsable['adresse_mail']){
-                                $envoyer_inscription=false;
-                            }
-                        }  
-                        
-                        if($envoyer_inscription==true){
-                            $inscription=$connexion->prepare($req_SQL_etudiant);
-                            $inscription->execute();
-                        }
-                    ?>
 
                     <!-- MODIFICATION -->
                     <!-- <div id="modification_etudiant"> -->
-                        <form id="modification_etudiant" name="modification_etudiant" action="modification_etudiant.php"  method="POST" class="container-fluid" enctype="multipart/form-data">
+                        <form id="modification_etudiant" action="modification_etudiant.php" name="modification_etudiant" method="POST" class="container-fluid" enctype="multipart/form-data">
                             <div id="modification" class="form-floating mb-3">
-                                <input type="email" name="mail_initial" id="modification_mail" placeholder="Adresse mail initiale" class="form-control"/>
-                                <label for="modification_nom">Adresse mail initiale</label>
+                                <input type="email" name="mail_initial" id="mail_initial" placeholder="Adresse mail initiale" class="form-control"/>
+                                <label for="mail_initial">Adresse mail initiale</label>
                             </div>
 
                             <div id="modification" class="form-floating mb-3">
@@ -570,10 +549,6 @@
                                 <label for="modification_prenom">Changer de prenom</label>
                             </div>
                             <div id="modification" class="form-floating mb-3">
-                                <input type="email" name="modification_mail" id="modification_mail" placeholder="Changer d'adresse mail" class="form-control"/>
-                                <label for="modification_mail">Changer d'adresse mail</label>
-                            </div>
-                            <div id="modification" class="form-floating mb-3">
                                 <input type="password" name="modification_mdp" id="modification_mdp" placeholder="Changer de mot de passe" class="form-control"/>
                                 <label for="modification_mdp">Changer de mot de passe</label>
                             </div>
@@ -582,16 +557,17 @@
                         </form>
                     <!-- </div> -->
 
+
                     <!-- SUPRRESSION -->
                     <!-- <div id="supression_etudiant"> -->
-                        <form id="supression_etudiant" name="supression_etudiant" action="espace_responsable.php"  method="POST" class="container-fluid" enctype="multipart/form-data">                        
-                            <input type="submit" name="envoyer" id="envoyer"  value="Supprimer l'étudiant" class="form-control"/>
-                        </form>
+                    <form id="supression_etudiant" name="supression_etudiant" action="suppression_etudiant.php"  method="POST" class="container-fluid" enctype="multipart/form-data">                        
+                        <div id="modification" class="form-floating mb-3">
+                            <input type="email" name="mail_initial" id="mail_initial" placeholder="Adresse mail initiale" class="form-control">
+                            <label for="mail_initial">Adresse mail initiale</label>
+                        </div>
+                        <input type="submit" name="envoyer" id="envoyer"  value="Supprimer l'étudiant" class="form-control"/>
+                    </form>
                     <!-- </div> -->
-
-                    <?php
-
-                    ?>
 
                 </div>   
                 <!-- TABLEAU GESTION DU MATERIEL -->
