@@ -104,33 +104,216 @@
                                 </div>
 
                             </nav>
-                                <form action="espace_responsable.php" method="POST" name="" id="">
-                                    <div class="tab-content" id="nav-tabContent">
-                                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                            
+                            <div class="tab-content" id="nav-tabContent">
+                                    
+                                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                                        <form action="" method="POST" name="recherche_materiel" id="recherche_materiel">
                                             <!-- code barre     -->
                                             <br>
-                                            <input type="text" name="recherche_materiel" id="recherche_materiel" class="form-control" placeholder="Code barre" >
+                                            <input type="text" name="recherche_materiel_code_barre" id="recherche_materiel" class="form-control" placeholder="Code barre" >
                                             <br>
-                                            <input type="submit" name="envoyer" id="envoyer" value="Chercher" class="form-control">
-                                        </div>
-                                        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                            <input type="submit" name="envoyer_via_code_barre" id="envoyer" value="Chercher" class="form-control">
+
+                                            <table class="table">
+                                                <thead class="table-dark">
+                                                    <tr>
+                                                        <th scope="col">#</th>
+                                                        <th scope="col">Nom materiel</th>
+                                                        <th scope="col">Description</th>
+                                                        <th scope="col">emprunte</th>
+                                                    </tr>
+                                                </thead>
+                                                
+                                                <tbody>
+                                                    <?php 
+
+                                                        try{
+                                                            $code_barre=$_POST['recherche_materiel_code_barre'];
+                                                            $req_SQL_get_code_barre="SELECT M.Code_barre FROM materiel AS M;";
+                                                            $connexion=new PDO(BDD,username,password);    
+                                                            $execution_req_SQL_get_code_barre=$connexion->prepare($req_SQL_get_code_barre);
+                                                            $execution_req_SQL_get_code_barre->execute();
+                                                            $resultat_req_SQL_get_code_barre=$execution_req_SQL_get_code_barre->fetchAll();
+                                                            $code_barre_en_BDD=false;
+                                                            $tab_code_barre=[$execution_req_SQL_get_code_barre->rowCount()];
+                                                            $i=0;
+                                                            foreach($resultat_req_SQL_get_code_barre as $data_req_SQL_get_code_barre){
+                                                                $tab_code_barre[$i]=$data_req_SQL_get_code_barre['Code_barre'];
+                                                                $i++;
+                                                            }   
+                        
+                                                            
+                                                            for($i=0;$i<$execution_req_SQL_get_code_barre->rowCount();$i++){
+                                                                if(strcmp($code_barre, $tab_code_barre[$i])==0){
+                                                                    $code_barre_en_BDD=true;
+                                                                    $i=$execution_req_SQL_get_code_barre->rowCount()-1;
+                        
+                                                                }
+                                                            }
+                        
+                                                            if($code_barre_en_BDD==true){
+                                                                $req_SQL_trouver_materiel="SELECT M.Nom_materiel, M.Description, M.emprunte FROM materiel AS M WHERE  M.Code_barre='$code_barre';";
+                                                                $execution_req_SQL_get_information=$connexion->prepare($req_SQL_trouver_materiel);
+                                                                $execution_req_SQL_get_information->execute();
+                                                                $resultat_req_SQL_get_information=$execution_req_SQL_get_information->fetchAll();
+                        
+                                                                $tab_information_nom=[$execution_req_SQL_get_information->rowCount()];
+                                                                $tab_information_description=[$execution_req_SQL_get_information->rowCount()];
+                                                                $tab_information_emprunter=[$execution_req_SQL_get_information->rowCount()];
+                                                                $i=0;
+                                                                foreach($resultat_req_SQL_get_information as $data_req_SQL_get_information){
+                                                                    $tab_information_nom[$i]=$data_req_SQL_get_information['Nom_materiel'];
+                                                                    $tab_information_description[$i]=$data_req_SQL_get_information['Description'];
+                                                                    $tab_information_emprunter[$i]=$data_req_SQL_get_information['emprunte'];
+                                                                    $i++;
+                                                                }
+
+                                                                $i=0;
+                                                                for($e=1;$e<=$execution_req_SQL_get_information->rowCount();$e++){
+                                                                    ?>
+                                                                        <tr>
+                                                                            <th scope="row">
+                                                                                <?php
+                                                                                    echo $e;
+                                                                                ?>
+                                                                            </th>
+                                                                            <td>
+                                                                                <?php
+                                                                                    echo $tab_information_nom[$i];
+                                                                                ?>
+                                                                            </td>
+
+                                                                            <td>
+                                                                                <?php
+                                                                                    echo $tab_information_description[$i];
+                                                                                ?>
+                                                                            </td>
+
+                                                                            <td>
+                                                                                <?php
+                                                                                    echo $tab_information_emprunter[$i];
+                                                                                ?>
+                                                                            </td>
+                                                                        </tr>
+                                                                    <?php
+                                                                    $i=$i+1;
+                                                                }
+                                                            }
+
+                                                            
+                                                            }catch(ErrorException $e){
+                                                                echo $e;
+                                                            }
+                                                        
+                                                    ?>
+                                                </tbody>
+                                            </table>
+                                        </form>
+                                    </div>
+                                
+
+                                
+                                    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                        <form  action="" method="POST" name="recherche_materiel_description" id="recherche_materiel_description">
                                             <!-- Description -->
                                             <br>
                                             <textarea name="texte_descriptif" id="texte_descriptif" placeholder="Description du produit" class="form-control"></textarea>
                                             <br>
-                                            <input type="submit" name="envoyer" id="envoyer" value="Chercher" class="form-control">
-                                        </div>
-                                        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                                            <input type="submit" name="rechercher_via_description" id="envoyer" value="Chercher" class="form-control">
+                                            
+                                            <table class="table">
+                                                <thead class="table-dark">
+                                                    <tr>
+                                                        <th scope="col">#</th>
+                                                        <th scope="col">Nom materiel</th>
+                                                        <th scope="col">Code barre</th>
+                                                        <th scope="col">Prix achat</th>
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody>
+                                                    <?php
+                                                        $affichage=false;
+                                                        try{
+                                                            $tab_mots=$_POST['texte_descriptif'];
+                                                            $req_SQL_recuperation_description="SELECT M.Nom_materiel, M.Code_barre, M.Prix_achat FROM materiel AS M WHERE M.Description='$tab_mots';";
+                                                            $execution_req_SQL_recuperation_description=$connexion->prepare($req_SQL_recuperation_description);
+                                                            $execution_req_SQL_recuperation_description->execute();
+                                                            $resultat_req_SQL_recuperation_description=$execution_req_SQL_recuperation_description->fetchAll();
+
+                                                            $tab_Nom_materiel=[$execution_req_SQL_recuperation_description->rowCount()];
+                                                            $tab_Code_barre=[$execution_req_SQL_recuperation_description->rowCount()];
+                                                            $tab_Prix_achat=[$execution_req_SQL_recuperation_description->rowCount()];
+                                                            $i=0;
+                                                            foreach($resultat_req_SQL_recuperation_description as $data_req_SQL_recuperation_description){
+                                                                $tab_Nom_materiel[$i]=$data_req_SQL_recuperation_description['Nom_materiel'];
+                                                                $tab_Code_barre[$i]=$data_req_SQL_recuperation_description['Code_barre'];
+                                                                $tab_Prix_achat[$i]=$data_req_SQL_recuperation_description['Prix_achat'];
+                                                                $i++;
+                                                            }
+                                                            $tab_mots=[$execution_req_SQL_recuperation_description->rowCount()];
+                                                            
+                                                            $i=0;
+                                                            for($e=1;$e<=$execution_req_SQL_recuperation_description->rowCount();$e++){
+                                                                ?>
+                                                                    <tr>
+                                                                        <th scope="row">
+                                                                            <?php
+                                                                                echo $e;
+                                                                            ?>
+                                                                        </th>
+                                                                        <td>
+                                                                            <?php
+                                                                                echo $tab_Nom_materiel[$i];
+                                                                            ?>
+                                                                        </td>
+
+                                                                        <td>
+                                                                            <?php
+                                                                                echo $tab_Code_barre[$i];
+                                                                            ?>
+                                                                        </td>
+
+                                                                        <td>
+                                                                            <?php
+                                                                                echo $tab_Prix_achat[$i];
+                                                                            ?>
+                                                                        </td>
+                                                                    </tr>
+                                                                <?php
+                                                                $i=$i+1;
+                                                            }
+
+                                                        }catch(ErrorException $e){
+                                                            echo $e;
+                                                        }
+                                                    ?>
+                                                </tbody>
+                                            </table>
+                                        </form>      
+                                    </div>
+                                
+                                        
+                                
+                                    <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                                        <form action="" method="POST" name="recherche_materiel_nom" id="recherche_materiel_nom">
                                             <!-- recherche_nom -->
                                             <br>
-                                            <input type="text" name="recherche_materiel" id="recherche_materiel" class="form-control" placeholder="Name" >
+                                            <input type="text" name="recherche_materiel_nom" id="recherche_materiel" class="form-control" placeholder="Name" >
                                             <br>
 
-                                            <input type="submit" name="envoyer" id="envoyer" value="Chercher" class="form-control">
-                                        </div>
+                                            <input type="submit" name="envoyer_via_materiel" id="envoyer" value="Chercher" class="form-control">
+                                            <?php
+
+                                            ?>
+                                        </form>
                                     </div>
-                                </form>
-                                <!-- Portion de code PHP pour s'occuper du formulaire -->
+                                
+                                    
+                            </div>
+                            <!-- Portion de code PHP pour s'occuper du formulaire -->
+                            
                                 
 
                     </div>
@@ -627,9 +810,6 @@
             
 
         </div>
-        
-        
-
         <footer>
             <p id="phrase_footer" > Curieux des technologies employés ? </p>
             <p id="logos_technos"> 
