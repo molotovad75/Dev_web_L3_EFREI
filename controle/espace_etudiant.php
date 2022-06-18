@@ -3,6 +3,9 @@
     if(!$_SESSION['mdp'] || !$_SESSION['mail']){
         header('Location: ../modele/index.html');
     }
+    const BDD='mysql:host=localhost;dbname=dev_web_projet_2;charset=utf8';
+    const username='root';
+    const password='';  
 ?>
 <!DOCTYPE html>
 <html>
@@ -37,47 +40,121 @@
         <div id="page_centrale" class="container">
             <div id="presentation">
                 <h1>Bienvenue dans votre espace étudiant <?php echo strtoupper($_SESSION['Nom_etudiant']), "  ",$_SESSION['Prenom_etudiant']; ?></h1>
-                <div class="row">
-                    <div class="col-6">
-                        <p>Connecté en tant qu'étudiant </p>
-                    </div>
-                    <div class="col-6">
-                        
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-6">
-                        <p>Tout en adoptant le design parttern MVC (Modèle/Vue/Contrôle), 
-                            L'application web à été développer en méthode agile par 
-                            le developeur web Full-Stack LACHHAB Adrien : <span id="age"></span> ans.
-                        </p>
-                        <!-- document.getElementById("age").innerHTML=age_adrien(); <span id="age"></span>-->
-                    </div>
-                    <div class="col-6">
-                        <p>Voici la liste de toutes les outils et technologies utilisées lors de la création de notre plateforme</p>
-
-                    </div>  
-                </div>
             </div>
+            <h3>Emprunter du matériel !</h3>
+            <table class="table">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col" id="colonne_codebarre">Code Barre</th>
+                        <th scope="col" id="colonne_nom_materiel">Nom du matériel</th>
+                        <th scope="col" id="colonne_description">Description</th>
+                        <th scope="col" id="colonne_date_achat">Date d'achat</th>
+                        <th scope="col" id="colonne_prix_achat">Prix </th>
+                        <th scope="col" id="colonne_liste_emprunt">Emprunté ? </th>
+                    </tr>
+                </thead>
 
-            <div id="prensation_technos">
-                <div class="text-start">
-                    <h3>Front-end !</h3>
-                    <img src="../vue/html-css-js.jpg" class="img-fluid" id="front">
-                </div>   
+                <tbody>
+                    <?php
+                        $nombre_materiel=0; 
+                        try{    
+                            $req_SQL_recuperer_materiel="SELECT M.Code_barre, M.Nom_materiel, M.Description, M.Date_achat, M.Prix_achat, M.emprunte FROM materiel AS M";
+                            $connexion=new PDO(BDD,username,password);
+                            $execution_SQL_tous_materiel=$connexion->prepare($req_SQL_recuperer_materiel);
+                            $execution_SQL_tous_materiel->execute();
+                            $resultat_all_tools=$execution_SQL_tous_materiel->fetchAll();
+                            $nombre_materiel=$execution_SQL_tous_materiel->rowCount();
 
-                <div class="text-end">
-                    <h3>Back-end !</h3>
-                    <img src="../vue/backend.png" class="img-fluid" id="back">
+                            $liste_code_barre=[$nombre_materiel];
+                            $liste_Nom_materiel=[$nombre_materiel];
+                            $liste_Description=[$nombre_materiel];
+                            $liste_Date_achat=[$nombre_materiel];
+                            $liste_Prix_achat=[$nombre_materiel];
+                            $liste_emprunts=[$nombre_materiel];
+
+                            $i=0;
+                            foreach($resultat_all_tools as $data_tools){
+                                $liste_code_barre[$i]=$data_tools['Code_barre'];
+                                $liste_Nom_materiel[$i]=$data_tools['Nom_materiel'];
+                                $liste_Description[$i]=$data_tools['Description'];
+                                $liste_Date_achat[$i]=$data_tools['Date_achat'];
+                                $liste_Prix_achat[$i]=$data_tools['Prix_achat'];
+                                $liste_emprunts[$i]=$data_tools['emprunte'];
+                                $i=$i+1;
+                            }
+
+
+                        }catch(ErrorException $e){
+                            echo $e;
+                        }
+                    $i=0;
+                    for($e=1;$e<=$nombre_materiel;$e++){
+                    ?>
+                    <tr>
+                        <th scope="row">
+                            <?php
+                                echo $e;
+                            ?>
+                        </th>
+
+                        <td id="colonne_codebarre">
+                            <?php
+                                echo $liste_code_barre[$i];
+                            ?>
+                        </td>
+
+                        <td id="colonne_nom_materiel">
+                            <?php
+                                echo $liste_Nom_materiel[$i];
+                            ?>
+                        </td>
+
+                        <td id="colonne_description">
+                            <?php
+                                echo $liste_Description[$i];
+                            ?>
+                        </td>
+
+                        <td id="colonne_date_achat">
+                            <?php
+                                echo $liste_Date_achat[$i];
+                            ?>
+                        </td>
+
+                        <td id="colonne_prix_achat">
+                            <?php
+                                echo $liste_Prix_achat[$i];
+                            ?>
+                        </td>
+
+                        <td id="colonne_liste_emprunt">
+                            <?php
+                                if($liste_emprunts[$i]==0){
+                                    echo "Non";
+                                }else{
+                                    echo "Oui";
+                                }
+                                
+                            ?>
+                        </td>
+                    </tr>
+                    <?php
+                        $i=$i+1;
+                    }
+                    ?>
                     
-                </div>
+                </tbody>
 
-                <div class="text-start">
-                    <h3> Outils de gestion de projet ! </h3>
-                    <img src="../vue/gestion_projet.png" class="img-fluid" id="gestion">
-                    
+            </table>
+            
+            <form id="emprunter_materiel" name="emprunter_materiel" action="emprunter_materiel.php"  method="POST" class="container-fluid" enctype="multipart/form-data">                        
+                <div id="emprunter" class="form-floating mb-3">
+                    <input type="text" name="code_barre_initial" id="code_barre_initial" placeholder="Code barre initial" class="form-control">
+                    <label for="code_barre_initial">Code barre initial</label>
                 </div>
-            </div>
+                <input type="submit" name="envoyer" id="envoyer"  value="Emprunter le matériel" class="form-control"/>
+            </form>
             
             
 

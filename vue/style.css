@@ -56,7 +56,7 @@ html,body{
     border-color: #3eaeff;
     border-bottom-style: solid;
     border-bottom-width: 1px;
-    position: fixed;
+    /* position: static; */
 }
 
 #ins_conn,#connexion{

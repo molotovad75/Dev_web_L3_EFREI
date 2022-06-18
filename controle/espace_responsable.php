@@ -373,10 +373,6 @@
             <div id="prensation_technos">
                 <div class="text-start">
                     <h3>Gestion des étudiants !</h3>
-                    <?php
-
-                          
-                    ?>
                     <table class="table">
                         <thead class="table-dark">
                             <tr>
@@ -385,10 +381,6 @@
                                 <th scope="col">Prénom</th>
                                 <th scope="col">Mail</th>
                                 <th scope="col"> Nombre d'emprunts</th>
-                                <th scope="col"> Selection 
-                                    <!-- <input class="form-check-input" type="checkbox" value="selectionner_tous_etudiants" id="flexCheckDefault" name="selectionner_tous_etudiants">
-                                    <label class="form-check-label" for="flexCheckDefault">Tout sélectionner</label> -->
-                                </th>
                             </tr>
                         </thead>
                         
@@ -452,10 +444,10 @@
                                                 ?>
                                             </td>
 
-                                            <td id="indice_<?php echo $e;?>">
-                                                <input class="form-check-input" type="checkbox" value="<?php echo $e; ?>" id="flexCheckDefault" name="<?php echo $e; ?>">
-                                                <!-- <label class="form-check-label" for="flexCheckDefault"></label> -->
-                                            </td>
+                                            <!-- <td id="indice_<?php //echo $e;?>">
+                                                <input class="form-check-input" type="checkbox" value="<?php //echo $e; ?>" id="flexCheckDefault" name="<?php //echo $e; ?>">
+                                                <label class="form-check-label" for="flexCheckDefault"></label>
+                                            </td> -->
                                         </tr>
                                     <?php
                                     $i=$i+1;
@@ -463,14 +455,7 @@
                             ?>
                         </tbody>
                     </table>
-                    <p>Sélectionner toutes les valeurs --> <input class="form-check-input" type="checkbox" value="toutes_valeurs0" id="toutes_valeurs0" name="toutes_valeurs0"></p>
-                    
-                    <label for="customRange2" class="form-label">Faites défiler le curseur pour faire votre choix</label> 
-                    <input type="range" class="form-range" min="0" max="2" id="choix0" />
-                    <p>Choix : </p><output id="choix0_final"></output>
-                    
-                    
-                    
+                    <!-- <p>Sélectionner toutes les valeurs  <input class="form-check-input" type="checkbox" value="toutes_valeurs0" id="toutes_valeurs0" name="toutes_valeurs0"></p> -->
                     <script> //JQuery
                         $(function() {
                             $('#choix0').next().text('Modification'); // Valeur par défaut
@@ -498,14 +483,12 @@
                                     $('form#supression_etudiant').css("display","block");
                                 }
                             });
-
-                            
                         });
-                        // let selecteur=document.getElementById("choix0");
-                        // if(selecteur.){
-
-                        // }
                     </script>
+
+                    <label for="customRange2" class="form-label" >Faites défiler le curseur pour faire votre choix</label> 
+                    <input type="range" class="form-range" min="0" max="2" id="choix0" />
+                    <p>Choix : </p><output id="choix0_final"></output>
 
                     <!-- CREATION -->
                     <!-- <div id="creation_etudiant"> action="espace_responsable.php" -->
@@ -583,7 +566,6 @@
                                 <th scope="col" id="colonne_date_achat">Date d'achat</th>
                                 <th scope="col" id="colonne_prix_achat">Prix </th>
                                 <th scope="col" id="colonne_liste_emprunt">Emprunté ? </th>
-                                <th scope="col"> Sélection </th>
                             </tr>
                         </thead>
 
@@ -670,9 +652,9 @@
                                     ?>
                                 </td>
 
-                                <td id="indice_<?php echo $e;?>">
+                                <!-- <td id="indice_<?php echo $e;?>">
                                     <input class="form-check-input" type="checkbox" value="<?php echo $e;?>" id="flexCheckDefault" name="<?php echo $e;?>">
-                                </td>
+                                </td> -->
                             </tr>
                             <?php
                                 $i=$i+1;
@@ -684,8 +666,84 @@
 
                     </table>
                     
-                    <p>Sélectionner toutes les valeurs --> <input class="form-check-input" type="checkbox" value="toutes_valeurs1" id="toutes_valeurs1" name="toutes_valeurs1"></p>
+                    <!-- <p>Sélectionner toutes les valeurs --> <input class="form-check-input" type="checkbox" value="toutes_valeurs1" id="toutes_valeurs1" name="toutes_valeurs1"></p> -->
 
+
+                    <!-- CREATION MODIFICATION ET SUPPRESSION pour le matériel -->
+
+                    <script> //JQuery
+                        $(function() {
+                            $('#choix1').next().text('Modification'); // Valeur par défaut
+                            $('form#modification_materiel').css("display","block");
+                            $('form#supression_materiel').css("display","none");
+
+                            $('#choix1').on('input', function() {
+                                var $set = $(this).val();
+                                $(this).next().text($set);
+                                if($(this).val()==0){
+                                    $(this).next().text('Modification');
+                                    $('form#modification_materiel').css("display","block");
+                                    $('form#supression_materiel').css("display","none");
+                                }else if($(this).val()==1){
+                                    $(this).next().text('Suppression');
+                                    $('form#modification_materiel').css("display","none");
+                                    $('form#supression_materiel').css("display","block");
+                                }
+                            });
+                        });
+                    </script>
+                    <label for="customRange2" class="form-label">Faites défiler le curseur pour faire votre choix</label> 
+                    <input type="range" class="form-range" min="0" max="1" id="choix1" />
+                    <p>Choix : </p><output id="choix1_final"></output>
+
+
+                    <!-- MODIFICATION -->
+                    <!-- <div id="modification_materiel"> -->
+                        <form id="modification_materiel" action="modification_materiel.php" name="modification_materiel" method="POST" class="container-fluid" enctype="multipart/form-data">
+                            <div id="modification" class="form-floating mb-3">
+                                <input type="text" name="code_barre_actuel" id="code_barre_actuel" placeholder="Code barre actuel" class="form-control"/>
+                                <label for="code_barre_actuel">Code barre actuel</label>
+                            </div>
+
+                            <div id="modification" class="form-floating mb-3">
+                                <input type="text" name="nom_materiel" id="nom_materiel" placeholder="Nom matériel" class="form-control"/>
+                                <label for="nom_materiel">Nom matériel</label>
+                            </div>
+
+                            <div id="creation" class="form-floating mb-3">
+                                <textarea id="description" name="description" placeholder="Nouvelle description du produit" class="form-control"></textarea>
+                            </div>
+
+                            <div id="modification" class="form-floating mb-3">
+                                <input type="date" name="modification_date_achat_materiel" id="modification_date_achat_materiel" placeholder="Changer de date d'achat" class="form-control"/>
+                                <label for="modification_date_achat_materiel">Changer de date d'achat</label>
+                            </div>
+
+                            <div id="modification" class="form-floating mb-3">
+                                <input type="number" min="0" step="0.01" name="modification_prix_achat" id="modification_prix_achat" placeholder="Changer de prix d'achat" class="form-control"/>
+                                <label for="modification_mdp">Changer le prix d'achat </label>
+                            </div>
+
+                            <div id="modification" class="form-floating mb-3">
+                                <input type="number" min="0" max="1" name="modification_emprunt" id="modification_emprunt" placeholder="Changer l'emprunt" class="form-control"/>
+                                <label for="modification_emprunt">Changer l'emprunt</label>
+                            </div>
+                            
+                            <input type="submit" name="envoyer" id="envoyer"  value="Modifier le matériel" class="form-control"/><br>
+                        </form>
+                    <!-- </div> -->
+
+
+                    <!-- SUPRRESSION -->
+                    <!-- <div id="supression_materiel"> -->
+                    <form id="supression_materiel" name="supression_materiel" action="suppression_materiel.php"  method="POST" class="container-fluid" enctype="multipart/form-data">                        
+                        <div id="modification" class="form-floating mb-3">
+                            <input type="text" name="code_barre_initial" id="code_barre_initial" placeholder="Code barre initial" class="form-control">
+                            <label for="code_barre_initial">Code barre initial</label>
+                        </div>
+                        <input type="submit" name="envoyer" id="envoyer"  value="Supprimer le matériel" class="form-control"/>
+                    </form>
+                    <!-- </div> -->
                     
                 </div>
 
@@ -777,8 +835,6 @@
                             ?>
                         </tbody>
                     </table>
-
-                    <p>Sélectionner toutes les valeurs --> <input class="form-check-input" type="checkbox" value="toutes_valeurs2" id="toutes_valeurs2" name="toutes_valeurs2"></p>
                     
                 </div>
             </div>
@@ -810,6 +866,4 @@
         </script> 
         
     </body> 
-    
-    
 </html>
