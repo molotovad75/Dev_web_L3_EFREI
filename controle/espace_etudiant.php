@@ -160,6 +160,129 @@
                 <input type="submit" name="envoyer" id="envoyer"  value="Demande d'emprunt" class="form-control"/>
             </form>
             
+            <h3>Rendre du matériel que je possède !</h3>
+            <table class="table">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col" id="colonne_codebarre">Code Barre</th>
+                        <th scope="col" id="colonne_nom_materiel">Nom du matériel</th>
+                        <th scope="col" id="colonne_description">Description</th>
+                        <th scope="col" id="colonne_date_achat">Date d'achat</th>
+                        <th scope="col" id="colonne_prix_achat">Prix </th>
+                        <th scope="col" id="colonne_prix_achat">Date d'emprunt </th>
+                        <th scope="col" id="colonne_prix_achat">Date de retour </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <?php
+                        $nombre_materiel=0; 
+                        try{    
+                            $mail_emprunteur=$_SESSION['mail_etudiant'];
+                            $req_SQL_recuperer_materiel="SELECT EP.Code_barre, M.Nom_materiel, M.Description, M.Date_achat, M.Prix_achat, M.emprunte, EP.Date_emprunt ,EP.Date_retour FROM materiel AS M, emprunteur AS EP WHERE EP.mail_emprunteur='$mail_emprunteur' AND M.Code_barre=EP.Code_barre;";
+                            $connexion=new PDO(BDD,username,password);
+                            $execution_SQL_materiel_emrprunte=$connexion->prepare($req_SQL_recuperer_materiel);
+                            $execution_SQL_materiel_emrprunte->execute();
+                            $resultat_all_tools=$execution_SQL_materiel_emrprunte->fetchAll();
+                            $nombre_materiel=$execution_SQL_materiel_emrprunte->rowCount();
+
+                            $liste_code_barre=[$nombre_materiel];
+                            $liste_Nom_materiel=[$nombre_materiel];
+                            $liste_Description=[$nombre_materiel];
+                            $liste_Date_achat=[$nombre_materiel];
+                            $liste_Prix_achat=[$nombre_materiel];
+                            $liste_emprunts=[$nombre_materiel];
+                            $liste_date_emprunt=[$nombre_materiel];
+                            $liste_date_retour=[$nombre_materiel];
+
+                            $i=0;
+                            foreach($resultat_all_tools as $data_tools){
+                                $liste_code_barre[$i]=$data_tools['Code_barre'];
+                                $liste_Nom_materiel[$i]=$data_tools['Nom_materiel'];
+                                $liste_Description[$i]=$data_tools['Description'];
+                                $liste_Date_achat[$i]=$data_tools['Date_achat'];
+                                $liste_Prix_achat[$i]=$data_tools['Prix_achat'];
+                                $liste_emprunts[$i]=$data_tools['emprunte'];
+                                $liste_date_emprunt[$i]=$data_tools['Date_emprunt'];
+                                $liste_date_retour[$i]=$data_tools['Date_retour'];
+                                $i=$i+1;
+                            }
+
+
+                        }catch(ErrorException $e){
+                            echo $e;
+                        }
+                    $i=0;
+                    for($e=1;$e<=$nombre_materiel;$e++){
+                    ?>
+                    <tr>
+                        <th scope="row">
+                            <?php
+                                echo $e;
+                            ?>
+                        </th>
+
+                        <td id="colonne_codebarre">
+                            <?php
+                                echo $liste_code_barre[$i];
+                            ?>
+                        </td>
+
+                        <td id="colonne_nom_materiel">
+                            <?php
+                                echo $liste_Nom_materiel[$i];
+                            ?>
+                        </td>
+
+                        <td id="colonne_description">
+                            <?php
+                                echo $liste_Description[$i];
+                            ?>
+                        </td>
+
+                        <td id="colonne_date_achat">
+                            <?php
+                                echo $liste_Date_achat[$i];
+                            ?>
+                        </td>
+
+                        <td id="colonne_prix_achat">
+                            <?php
+                                echo $liste_Prix_achat[$i];
+                            ?>
+                        </td>
+
+                        <td id="colonne_date_emprunt">
+                            <?php
+                                echo $liste_date_emprunt[$i];
+                            ?>
+                        </td>
+
+                        <td id="colonne_date_retour">
+                            <?php
+                                echo $liste_date_retour[$i];
+                            ?>
+                        </td>
+
+                    </tr>
+                    <?php
+                        $i=$i+1;
+                    }
+                    ?>
+                    
+                </tbody>
+
+            </table>
+            
+            <form id="rendre_materiel" name="rendre_materiel" action="rendre_materiel.php"  method="POST" class="container-fluid" enctype="multipart/form-data">                        
+                <div id="emprunter" class="form-floating mb-3">
+                    <input type="text" name="code_barre_initial" id="code_barre_initial" placeholder="Code barre initial" class="form-control">
+                    <label for="code_barre_initial">Code barre initial</label>
+                </div>
+
+                <input type="submit" name="envoyer" id="envoyer"  value="Rendre du matériel" class="form-control"/>
+            </form>
             
 
         </div>

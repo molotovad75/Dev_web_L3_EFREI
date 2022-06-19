@@ -748,7 +748,7 @@
                 </div>
 
                 <div class="text-start">
-                    <h3> Gestion des utilisateurs ! </h3>
+                    <h3> Gestion des utilisateurs ! (emprunteurs) </h3>
                     <table class="table">
                         <thead class="table-dark">
                             <tr>
