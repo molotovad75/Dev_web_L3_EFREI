@@ -837,6 +837,99 @@
                     </table>
                     
                 </div>
+
+
+
+                <div class="text-start">
+                    <h3> Gestion des demandes d'emprunts ! </h3>
+                    <table class="table">
+                        <thead class="table-dark">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Nom demandeur</th>
+                                <th scope="col">Prénom demandeur</th>
+                                <th scope="col">Mail demandeur</th>
+                                <th scope="col"> Code barre </th>
+                            </tr>
+                        </thead>
+                        
+                        <tbody>
+                            <?php 
+                                $nombre_etudiants=0;
+                                 try{
+                                    $reqSQL_toutes_demandes="SELECT D.Nom_demandeur, D.Prenom_demandeur, D.Mail_demandeur, D.Code_barre_demande FROM demandeur AS D ORDER BY D.Nom_demandeur;";
+                                    $connexion=new PDO(BDD,username,password);
+                                    $execution_reqSQL_toutes_demandes=$connexion->prepare($reqSQL_toutes_demandes);
+                                    $execution_reqSQL_toutes_demandes->execute();
+                                    $resultat_reqSQL_toutes_demandes=$execution_reqSQL_toutes_demandes->fetchAll();
+                                    $nombre_demandeurs=$execution_reqSQL_toutes_demandes->rowCount();
+        
+                                    $tab_nom_demandeur=[$nombre_demandeurs];
+                                    $tab_prenom_demandeur=[$nombre_demandeurs];
+                                    $tab_mail_demandeur=[$nombre_demandeurs];
+                                    $tab_code_barre_demandeur=[$nombre_demandeurs];
+                                    $i=0;
+                                    foreach($resultat_reqSQL_toutes_demandes as $data_reqSQL_toutes_demandes){
+                                        $tab_nom_demandeur[$i]=$data_reqSQL_toutes_demandes['Nom_demandeur'];
+                                        $tab_prenom_demandeur[$i]=$data_reqSQL_toutes_demandes['Prenom_demandeur'];   
+                                        $tab_mail_demandeur[$i]=$data_reqSQL_toutes_demandes['Mail_demandeur'];
+                                        $tab_code_barre_demandeur[$i]=$data_reqSQL_toutes_demandes['Code_barre_demande'];
+                                        $i=$i+1;
+                                    }
+                                 }catch(ErrorException $e){
+                                     echo $e;
+                                 } 
+                                
+                                $i=0;
+                                for($e=1;$e<=$nombre_demandeurs;$e++){
+                                    ?>
+                                        <tr>
+                                            <th scope="row">
+                                                <?php
+                                                    echo $e;
+                                                ?>
+                                            </th>
+                                            <td>
+                                                <?php
+                                                   echo $tab_nom_demandeur[$i];
+                                                ?>
+                                            </td>
+
+                                            <td>
+                                                <?php
+                                                    echo $tab_prenom_demandeur[$i];
+                                                ?>
+                                            </td>
+
+                                            <td>
+                                                <?php
+                                                    echo $tab_mail_demandeur[$i];
+                                                ?>
+                                            </td>
+
+                                            <td>
+                                                <?php
+                                                    echo $tab_code_barre_demandeur[$i];
+                                                ?>
+                                            </td>
+                                        </tr>
+                                    <?php
+                                    $i=$i+1;
+                                }
+                            ?>
+                        </tbody>
+                    </table>
+
+                    <!-- CONFIRMATION EMPRUNT -->
+                    <form id="confirmer_emprunt" name="confirmer_emprunt" action="confirmer_emprunt.php"  method="POST" class="container-fluid" enctype="multipart/form-data">                        
+                        <div id="modification" class="form-floating mb-3">
+                            <input type="text" name="code_barre_initial" id="code_barre_initial" placeholder="Code barre initial" class="form-control">
+                            <label for="code_barre_initial">Code barre initial</label>
+                        </div>
+                        <input type="submit" name="envoyer" id="envoyer"  value="Confirmer l'emprunt" class="form-control"/>
+                    </form>
+                </div>
+
             </div>
             
             

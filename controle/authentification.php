@@ -37,8 +37,8 @@
                     $_SESSION['Nom_etudiant']=$data['Nom_etudiant']; //nom de famille
                     $_SESSION['Prenom_etudiant']=$data['Prenom_etudiant'];
                }
-               $_SESSION['mail']=$mail;
-               $_SESSION['mdp']=$mdp;
+               $_SESSION['mail_etudiant']=$mail;
+               $_SESSION['mdp_etudiant']=$mdp;
                header('Location: espace_etudiant.php');
           }else if($nb_req_etu==0 && $nb_req_respon==0){
                ?>

@@ -1,11 +1,12 @@
 <?php 
     session_start(); 
-    if(!$_SESSION['mdp'] || !$_SESSION['mail']){
+    if(!$_SESSION['mdp_etudiant'] || !$_SESSION['mail_etudiant']){
         header('Location: ../modele/index.html');
     }
     const BDD='mysql:host=localhost;dbname=dev_web_projet_2;charset=utf8';
     const username='root';
     const password='';  
+    
 ?>
 <!DOCTYPE html>
 <html>
@@ -40,6 +41,7 @@
         <div id="page_centrale" class="container">
             <div id="presentation">
                 <h1>Bienvenue dans votre espace étudiant <?php echo strtoupper($_SESSION['Nom_etudiant']), "  ",$_SESSION['Prenom_etudiant']; ?></h1>
+
             </div>
             <h3>Emprunter du matériel !</h3>
             <table class="table">
@@ -132,7 +134,8 @@
                             <?php
                                 if($liste_emprunts[$i]==0){
                                     echo "Non";
-                                }else{
+                                }
+                                else{
                                     echo "Oui";
                                 }
                                 
@@ -153,7 +156,8 @@
                     <input type="text" name="code_barre_initial" id="code_barre_initial" placeholder="Code barre initial" class="form-control">
                     <label for="code_barre_initial">Code barre initial</label>
                 </div>
-                <input type="submit" name="envoyer" id="envoyer"  value="Emprunter le matériel" class="form-control"/>
+
+                <input type="submit" name="envoyer" id="envoyer"  value="Demande d'emprunt" class="form-control"/>
             </form>
             
             
