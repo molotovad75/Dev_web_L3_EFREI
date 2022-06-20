@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  sam. 18 juin 2022 à 17:57
+-- Généré le :  Dim 19 juin 2022 à 22:16
 -- Version du serveur :  5.7.29-log
 -- Version de PHP :  7.3.5
 
@@ -25,6 +25,22 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `demandeur`
+--
+
+DROP TABLE IF EXISTS `demandeur`;
+CREATE TABLE IF NOT EXISTS `demandeur` (
+  `Id_demandeur` int(11) NOT NULL AUTO_INCREMENT,
+  `Nom_demandeur` varchar(150) DEFAULT NULL,
+  `Prenom_demandeur` varchar(150) DEFAULT NULL,
+  `Mail_demandeur` varchar(150) DEFAULT NULL,
+  `Code_barre_demande` varchar(13) DEFAULT NULL,
+  PRIMARY KEY (`Id_demandeur`)
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `emprunteur`
 --
 
@@ -35,9 +51,24 @@ CREATE TABLE IF NOT EXISTS `emprunteur` (
   `Prenom_emprunteur` varchar(150) NOT NULL,
   `mail_emprunteur` varchar(150) NOT NULL,
   `Code_barre` text NOT NULL,
-  `Date_emprunt` date NOT NULL,
+  `Date_emprunt` date DEFAULT NULL,
+  `Date_retour` date DEFAULT NULL,
   PRIMARY KEY (`Id_emprunteur`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `emprunteur`
+--
+
+INSERT INTO `emprunteur` (`Id_emprunteur`, `Nom_emprunteur`, `Prenom_emprunteur`, `mail_emprunteur`, `Code_barre`, `Date_emprunt`, `Date_retour`) VALUES
+(1, 'Roronoa', 'Zoro', 'roronoa.zoro@gmail.com', '2002250134300', '2022-06-19', '2022-06-19'),
+(2, 'trump', 'donald', 'donald.trump@twitter.com', '0438212897143', '2022-06-19', '2022-06-19'),
+(3, 'trump', 'donald', 'donald.trump@twitter.com', '1156521448385', '2022-06-19', '2022-06-19'),
+(4, 'trump', 'donald', 'donald.trump@twitter.com', '4667379826722', '2022-06-19', '2022-06-19'),
+(5, 'trump', 'donald', 'donald.trump@twitter.com', '4804649571778', '2022-06-19', '2022-06-19'),
+(6, 'trump', 'donald', 'donald.trump@twitter.com', '8305538551428', '2022-06-19', '2022-06-19'),
+(7, 'Roronoa', 'Zoro', 'roronoa.zoro@gmail.com', '6417230095892', '2022-06-19', '2022-06-19'),
+(8, 'Roronoa', 'Zoro', 'roronoa.zoro@gmail.com', '1156521448385', '2022-06-20', '2022-06-27');
 
 -- --------------------------------------------------------
 
@@ -61,9 +92,9 @@ CREATE TABLE IF NOT EXISTS `etudiant` (
 --
 
 INSERT INTO `etudiant` (`Id_etudiant`, `Nom_etudiant`, `Prenom_etudiant`, `mail_etudiant`, `Nb_emprunts`, `Mot_de_passe_etu`) VALUES
-(1, 'trump', 'donald', 'donald.trump@twitter.com', 0, 'MAGA'),
+(1, 'trump', 'donald', 'donald.trump@twitter.com', 5, 'MAGA'),
 (7, 'ada', 'ada', 'adrien7@gmial.com', 0, 'az'),
-(10, 'Roronoa', 'Zoro', 'roronoa.zoro@gmail.com', 0, 'az'),
+(10, 'Roronoa', 'Zoro', 'roronoa.zoro@gmail.com', 4, 'az'),
 (12, 'Adla', 'adla', 'adrien.oeoirio@gmail.com', 0, 'azert'),
 (19, 'bishow', 'bishow', 'jason.statam@gmail.com', 0, 'fight'),
 (43, 'Melenchon', 'Jean luc', 'jl.melenchon@nupes.com', 0, 'premier ministre'),
@@ -130,11 +161,11 @@ CREATE TABLE IF NOT EXISTS `materiel` (
 INSERT INTO `materiel` (`Id_Materiel`, `Code_barre`, `Nom_materiel`, `Description`, `Date_achat`, `Prix_achat`, `emprunte`) VALUES
 (52, '4100106737537', 'Imprimante 3D', 'Appareil permettant la réalisation de figurines.', '2014-06-22', 320, 0),
 (54, '1956844688224', 'dell', 'pc dell', '2014-06-22', 200, 0),
-(55, '6417230095892', 'rer e', 'Saint lazare/ Chelles gournay/Tournan / Villiers sur marne', '2014-06-22', 3, 0),
-(56, '1156521448385', 'rer e', 'Saint lazare/ Chelles gournay/Tournan / Villiers sur marne', '2014-06-22', 3, 0),
-(57, '0438212897143', 'rer e', 'Saint lazare/ Chelles gournay/Tournan / Villiers sur marne', '2014-06-22', 3, 0),
-(58, '4667379826722', 'RER B', 'B1 Gare du Nord B2 Robinson B3 Aéroport Charles-de-Gaulle 2 TGV B4 Saint-Rémy-lès-Chevreuse B5 Mitry - Claye B6 Massy - Palaiseau', '2014-06-22', 2, 0),
-(59, '2002250134300', 'RER B', 'B1 Gare du Nord B2 Robinson B3 Aéroport Charles-de-Gaulle 2 TGV B4 Saint-Rémy-lès-Chevreuse B5 Mitry - Claye B6 Massy - Palaiseau', '2014-06-22', 2, 0),
+(55, '6417230095892', 'rer e', 'Saint lazare/ Chelles gournay/Tournan / Villiers sur marne', '2014-06-22', 3, 1),
+(56, '1156521448385', 'rer e', 'Saint lazare/ Chelles gournay/Tournan / Villiers sur marne', '2014-06-22', 3, 1),
+(57, '0438212897143', 'rer e', 'Saint lazare/ Chelles gournay/Tournan / Villiers sur marne', '2014-06-22', 3, 1),
+(58, '4667379826722', 'RER B', 'B1 Gare du Nord B2 Robinson B3 Aéroport Charles-de-Gaulle 2 TGV B4 Saint-Rémy-lès-Chevreuse B5 Mitry - Claye B6 Massy - Palaiseau', '2014-06-22', 2, 1),
+(59, '2002250134300', 'RER B', 'B1 Gare du Nord B2 Robinson B3 Aéroport Charles-de-Gaulle 2 TGV B4 Saint-Rémy-lès-Chevreuse B5 Mitry - Claye B6 Massy - Palaiseau', '2014-06-22', 2, 1),
 (60, '7127773941443', 'AZZZZ', 'Bonsoir', '2014-06-22', 69, 0),
 (61, '7241464094722', '', 'Le gang', '2014-06-22', 69, 0),
 (62, '1342680116238', 'az', 'az', '2014-06-22', 88, 0),
@@ -142,8 +173,8 @@ INSERT INTO `materiel` (`Id_Materiel`, `Code_barre`, `Nom_materiel`, `Descriptio
 (64, '2139319109278', 'zeze', 'popop', '2014-06-22', 5, 0),
 (65, '2484712064242', 'zezez', '787', '2014-06-22', 45, 0),
 (66, '2691291203444', 'az', 'po', '2014-06-22', 12, 0),
-(68, '4804649571778', 'carte graphique', 'Bonjour', '2022-06-15', 2.5, 0),
-(69, '8305538551428', 'Glue Stick', 'Ca colle', '2014-06-22', 1.22, 0),
+(68, '4804649571778', 'carte graphique', 'Bonjour', '2022-06-15', 2.5, 1),
+(69, '8305538551428', 'Glue Stick', 'Ca colle', '2014-06-22', 1.22, 1),
 (70, '8514433842925', 'GHB', 'A utiliser en boîte de nuit', '2022-06-18', 0.02, 1);
 
 -- --------------------------------------------------------

@@ -23,34 +23,50 @@
         $mail_demandeur=$data_req_SQL_selection_infos_demandeurs['Mail_demandeur'];
     }
 
-    $date_rendu='ADDTIME(now(), "7 0:0:0.0")';
-    $req_SQL_insertion_emprunteur="INSERT INTO emprunteur VALUES(NULL,'$nom_demandeur','$prenom_demandeur','$mail_demandeur','$code_barre_inscrit',now(),$date_rendu);"; 
-    
-    $execution_req_SQL_insertion_emprunteur=$connexion->prepare($req_SQL_insertion_emprunteur);
-    $execution_req_SQL_insertion_emprunteur->execute();
+    $req_SQL_verification_si_emprunte="SELECT M.emprunte FROM materiel AS M WHERE M.Code_barre='$code_barre_inscrit';";
 
-    // DELETE FROM `demandeur` WHERE `Code_barre_demande`=2002250134300;
-    $reqSQL_suppression_en_BDD_demandeur="DELETE FROM `demandeur` WHERE `Code_barre_demande`=$code_barre_inscrit;";
-    $execution_suppression_en_BDD_demandeur=$connexion->prepare($reqSQL_suppression_en_BDD_demandeur);
-    $execution_suppression_en_BDD_demandeur->execute();
+    $execution_req_SQL_verification_si_emprunte=$connexion->prepare($req_SQL_verification_si_emprunte);
+    $execution_req_SQL_verification_si_emprunte->execute();
+    $resultat_req_SQL_verification_si_emprunte=$execution_req_SQL_verification_si_emprunte->fetchAll();
 
-    $req_SQL_get_nb_emprunt="SELECT E.Nb_emprunts FROM etudiant AS E WHERE E.mail_etudiant=$mail_demandeur";
-    $execution_req_SQL_get_nb_emprunt=$connexion->prepare($req_SQL_get_nb_emprunt);
-    $execution_req_SQL_get_nb_emprunt->execute();
-    $resultat_req_SQL_get_nb_emprunt=$execution_req_SQL_get_nb_emprunt->fetchAll();
+    $emprunte=0;
 
-    $nb_emprunt=0;
-    foreach($resultat_req_SQL_get_nb_emprunt as $data_req_SQL_get_nb_emprunt){
-        $nb_emprunt=$data_req_SQL_get_nb_emprunt;
+    foreach($resultat_req_SQL_verification_si_emprunte as $data_req_SQL_verification_si_emprunte){
+        $emprunte=$data_req_SQL_verification_si_emprunte['emprunte'];
     }
 
-    $reqSQL_MAJ_nb_emprunt="UPDATE etudiant SET Nb_emprunts=Nb_emprunts+1 WHERE mail_etudiant='$mail_demandeur';";
-    $execution_reqSQL_MAJ_nb_emprunt=$connexion->prepare($reqSQL_MAJ_nb_emprunt);
-    $execution_reqSQL_MAJ_nb_emprunt->execute();
 
-    $req_SQL_MAJ_table_emprunt="UPDATE materiel SET emprunte=1 WHERE Code_barre='$code_barre_inscrit';";
-    $execution_req_SQL_MAJ_table_emprunt=$connexion->prepare($req_SQL_MAJ_table_emprunt);
-    $execution_req_SQL_MAJ_table_emprunt->execute();
+    if($emprunte==0){
+        $date_rendu='ADDTIME(now(), "7 0:0:0.0")'; // On ajoute 7 jours à la date d'emprunt pour la date de rendu max
+        $req_SQL_insertion_emprunteur="INSERT INTO emprunteur VALUES(NULL,'$nom_demandeur','$prenom_demandeur','$mail_demandeur','$code_barre_inscrit',now(),$date_rendu);"; 
+        
+        $execution_req_SQL_insertion_emprunteur=$connexion->prepare($req_SQL_insertion_emprunteur);
+        $execution_req_SQL_insertion_emprunteur->execute();
+
+        // DELETE FROM `demandeur` WHERE `Code_barre_demande`=2002250134300;
+        $reqSQL_suppression_en_BDD_demandeur="DELETE FROM `demandeur` WHERE `Code_barre_demande`=$code_barre_inscrit;";
+        $execution_suppression_en_BDD_demandeur=$connexion->prepare($reqSQL_suppression_en_BDD_demandeur);
+        $execution_suppression_en_BDD_demandeur->execute();
+
+        $req_SQL_get_nb_emprunt="SELECT E.Nb_emprunts FROM etudiant AS E WHERE E.mail_etudiant=$mail_demandeur";
+        $execution_req_SQL_get_nb_emprunt=$connexion->prepare($req_SQL_get_nb_emprunt);
+        $execution_req_SQL_get_nb_emprunt->execute();
+        $resultat_req_SQL_get_nb_emprunt=$execution_req_SQL_get_nb_emprunt->fetchAll();
+
+        $nb_emprunt=0;
+        foreach($resultat_req_SQL_get_nb_emprunt as $data_req_SQL_get_nb_emprunt){
+            $nb_emprunt=$data_req_SQL_get_nb_emprunt;
+        }
+
+        $reqSQL_MAJ_nb_emprunt="UPDATE etudiant SET Nb_emprunts=Nb_emprunts+1 WHERE mail_etudiant='$mail_demandeur';";
+        $execution_reqSQL_MAJ_nb_emprunt=$connexion->prepare($reqSQL_MAJ_nb_emprunt);
+        $execution_reqSQL_MAJ_nb_emprunt->execute();
+
+        $req_SQL_MAJ_table_emprunt="UPDATE materiel SET emprunte=1 WHERE Code_barre='$code_barre_inscrit';";
+        $execution_req_SQL_MAJ_table_emprunt=$connexion->prepare($req_SQL_MAJ_table_emprunt);
+        $execution_req_SQL_MAJ_table_emprunt->execute();
+    }
+    
 
     header('Location: espace_responsable.php');
 ?>
