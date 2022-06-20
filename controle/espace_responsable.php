@@ -320,9 +320,89 @@
                                             <input type="submit" name="envoyer_via_materiel" id="envoyer" value="Chercher" class="form-control">
                                             
                                         </form>
+                                        <!-- CODE PHP POUR RECHERCHER LE NOM -->
                                         <?php
+                                            
+
+                                            
+
+                                            
 
                                         ?>
+
+                                        <table class="table">
+                                                <thead class="table-dark">
+                                                    <tr>
+                                                        <th scope="col">#</th>
+                                                        <th scope="col">Nom materiel</th>
+                                                        <th scope="col">Code barre</th>
+                                                        <th scope="col">Prix achat</th>
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody>
+                                                    <?php
+                                                        $affichage=false;
+                                                        try{
+                                                            $tab_nom="";
+                                                            if(isset($_POST['recherche_materiel_nom'])){
+                                                                $tab_nom=$_POST['recherche_materiel_nom'];
+                                                            }
+                                                            $req_SQL_recuperation_mot="SELECT M.Nom_materiel, M.Code_barre, M.Prix_achat FROM materiel AS M WHERE M.Nom_materiel='$tab_nom';";
+                                                            // $req_SQL_recuperation_description="SELECT M.Nom_materiel, M.Code_barre, M.Prix_achat FROM materiel AS M WHERE M.Description='$tab_mots';";
+                                                            $execution_req_SQL_recuperation_mot=$connexion->prepare($req_SQL_recuperation_mot);
+                                                            $execution_req_SQL_recuperation_mot->execute();
+                                                            $resultat_req_SQL_recuperation_mot=$execution_req_SQL_recuperation_mot->fetchAll();
+
+                                                            $tab_Nom_materiel=[$execution_req_SQL_recuperation_mot->rowCount()];
+                                                            $tab_Code_barre=[$execution_req_SQL_recuperation_mot->rowCount()];
+                                                            $tab_Prix_achat=[$execution_req_SQL_recuperation_mot->rowCount()];
+                                                            $i=0;
+                                                            foreach($resultat_req_SQL_recuperation_mot as $data_req_SQL_recuperation_mot){
+                                                                $tab_Nom_materiel[$i]=$data_req_SQL_recuperation_mot['Nom_materiel'];
+                                                                $tab_Code_barre[$i]=$data_req_SQL_recuperation_mot['Code_barre'];
+                                                                $tab_Prix_achat[$i]=$data_req_SQL_recuperation_mot['Prix_achat'];
+                                                                $i++;
+                                                            }
+                                                            $tab_mots=[$execution_req_SQL_recuperation_mot->rowCount()];
+                                                            
+                                                            $i=0;
+                                                            for($e=1;$e<=$execution_req_SQL_recuperation_mot->rowCount();$e++){
+                                                                ?>
+                                                                    <tr>
+                                                                        <th scope="row">
+                                                                            <?php
+                                                                                echo $e;
+                                                                            ?>
+                                                                        </th>
+                                                                        <td>
+                                                                            <?php
+                                                                                echo $tab_Nom_materiel[$i];
+                                                                            ?>
+                                                                        </td>
+
+                                                                        <td>
+                                                                            <?php
+                                                                                echo $tab_Code_barre[$i];
+                                                                            ?>
+                                                                        </td>
+
+                                                                        <td>
+                                                                            <?php
+                                                                                echo $tab_Prix_achat[$i];
+                                                                            ?>
+                                                                        </td>
+                                                                    </tr>
+                                                                <?php
+                                                                $i=$i+1;
+                                                            }
+
+                                                        }catch(ErrorException $e){
+                                                            echo $e;
+                                                        }
+                                                    ?>
+                                                </tbody>
+                                            </table>
                                         
                                     </div>
                                 
@@ -334,7 +414,8 @@
 
                     </div>
                     <div class="col-6">
-                        <h3>Faites</h3>
+                        <h3></h3>
+                        <img src="../vue/administration_logo.png" class="img-fluid" id="img_admin" style="width: 30%; margin-left: 40%;">
                     </div>
                 </div>
                 <br>
@@ -342,7 +423,48 @@
                 <div class="row">
                     <div class="col-6">
                         <h3>Statistiques</h3>
-                        
+                        <?php
+                            $req_SQL_recuperer_nombre_emprunt="SELECT M.emprunte FROM materiel AS M WHERE M.emprunte=1;";
+                            $connexion=new PDO(BDD,username,password);
+                            $execution_req_SQL_recuperer_nombre_emprunt=$connexion->prepare($req_SQL_recuperer_nombre_emprunt);
+                            $execution_req_SQL_recuperer_nombre_emprunt->execute();
+                            $resultat_req_SQL_recuperer_nombre_emprunt=$execution_req_SQL_recuperer_nombre_emprunt->fetchAll();
+
+                            $tab_emprunts=[$execution_req_SQL_recuperer_nombre_emprunt->rowCount()];
+                            $i=0;
+                            foreach($resultat_req_SQL_recuperer_nombre_emprunt as $data_req_SQL_recuperer_nombre_emprunt){
+                                $tab_emprunts[$i]=$data_req_SQL_recuperer_nombre_emprunt['emprunte'];
+                                $i++;
+                            }
+                            $nb_emprunts=0;
+                            for($e=0;$e<count($tab_emprunts);$e++){
+                                if($tab_emprunts[$e]==1){
+                                    $nb_emprunts++;
+                                }
+                            }
+
+                            //Collecter le nombre de prêt depuis le lancement du site.
+                            $req_SQL_recuperer_nombre_pret="SELECT EP.Id_emprunteur FROM emprunteur AS EP;";
+                            $connexion=new PDO(BDD,username,password);
+                            $execution_req_SQL_recuperer_nombre_pret=$connexion->prepare($req_SQL_recuperer_nombre_pret);
+                            $execution_req_SQL_recuperer_nombre_pret->execute();
+                            $resultat_req_SQL_recuperer_nombre_pret=$execution_req_SQL_recuperer_nombre_pret->fetchAll();
+
+                            $tab_pret=[$execution_req_SQL_recuperer_nombre_pret->rowCount()];
+                            $i=0;
+                            foreach($resultat_req_SQL_recuperer_nombre_pret as $data_req_SQL_recuperer_nombre_pret){
+                                $tab_pret[$i]=$data_req_SQL_recuperer_nombre_pret['Id_emprunteur'];
+                                $i++;
+                            }
+                            
+                            $_SESSION['nombre_pret']=$tab_pret[$execution_req_SQL_recuperer_nombre_pret->rowCount()-1];
+
+
+                        ?>
+                        <p>Actuellement sur notre plateforme, il y a <?php echo $nb_emprunts; ?> emprunts.</p>
+                        <br>
+                        <p>À ce jour, il y a eu en tout <?php echo $_SESSION['nombre_pret']; ?> prêts depuis le lancement de notre application web.</p>
+
                         <!-- document.getElementById("age").innerHTML=age_adrien(); <span id="age"></span>-->
                     </div>
                     <div class="col-6">
@@ -486,7 +608,7 @@
                         });
                     </script>
 
-                    <label for="customRange2" class="form-label" >Faites défiler le curseur pour faire votre choix</label> 
+                    <label for="customRange2" class="form-label" >Faites défiler le point bleu pour faire votre choix</label> 
                     <input type="range" class="form-range" min="0" max="2" id="choix0" />
                     <p>Choix : </p><output id="choix0_final"></output>
 
@@ -665,10 +787,7 @@
                         </tbody>
 
                     </table>
-                    
-                    <!-- <p>Sélectionner toutes les valeurs --> <input class="form-check-input" type="checkbox" value="toutes_valeurs1" id="toutes_valeurs1" name="toutes_valeurs1"></p> -->
-
-
+                
                     <!-- CREATION MODIFICATION ET SUPPRESSION pour le matériel -->
 
                     <script> //JQuery
@@ -692,7 +811,8 @@
                             });
                         });
                     </script>
-                    <label for="customRange2" class="form-label">Faites défiler le curseur pour faire votre choix</label> 
+                    <br>
+                    <label for="customRange2" class="form-label">Faites défiler le point bleu pour faire votre choix</label> 
                     <input type="range" class="form-range" min="0" max="1" id="choix1" />
                     <p>Choix : </p><output id="choix1_final"></output>
 
@@ -757,10 +877,10 @@
                                 <th scope="col">Prénom</th>
                                 <th scope="col">Mail</th>
                                 <th scope="col"> Nombre d'emprunts</th>
-                                <th scope="col"> Selection 
-                                    <!-- <input class="form-check-input" type="checkbox" value="selectionner_tous_etudiants" id="flexCheckDefault" name="selectionner_tous_etudiants">
-                                    <label class="form-check-label" for="flexCheckDefault">Tout sélectionner</label> -->
-                                </th>
+                                <!-- <th scope="col"> Selection 
+                                    <input class="form-check-input" type="checkbox" value="selectionner_tous_etudiants" id="flexCheckDefault" name="selectionner_tous_etudiants">
+                                    <label class="form-check-label" for="flexCheckDefault">Tout sélectionner</label>
+                                </th> -->
                             </tr>
                         </thead>
                         
@@ -768,7 +888,7 @@
                             <?php 
                                 $nombre_etudiants=0;
                                  try{
-                                    $reqSQL_tous_etudiant="SELECT E.Nom_etudiant, E.Prenom_etudiant, E.mail_etudiant, E.Nb_emprunts FROM etudiant AS E ORDER BY E.Nom_etudiant";
+                                    $reqSQL_tous_etudiant="SELECT E.Nom_etudiant, E.Prenom_etudiant, E.mail_etudiant, E.Nb_emprunts FROM etudiant AS E WHERE E.Nb_emprunts>0 ORDER BY E.Nom_etudiant";
                                     $connexion=new PDO(BDD,username,password);
                                     $execution_SQL_tous_etudiant=$connexion->prepare($reqSQL_tous_etudiant);
                                     $execution_SQL_tous_etudiant->execute();
@@ -824,10 +944,10 @@
                                                 ?>
                                             </td>
 
-                                            <td id="indice_<?php echo $e;?>">
+                                            <!-- <td id="indice_<?php echo $e;?>">
                                                 <input class="form-check-input" type="checkbox" value="<?php echo $e; ?>" id="flexCheckDefault" name="<?php echo $e; ?>">
-                                                <!-- <label class="form-check-label" for="flexCheckDefault"></label> -->
-                                            </td>
+                                                <label class="form-check-label" for="flexCheckDefault"></label>
+                                            </td> -->
                                         </tr>
                                     <?php
                                     $i=$i+1;

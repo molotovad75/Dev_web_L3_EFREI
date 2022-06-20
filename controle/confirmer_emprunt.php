@@ -16,6 +16,8 @@
     $nom_demandeur="";
     $prenom_demandeur="";
     $mail_demandeur="";
+    $_SESSION['nombre_pret']=0;
+    
 
     foreach($resultat_req_SQL_selection_infos_demandeurs as $data_req_SQL_selection_infos_demandeurs){
         $nom_demandeur=$data_req_SQL_selection_infos_demandeurs['Nom_demandeur'];
@@ -65,8 +67,11 @@
         $req_SQL_MAJ_table_emprunt="UPDATE materiel SET emprunte=1 WHERE Code_barre='$code_barre_inscrit';";
         $execution_req_SQL_MAJ_table_emprunt=$connexion->prepare($req_SQL_MAJ_table_emprunt);
         $execution_req_SQL_MAJ_table_emprunt->execute();
+
+
+
+        
     }
-    
 
     header('Location: espace_responsable.php');
 ?>
