@@ -94,7 +94,7 @@ function menu_responsive(num) {
     
     if (x.className === "menu") {
       x.className += " responsive";
-      alert("Ca  marche");
+    //   alert("Ca  marche");
     } else {
       x.className = "menu";
     }
@@ -112,4 +112,4 @@ function age(){
     }
     return age_;
 }
-document.getElementById("age").innerHTML=age();
+// document.getElementById("age").innerHTML=age();

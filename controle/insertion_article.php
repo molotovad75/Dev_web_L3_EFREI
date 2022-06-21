@@ -23,7 +23,7 @@
     
     try{
         
-        $req_SQL_insertion_article_BDD="INSERT INTO materiel VALUES(NULL,'$codebarre','$nom_materiel','$description','$date','$prix');";
+        $req_SQL_insertion_article_BDD="INSERT INTO materiel VALUES(NULL,'$codebarre','$nom_materiel','$description','$date','$prix',0);";
         $connexion=new PDO(BDD,username,password);
         $executer_requete_SQL=$connexion->prepare($req_SQL_insertion_article_BDD);
         $executer_requete_SQL->execute();
